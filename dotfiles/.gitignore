@@ -1,0 +1,4 @@
+# Ignorar plugins instalados y archivos de estado de Neovim
+nvim/.config/nvim/lazy-lock.json  # Opcional: algunos prefieren subirlo para fijar versiones
+nvim/.config/nvim/plugin/
+nvim/.config/nvim/undo/

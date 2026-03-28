@@ -1,0 +1,175 @@
+{
+    "output" : ["HEADLESS-2", "DP-3"],
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 24,
+    "spacing": 2,
+
+    // --- ORDEN DE LOS MÓDULOS ---
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock",
+	"mpris"
+    ],
+    "modules-right": [
+	"custom/notification",
+        "tray",
+        "pulseaudio",
+        "network",
+        "battery"
+    ],
+
+    // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
+    
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{name}",
+        // "persistent-workspaces" funciona diferente en Hyprland.
+        // "*" significa "en todos los monitores".
+        "persistent-workspaces": {
+            "*": 0 // Muestra siempre 5 escritorios vacíos
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true
+    },
+
+    "hyprland/submap": {
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
+    },
+
+    // --- RESTO DE TU CONFIGURACIÓN (MANTENIDA IGUAL) ---
+
+    "tray": {
+        "icon-size": 13,
+        "spacing": 8,
+        "icons": {
+            "blueman": "bluetooth"
+        }
+    },
+    "clock": {
+        "interval": 1,
+        "timezone": "America/Argentina/Buenos_Aires",
+        "format": " {:%H:%M:%S %d %b/%m %Y}",
+        "format-alt": " {:%A, %B %d, %Y (%R)}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        "on-click": "pavucontrol",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+    "network": {
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-ethernet": "󰈀 Wired",
+        "tooltip-format": "{ifname} via {gwaddr} 󰈀",
+        "format-linked": "{ifname} (No IP) 󰈀",
+        "format-disconnected": " Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-left": "nm-connection-editor",
+        "on-click-right": "nm-connection-editor"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "custom/dnd": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "makoctl mode | grep -q 'dnd' && echo '' || echo ''",
+        "on-click": "makoctl mode -t dnd",
+        "tooltip": false
+    },
+    "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+},
+    "mpris": {
+        "format": "{player_icon} {artist} - {title}",
+        "format-paused": "{status_icon} <i>{artist} - {title}</i>",
+        "player-icons": {
+            "default": "▶",
+            "spotify": "",
+            "brave": "",
+            "firefox": "",
+            "chrome": "",
+            "vlc": "󰕼"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 45,
+        "interval": 1,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    }
+}
