@@ -1,0 +1,14 @@
+[Unit]
+Description=Forzar monitor virtual en Hyprland
+# Cambiamos a targets que UWSM sí reconoce
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/headless_fix.sh
+# Necesitamos que el servicio herede el entorno de UWSM
+ImportCredential=uwsm.*
+
+[Install]
+# Este es el target genérico para cualquier sesión gráfica de usuario
+WantedBy=graphical-session.target

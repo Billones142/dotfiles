@@ -66,7 +66,7 @@ echo -e "\n${BOLD}${YELLOW}[3/4] Actualizando Sistema y AUR (Clean Build)...${RE
 # --answerclean All: Borra caché de compilación (más estable)
 # --answerdiff None: No muestra cambios en el código
 # --noconfirm: No pregunta "¿Continuar?" ni muestra menú de exclusión
-yay -Syu --noconfirm --answerclean All --answerdiff None
+GODEBUG=netdns=go yay -Syu --noconfirm --answerclean All --answerdiff None
 
 # 4. Flatpak
 echo -e "\n${BOLD}${YELLOW}[4/4] Actualizando Flatpaks...${RESET}"
@@ -74,3 +74,4 @@ flatpak update -y
 
 echo -e "\n${BOLD}${GREEN}✅ Sistema actualizado y limpio.${RESET}"
 notify-send --expire-time=7000 "Update Completo" "Arch Linux actualizado y verificado." 2>/dev/null || true
+sudo needrestart

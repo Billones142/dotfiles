@@ -1,0 +1,32 @@
+[Unit]
+Description=RClone Google Drive Service
+# Esto asegura que no arranque hasta que tengas internet
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Creamos la carpeta por si acaso antes de montar
+ExecStartPre=/usr/bin/mkdir -p /media/stefano/cloud/gdrive
+ExecStart=/usr/bin/rclone mount gdrive: /media/stefano/cloud/gdrive \
+    --config=/home/stefano/.config/rclone/rclone.conf \
+    --password-command "cat /home/stefano/.config/rclone/pass.txt" \
+    --vfs-cache-mode writes \
+    --vfs-cache-max-size 10G \
+    --allow-other \
+    --fuse-flag "o,x-gvfs-name=Google Drive" \
+    --volname "Google Drive" \
+    --metadata \
+    --option "extra_flags=--daemon-timeout=10m" \
+    -o auto_unmount \
+    --no-modtime \
+    --drive-use-trash
+
+# Comando de limpieza al detener
+ExecStop=/usr/bin/fusermount -u /media/stefano/cloud/gdrive
+Restart=on-failure
+RestartSec=10
+
+[Install]
+# Al ponerlo en default.target, se lanzará siempre que inicies sesión
+WantedBy=default.target

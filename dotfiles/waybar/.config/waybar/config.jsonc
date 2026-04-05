@@ -1,12 +1,13 @@
 {
-    "output" : ["HEADLESS-2", "DP-3"],
+    //"output" : ["HEADLESS-2", "DP-3"],
+    "output" : "HEADLESS-2",
     "layer": "top",
     "position": "top",
     "mod": "dock",
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 24,
+    "height": 26,
     "spacing": 2,
 
     // --- ORDEN DE LOS MÓDULOS ---

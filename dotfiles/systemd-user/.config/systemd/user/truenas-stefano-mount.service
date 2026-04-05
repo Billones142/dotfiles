@@ -1,0 +1,21 @@
+[Unit]
+Description=RClone TrueNAS SMB Mount
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Usamos rclone para montar el SMB sin ser root
+ExecStart=/usr/bin/rclone mount truenas:stefano /media/stefano/truenas-stefano \
+    --password-command "cat /home/stefano/.config/rclone/pass.txt" \
+    --vfs-cache-mode writes \
+    --vfs-cache-max-size 5G \
+    --dir-perms 0700 \
+    --file-perms 0600
+
+ExecStop=/usr/bin/fusermount -u /media/stefano/truenas-stefano
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

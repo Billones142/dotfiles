@@ -1,0 +1,9 @@
+[Unit]
+Description=Actualizar todo
+
+[Timer]
+Unit=oneshot.service
+OnCalendar=Mon..Fri 10:30
+
+[Service]
+ExecStart=/home/stefano/scripts/update_all.sh
