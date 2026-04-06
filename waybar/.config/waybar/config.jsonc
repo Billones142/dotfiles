@@ -56,11 +56,12 @@
     // --- RESTO DE TU CONFIGURACIÓN (MANTENIDA IGUAL) ---
 
     "tray": {
-        "icon-size": 13,
+        //"icon-size": 13,
+        "icon-size": 18,
         "spacing": 8,
-        "icons": {
-            "blueman": "bluetooth"
-        }
+        //"icons": {
+        //    "blueman": "bluetooth"
+        //}
     },
     "clock": {
         "interval": 1,
