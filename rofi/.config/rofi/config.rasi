@@ -1,0 +1,96 @@
+/* --- TEMA VISUAL: NARANJA WOFI STYLE --- */
+* {
+    /* Paleta Naranja y Fondo Oscuro */
+    background:     #11111b;  /* Fondo casi negro */
+    background-alt: #1e1e2e;  /* Fondo items */
+    foreground:     #cdd6f4;  /* Texto blanco suave */
+    
+    /* EL PROTAGONISTA: NARANJA */
+    selected:       #fab387;  /* Naranja pastel (Peach) */
+    selected-fg:    #11111b;  /* Texto negro sobre naranja */
+    active:         #f9e2af;  /* Amarillo para items activos */
+    urgent:         #f38ba8;
+    
+    border-color:   #fab387;  /* Borde naranja */
+}
+
+configuration {
+    /* Mantenemos tu fuente y configuración base */
+    modi: "drun,run,window,p:rofi-power-menu";
+    show-icons: true;
+    font: "JetBrainsMono Nerd Font 12";
+    display-drun: "🔎 Apps";
+    run-shell-command: "{terminal} -e {cmd}";
+}
+
+window {
+    //width: 600px;
+    width: 45%;
+    height: 90%;
+    
+    /* Bordes Naranjas brillantes */
+    border: 2px solid;
+    border-radius: 10px;
+    border-color: @border-color;
+    background-color: @background;
+}
+
+/* --- LISTA Y ELEMENTOS --- */
+element {
+    padding: 8px;
+    background-color: transparent;
+    text-color: @foreground;
+    border-radius: 5px;
+}
+
+element selected.normal {
+    /* Aquí ocurre la magia del estilo Wofi */
+    background-color: @selected;
+    text-color: @selected-fg;
+}
+
+element alternate.normal {
+    // background-color: #F5E0DC;  /* El color crema que ya tienes (ejemplo) */
+    //text-color:       #1e1e2e;  /* <--- CAMBIA ESTO: Pon un color OSCURO (negro/gris) */
+    //text-color:       inherit;
+    //background-color: transparent;
+    background-color: #5F5F5F;
+    text-color:       #ffffff;
+}
+
+element-text {
+    /* Importante para que el texto herede el color (negro sobre naranja) */
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+/* Opcional: A veces el texto se define en un sub-elemento */
+element-text alternate.normal {
+    text-color:       #1e1e2e;
+}
+
+element-icon {
+    size: 32px;
+}
+
+/* --- BARRA DE BÚSQUEDA --- */
+inputbar {
+    children: [prompt, entry];
+    background-color: transparent;
+    padding: 10px;
+}
+
+prompt {
+    background-color: @selected;
+    text-color: @background;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0px 10px 0px 0px;
+}
+
+entry {
+    background-color: @background-alt;
+    text-color: @foreground;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
