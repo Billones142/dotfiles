@@ -1,0 +1,12 @@
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export GBM_BACKEND=nvidia-drm
+
+export QT_QPA_PLATFORMTHEME=qt6ct
+
+# Cambia la ruta por la que corresponda a tu Intel según el comando anterior
+#export WLR_DRM_DEVICES=/dev/dri/by-path/pci-0000:01:00.0-render:/dev/dri/by-path/pci-0000:00:02.0-render
+# Usar la GPU integrada
+#export AQ_DRM_DEVICES="/dev/dri/card0:/dev/dri/card1"
+export WLR_NO_HARDWARE_CURSORS=1
+export __GL_VRR_ALLOWED=1
+export WLR_DRM_NO_ATOMIC=1
