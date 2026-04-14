@@ -2,3 +2,8 @@
 nvim/.config/nvim/lazy-lock.json  # Opcional: algunos prefieren subirlo para fijar versiones
 nvim/.config/nvim/plugin/
 nvim/.config/nvim/undo/
+
+# ignorar algunos servicios del sistema
+default.target.wants
+graphical-session.target.wants
+tailscale-systray.service
