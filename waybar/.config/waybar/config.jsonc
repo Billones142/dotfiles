@@ -1,6 +1,5 @@
 {
-    //"output" : ["HEADLESS-2", "DP-3"],
-    "output" : "HEADLESS-2",
+    "output" : ["HEADLESS-2", "DP-3", "eDP-1"],
     "layer": "top",
     "position": "top",
     "mod": "dock",
