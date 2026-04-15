@@ -15,7 +15,7 @@ alias grep='grep --color=auto'
 alias fixaudio='systemctl --user restart pipewire wireplumber'
 alias nano='nvim'
 alias update='~/scripts/update_all.sh'
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
 
 export EDITOR=nvim
 export VISUAL=nvim
