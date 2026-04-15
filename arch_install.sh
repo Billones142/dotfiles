@@ -1,14 +1,21 @@
 #!/bin/bash
+#TODO: no borrar hasta terminar
+exit 0
+sudo pacman -S --needed base-devel git
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl
+sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration
+
+sudo tailscale set --operator=$USER
+
+#TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 xhost +local:root
 sudo gpasswd -a $USER input
 
 # GUI
-sudo pacman -S firewalld-config firewalld-applet nm-connection-editor sddm dolphin partitionmanager 
+sudo pacman -S firewalld-config firewalld-applet nm-connection-editor sddm dolphin partitionmanager
 
 #TODO: si tiene bluetooth
 #bluez bluez-utils blueman
@@ -22,8 +29,13 @@ sudo pacman -S --needed base-devel git
 
 yay -S rofi-power-menu brave-browser blesh sugar-candy obsidian
 
-cd ~
-git clone https://github.com/Billones142/dotfiles
+if [ -d "$HOME/.cfg" ]; then
+    echo "Repo bare existente en $HOME/dotfiles — no se clonara."
+else
+    git clone https://github.com/Billones142/dotfiles $HOME/dotfiles
+fi
+
+flatpak install com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-player
 
 # firewall
 #
@@ -33,7 +45,9 @@ git clone https://github.com/Billones142/dotfiles
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
-#TODO: habilitar sugar-candy en sddm
+#TODO: habilitar sugar-candy en sddm, /usr/share/sddm/themes/sugar-candy
+# echoMode: TextInput.Password
+# passwordMaskDelay: 0
 
 sudo systemctl enable --now firewalld
 sudo systemctl enable --now avahi-daemon
