@@ -7,3 +7,8 @@ nvim/.config/nvim/undo/
 default.target.wants
 graphical-session.target.wants
 tailscale-systray.service
+
+# Orca Slicer
+OrcaSlicer/cache
+OrcaSlicer/log
+OrcaSlicer/plugins
