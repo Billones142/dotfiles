@@ -16,6 +16,7 @@ alias fixaudio='systemctl --user restart pipewire wireplumber'
 alias nano='nvim'
 alias update='~/scripts/update_all.sh'
 alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
+alias rsync='rsync --progress'
 
 export EDITOR=nvim
 export VISUAL=nvim
