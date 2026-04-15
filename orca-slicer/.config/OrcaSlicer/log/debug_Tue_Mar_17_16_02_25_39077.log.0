@@ -1,0 +1,31 @@
+[warning]	2026-03-17 16:02:25.647892[Thread 0x00007f7c6d4e5ec0]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2026-03-17 16:02:25.647946[Thread 0x00007f7c6d4e5ec0]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2026-03-17 16:02:25.647954[Thread 0x00007f7c6d4e5ec0]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2026-03-17 16:02:26.206817[Thread 0x00007f7b657f76c0]:Unable to open connection to spacenavd
+[error]	2026-03-17 16:02:26.814430[Thread 0x00007f7c6d4e5ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-17 16:02:26.823290[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/Arch Linux Yellow Dark Wallpaper.svg
+[error]	2026-03-17 16:02:26.823420[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/screen_case_back.stl
+[error]	2026-03-17 16:02:26.823434[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/music.svg
+[error]	2026-03-17 16:02:26.823439[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-17 16:02:26.823475[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/youtube_music_logo.svg
+[error]	2026-03-17 16:02:26.823481[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-17 16:02:26.823489[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-17 16:02:26.823496[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-17 16:02:26.823503[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-17 16:02:26.823511[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/buttonHolder.stl
+[error]	2026-03-17 16:02:26.823511[Thread 0x00007f7b647f56c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-17 16:02:26.823519[Thread 0x00007f7b45bf96c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-17 16:02:26.823527[Thread 0x00007f7b647f56c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_stand.stl
+[error]	2026-03-17 16:02:26.823595[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[error]	2026-03-17 16:02:26.823593[Thread 0x00007f7b467fc6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[error]	2026-03-17 16:02:26.823635[Thread 0x00007f7b45bf96c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[warning]	2026-03-17 16:02:27.823474[Thread 0x00007f7c6d4e5ec0]:04:02:27 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:02:27.828371[Thread 0x00007f7c6d4e5ec0]:04:02:27 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:02:27.831078[Thread 0x00007f7c6d4e5ec0]:04:02:27 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:02:27.832388[Thread 0x00007f7c6d4e5ec0]:04:02:27 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-17 16:02:29.414273[Thread 0x00007f7c6d4e5ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-17 16:02:30.014536[Thread 0x00007f7b05bc26c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2026-03-17 16:04:39.866562[Thread 0x00007f7c6d4e5ec0]:Unable to open the file/mnt/datos/stefano/Blender/tapaBici.stl
+[warning]	2026-03-17 16:05:43.569650[Thread 0x00007f7bb87fa6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[warning]	2026-03-17 16:05:46.020996[Thread 0x00007f7bb87fa6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[error]	2026-03-17 16:12:54.586497[Thread 0x00007f7c6d4e5ec0]:calc_exclude_triangles:Unable to create exclude triangles

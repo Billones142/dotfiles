@@ -1,0 +1,33 @@
+[warning]	2025-12-03 18:39:26.411943[Thread 0x00007afef9ae4f00]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2025-12-03 18:39:26.412172[Thread 0x00007afef9ae4f00]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2025-12-03 18:39:26.412201[Thread 0x00007afef9ae4f00]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2025-12-03 18:39:27.045440[Thread 0x00007afe28bf06c0]:Unable to open connection to spacenavd
+[error]	2025-12-03 18:39:27.045850[Thread 0x00007afe037fe6c0]:Not primary owner of DBus name - probably another OrcaSlicer instance is running.
+[error]	2025-12-03 18:39:27.045861[Thread 0x00007afe037fe6c0]:Dbus Messages listening terminating.
+[error]	2025-12-03 18:39:27.601754[Thread 0x00007afef9ae4f00]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2025-12-03 18:39:28.804900[Thread 0x00007afef9ae4f00]:06:39:28 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-03 18:39:28.813940[Thread 0x00007afef9ae4f00]:06:39:28 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-03 18:39:28.816862[Thread 0x00007afef9ae4f00]:06:39:28 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-03 18:39:28.883463[Thread 0x00007afef9ae4f00]:06:39:28 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-03 18:39:33.064610[Thread 0x00007afca45ff6c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2025-12-03 18:39:33.166389[Thread 0x00007afca25fc6c0]:Error getting: `check_new_version_sf`: HTTP 503, 
+[warning]	2025-12-03 18:39:41.776468[Thread 0x00007afe31fff6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[error]	2025-12-03 18:39:52.083128[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:39:52.826151[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:39:55.247596[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:39:55.651811[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:39:59.399911[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:39:59.621352[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:40:03.995401[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[warning]	2025-12-03 18:40:05.702187[Thread 0x00007afe31fff6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[error]	2025-12-03 18:42:31.683064[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:42:31.712600[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:42:31.726078[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:42:33.035236[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[warning]	2025-12-03 18:42:33.811200[Thread 0x00007afe31fff6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[error]	2025-12-03 18:42:39.538318[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:44:10.721822[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2025-12-03 18:44:13.564182[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 
+[warning]	2025-12-03 18:44:18.816341[Thread 0x00007afef9ae4f00]:06:44:18 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2025-12-03 18:45:17.924646[Thread 0x00007afef9ae4f00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2025-12-03 18:45:17.938152[Thread 0x00007afef9ae4f00]:tree_sel_change_delayedcan not find page with current selection 

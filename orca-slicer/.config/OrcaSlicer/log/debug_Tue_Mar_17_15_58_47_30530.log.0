@@ -1,0 +1,29 @@
+[warning]	2026-03-17 15:58:48.642346[Thread 0x00007ff4debfdec0]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2026-03-17 15:58:48.642430[Thread 0x00007ff4debfdec0]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2026-03-17 15:58:48.642439[Thread 0x00007ff4debfdec0]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2026-03-17 15:58:49.704374[Thread 0x00007ff2b4df96c0]:Unable to open connection to spacenavd
+[error]	2026-03-17 15:58:51.758568[Thread 0x00007ff4debfdec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-17 15:58:51.770048[Thread 0x00007ff29a3fa6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-17 15:58:51.770097[Thread 0x00007ff2993f66c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-17 15:58:51.770110[Thread 0x00007ff29abfc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-17 15:58:51.770124[Thread 0x00007ff2997f76c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_stand.stl
+[error]	2026-03-17 15:58:51.770140[Thread 0x00007ff299ff96c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-17 15:58:51.770150[Thread 0x00007ff298bf46c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-17 15:58:51.770151[Thread 0x00007ff2997f76c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-17 15:58:51.770170[Thread 0x00007ff2b45f86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-17 15:58:51.770595[Thread 0x00007ff29a7fb6c0]:Unable to open the file/home/stefano/Downloads/music.svg
+[error]	2026-03-17 15:58:51.770595[Thread 0x00007ff2993f66c0]:Unable to open the file/home/stefano/Downloads/youtube_music_logo.svg
+[error]	2026-03-17 15:58:51.770874[Thread 0x00007ff4debfdec0]:Unable to open the file/home/stefano/Downloads/Arch Linux Yellow Dark Wallpaper.svg
+[error]	2026-03-17 15:58:51.771384[Thread 0x00007ff29affd6c0]:Unable to open the file/home/stefano/Downloads/buttonHolder.stl
+[error]	2026-03-17 15:58:51.771784[Thread 0x00007ff299bf86c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[error]	2026-03-17 15:58:51.771792[Thread 0x00007ff299ff96c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[error]	2026-03-17 15:58:51.771889[Thread 0x00007ff29abfc6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[error]	2026-03-17 15:58:51.774354[Thread 0x00007ff29a3fa6c0]:Unable to open the file/home/stefano/Downloads/screen_case_back.stl
+[warning]	2026-03-17 15:58:52.898606[Thread 0x00007ff4debfdec0]:03:58:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 15:58:52.902418[Thread 0x00007ff4debfdec0]:03:58:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 15:58:52.905307[Thread 0x00007ff4debfdec0]:03:58:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 15:58:52.932954[Thread 0x00007ff4debfdec0]:03:58:52 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-17 15:58:54.542773[Thread 0x00007ff4debfdec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-17 15:58:55.106103[Thread 0x00007ff2750126c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[warning]	2026-03-17 15:58:55.828515[Thread 0x00007ff4debfdec0]:03:58:55 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-17 16:01:26.619934[Thread 0x00007ff4debfdec0]:calc_exclude_triangles:Unable to create exclude triangles

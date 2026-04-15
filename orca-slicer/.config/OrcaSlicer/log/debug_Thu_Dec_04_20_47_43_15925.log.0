@@ -1,0 +1,26 @@
+[warning]	2025-12-04 20:47:44.695551[Thread 0x00007bbd61d80f00]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2025-12-04 20:47:44.695796[Thread 0x00007bbd61d80f00]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2025-12-04 20:47:44.695826[Thread 0x00007bbd61d80f00]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2025-12-04 20:47:45.793081[Thread 0x00007bbc527fc6c0]:Unable to open connection to spacenavd
+[error]	2025-12-04 20:47:46.553260[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2025-12-04 20:47:47.769410[Thread 0x00007bbd61d80f00]:08:47:47 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-04 20:47:47.774942[Thread 0x00007bbd61d80f00]:08:47:47 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-04 20:47:47.777898[Thread 0x00007bbd61d80f00]:08:47:47 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2025-12-04 20:47:47.850824[Thread 0x00007bbd61d80f00]:08:47:47 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2025-12-04 20:47:49.676674[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2025-12-04 20:47:50.133763[Thread 0x00007bbafdffc6c0]:Error getting: `check_new_version_sf`: HTTP 503, 
+[warning]	2025-12-04 20:47:50.365041[Thread 0x00007bbafeffe6c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2025-12-04 20:48:42.532140[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2025-12-04 20:48:42.679176[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2025-12-04 20:48:47.526962[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2025-12-04 20:48:47.733294[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2025-12-04 20:49:18.230258[Thread 0x00007bbc3b7fe6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.239557[Thread 0x00007bbc3b3fd6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.239766[Thread 0x00007bbc39ff86c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.241678[Thread 0x00007bbc3abfb6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.242778[Thread 0x00007bbc39bf76c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.258724[Thread 0x00007bbc3a7fa6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.264970[Thread 0x00007bbc3a3f96c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.266058[Thread 0x00007bbc3b3fd6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[warning]	2025-12-04 20:49:18.275325[Thread 0x00007bbc3affc6c0]:Detected missing Voronoi vertex, input polygons will be rotated back and forth.
+[error]	2025-12-04 22:25:27.570422[Thread 0x00007bbd61d80f00]:calc_exclude_triangles:Unable to create exclude triangles

@@ -1,0 +1,25 @@
+[warning]	2026-03-01 15:56:48.315626[Thread 0x00007f4f86db6ec0]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2026-03-01 15:56:48.316130[Thread 0x00007f4f86db6ec0]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2026-03-01 15:56:48.316163[Thread 0x00007f4f86db6ec0]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2026-03-01 15:56:49.094129[Thread 0x00007f4e4f7fe6c0]:Unable to open connection to spacenavd
+[error]	2026-03-01 15:56:51.213243[Thread 0x00007f4f86db6ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-01 15:56:51.252408[Thread 0x00007f4e46ffb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-01 15:56:51.252476[Thread 0x00007f4e46ffb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-01 15:56:51.252500[Thread 0x00007f4e46ffb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-01 15:56:51.252482[Thread 0x00007f4e473fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-01 15:56:51.252540[Thread 0x00007f4e47bfe6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-01 15:56:51.252599[Thread 0x00007f4e4c7f76c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-01 15:56:51.252600[Thread 0x00007f4e47bfe6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-01 15:56:51.252600[Thread 0x00007f4e473fc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_stand.stl
+[error]	2026-03-01 15:56:51.252721[Thread 0x00007f4e46bfa6c0]:Unable to open the file/home/stefano/Downloads/Complete+Set+-+Propeller+Launcher.3mf
+[error]	2026-03-01 15:56:51.254123[Thread 0x00007f4e47bfe6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[error]	2026-03-01 15:56:51.254298[Thread 0x00007f4f86db6ec0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[error]	2026-03-01 15:56:51.254320[Thread 0x00007f4e46ffb6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[warning]	2026-03-01 15:56:52.530210[Thread 0x00007f4f86db6ec0]:03:56:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-01 15:56:52.533240[Thread 0x00007f4f86db6ec0]:03:56:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-01 15:56:52.536035[Thread 0x00007f4f86db6ec0]:03:56:52 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-01 15:56:52.583500[Thread 0x00007f4f86db6ec0]:03:56:52 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-01 15:56:54.215329[Thread 0x00007f4f86db6ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-01 15:56:54.837280[Thread 0x00007f4cf7fff6c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[warning]	2026-03-01 15:56:56.620128[Thread 0x00007f4f86db6ec0]:03:56:56 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-01 18:22:43.512260[Thread 0x00007f4f86db6ec0]:calc_exclude_triangles:Unable to create exclude triangles

@@ -1,0 +1,30 @@
+[info]	2026-03-28 11:48:23.172592[Thread 0x00007f0a4a1d9d00]:gui mode, Current OrcaSlicer Version 2.3.2 build c724a3f5
+[error]	2026-03-28 11:48:24.817440[Thread 0x00007f090e7fc6c0]:Unable to open connection to spacenavd
+[error]	2026-03-28 11:48:25.293500[Thread 0x00007f0a4a1d9d00]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-28 11:48:25.301030[Thread 0x00007f0a4a1d9d00]:Unable to open the file/mnt/datos/stefano/Blender/tapaBici.stl
+[error]	2026-03-28 11:48:25.301076[Thread 0x00007f0a4a1d9d00]:Unable to open the file/home/stefano/Downloads/Arch Linux Yellow Dark Wallpaper.svg
+[error]	2026-03-28 11:48:25.301098[Thread 0x00007f090c7f86c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[error]	2026-03-28 11:48:25.301153[Thread 0x00007f0906bfb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-28 11:48:25.301159[Thread 0x00007f09067fa6c0]:Unable to open the file/home/stefano/Downloads/music.svg
+[error]	2026-03-28 11:48:25.301172[Thread 0x00007f09057f66c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-28 11:48:25.301173[Thread 0x00007f0a4a1d9d00]:Unable to open the file/home/stefano/Downloads/screen_case_back.stl
+[error]	2026-03-28 11:48:25.301176[Thread 0x00007f0906bfb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-28 11:48:25.301308[Thread 0x00007f0906bfb6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-28 11:48:25.301285[Thread 0x00007f09073fd6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-28 11:48:25.301285[Thread 0x00007f0a4a1d9d00]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[error]	2026-03-28 11:48:25.301346[Thread 0x00007f09057f66c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-28 11:48:25.301191[Thread 0x00007f09067fa6c0]:Unable to open the file/home/stefano/Downloads/youtube_music_logo.svg
+[error]	2026-03-28 11:48:25.301380[Thread 0x00007f0905bf76c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-28 11:48:25.301403[Thread 0x00007f0905ff86c0]:Unable to open the file/home/stefano/Downloads/buttonHolder.stl
+[error]	2026-03-28 11:48:25.301411[Thread 0x00007f09077fe6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[warning]	2026-03-28 11:48:25.377890[Thread 0x00007f0a4a1d9d00]:11:48:25 AM: Error: can't open file '/opt/orca-slicer/resources/images/printer_preview_my_klipper_01.png' (error 2: No such file or directory)
+[warning]	2026-03-28 11:48:25.377917[Thread 0x00007f0a4a1d9d00]:11:48:25 AM: Error: Failed to load image from file "/opt/orca-slicer/resources/images/printer_preview_my_klipper_01.png".
+[error]	2026-03-28 11:48:25.377924[Thread 0x00007f0a4a1d9d00]:create_scaled_bitmapCould not load bitmap: printer_preview_my_klipper_01
+[error]	2026-03-28 11:48:25.381867[Thread 0x00007f0a4a1d9d00]:_parse_printer_type Unsupported printer type: Generic Klipper Printer
+[warning]	2026-03-28 11:48:26.262378[Thread 0x00007f0a4a1d9d00]:11:48:26 AM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-28 11:48:26.266793[Thread 0x00007f0a4a1d9d00]:11:48:26 AM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-28 11:48:26.270100[Thread 0x00007f0a4a1d9d00]:11:48:26 AM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-28 11:48:26.292087[Thread 0x00007f0a4a1d9d00]:11:48:26 AM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-28 11:48:27.808913[Thread 0x00007f0a4a1d9d00]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-28 11:48:28.572564[Thread 0x00007f079e0506c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2026-03-28 12:02:57.918199[Thread 0x00007f0a4a1d9d00]:calc_exclude_triangles:Unable to create exclude triangles

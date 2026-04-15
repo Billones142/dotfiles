@@ -1,0 +1,41 @@
+[warning]	2026-03-17 16:13:00.681193[Thread 0x00007f7a0b89fec0]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2026-03-17 16:13:00.681246[Thread 0x00007f7a0b89fec0]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2026-03-17 16:13:00.681254[Thread 0x00007f7a0b89fec0]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2026-03-17 16:13:01.292068[Thread 0x00007f790ddf46c0]:Unable to open connection to spacenavd
+[error]	2026-03-17 16:13:01.880129[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-17 16:13:01.887229[Thread 0x00007f7a0b89fec0]:Unable to open the file/mnt/datos/stefano/Blender/tapaBici.stl
+[error]	2026-03-17 16:13:01.887253[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/Arch Linux Yellow Dark Wallpaper.svg
+[error]	2026-03-17 16:13:01.887325[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/screen_case_back.stl
+[error]	2026-03-17 16:13:01.887336[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/music.svg
+[error]	2026-03-17 16:13:01.887345[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/youtube_music_logo.svg
+[error]	2026-03-17 16:13:01.887351[Thread 0x00007f790c5f16c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[error]	2026-03-17 16:13:01.887376[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/buttonHolder.stl
+[error]	2026-03-17 16:13:01.887379[Thread 0x00007f7905bf86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-17 16:13:01.887398[Thread 0x00007f7905bf86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-17 16:13:01.887404[Thread 0x00007f7905bf86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-17 16:13:01.887412[Thread 0x00007f7906bfc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-17 16:13:01.887410[Thread 0x00007f79053f66c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-17 16:13:01.887411[Thread 0x00007f7905bf86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-17 16:13:01.887446[Thread 0x00007f7906ffd6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-17 16:13:01.887452[Thread 0x00007f7a0b89fec0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[error]	2026-03-17 16:13:01.887469[Thread 0x00007f79057f76c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[warning]	2026-03-17 16:13:02.957534[Thread 0x00007f7a0b89fec0]:04:13:02 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:13:02.962774[Thread 0x00007f7a0b89fec0]:04:13:02 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:13:02.965743[Thread 0x00007f7a0b89fec0]:04:13:02 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-17 16:13:02.973563[Thread 0x00007f7a0b89fec0]:04:13:02 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-17 16:13:04.493745[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-17 16:13:05.075422[Thread 0x00007f77a4fa26c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2026-03-17 16:13:17.500066[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-17 16:13:17.928903[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-17 16:13:17.991129[Thread 0x00007f7a0b89fec0]:validate_preset: preset_name PLA-Grillon3, inherit_name My Generic PLA, can not found preset and inherit in list
+[warning]	2026-03-17 16:13:17.991145[Thread 0x00007f7a0b89fec0]:validate_presets:file_name tapaBici-LauSalina.3mf, found the filament 1 preset not inherit from system
+[warning]	2026-03-17 16:13:17.991150[Thread 0x00007f7a0b89fec0]:validate_presets:file_name tapaBici-LauSalina.3mf, found self defined presets, count 1
+[error]	2026-03-17 17:32:49.876349[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-17 17:32:52.481654[Thread 0x00007f79507fa6c0]:Arrange full params: {"min_obj_distance":0,"accuracy":1.000000,"parallel":1,"allow_rotations":0,"do_final_align":1,"allow_multi_materials_on_same_plate":1,"avoid_extrusion_cali_region":1,"is_seq_print":0,"bed_shrink_x":1.000000,"bed_shrink_y":1.000000,"brim_skirt_distance":0.000000,"clearance_height_to_rod":40.000000,"clearance_height_to_lid":140.000000,"clearance_radius":25.000000,"printable_height":400.000000,
+[error]	2026-03-17 17:32:57.396075[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 17:33:09.908055[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 17:33:16.417108[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 17:33:25.015264[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 17:33:37.425608[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 17:33:57.249264[Thread 0x00007f7a0b89fec0]:tree_sel_change_delayedcan not find page with current selection 
+[error]	2026-03-17 18:10:18.620656[Thread 0x00007f7a0b89fec0]:calc_exclude_triangles:Unable to create exclude triangles

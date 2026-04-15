@@ -1,0 +1,53 @@
+{
+    "auxiliary_fan": "1",
+    "bed_custom_model": "/mnt/datos/Impresion3D/Artillery X1/Model.stl",
+    "change_filament_gcode": "M600",
+    "extruder_clearance_height_to_rod": "40",
+    "extruder_clearance_radius": "25",
+    "fan_speedup_time": "1",
+    "from": "User",
+    "inherits": "MyKlipper 0.4 nozzle",
+    "is_custom_defined": "0",
+    "machine_max_acceleration_x": [
+        "1500",
+        "20000"
+    ],
+    "machine_max_acceleration_y": [
+        "1500",
+        "20000"
+    ],
+    "machine_max_speed_x": [
+        "180",
+        "200"
+    ],
+    "machine_max_speed_y": [
+        "80",
+        "200"
+    ],
+    "machine_max_speed_z": [
+        "25",
+        "12"
+    ],
+    "machine_start_gcode": "PRINT_START NOZZLE=[nozzle_temperature_initial_layer] BED=[bed_temperature_initial_layer_single]",
+    "name": "Artillery-SW-X1 0.6",
+    "nozzle_diameter": [
+        "0.6"
+    ],
+    "print_host": "klippper3.local",
+    "printable_area": [
+        "0x0",
+        "300x0",
+        "300x300",
+        "0x300"
+    ],
+    "printable_height": "400",
+    "printer_settings_id": "Artillery-SW-X1 0.6",
+    "retraction_length": [
+        "1.2"
+    ],
+    "retraction_speed": [
+        "40"
+    ],
+    "thumbnails": "400x400/PNG",
+    "version": "1.6.1.0"
+}

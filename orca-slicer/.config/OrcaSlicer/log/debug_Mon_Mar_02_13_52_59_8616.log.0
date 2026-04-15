@@ -1,0 +1,25 @@
+[warning]	2026-03-02 13:53:00.553657[Thread 0x00007f66cc1e1ec0]:get_network_function, can not find function bambu_network_del_subscribe
+[warning]	2026-03-02 13:53:00.553986[Thread 0x00007f66cc1e1ec0]:get_network_function, can not find function bambu_network_update_cert
+[warning]	2026-03-02 13:53:00.553992[Thread 0x00007f66cc1e1ec0]:get_network_function, can not find function bambu_network_install_device_cert
+[error]	2026-03-02 13:53:01.152648[Thread 0x00007f659e7fc6c0]:Unable to open connection to spacenavd
+[error]	2026-03-02 13:53:03.565734[Thread 0x00007f66cc1e1ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[error]	2026-03-02 13:53:03.603408[Thread 0x00007f659c7f86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_bolt.stl
+[error]	2026-03-02 13:53:03.603415[Thread 0x00007f65c85f16c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.stl
+[error]	2026-03-02 13:53:03.603571[Thread 0x00007f65c85f16c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_holder.stl
+[error]	2026-03-02 13:53:03.603575[Thread 0x00007f658e3f96c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/tablet_stand.stl
+[error]	2026-03-02 13:53:03.603640[Thread 0x00007f658effc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_bolt.3mf
+[error]	2026-03-02 13:53:03.603707[Thread 0x00007f658effc6c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/nut.stl
+[error]	2026-03-02 13:53:03.603707[Thread 0x00007f658e3f96c0]:Unable to open the file/home/stefano/Downloads/Complete+Set+-+Propeller+Launcher.3mf
+[error]	2026-03-02 13:53:03.603757[Thread 0x00007f658dff86c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_holder.stl
+[error]	2026-03-02 13:53:03.603775[Thread 0x00007f658e3f96c0]:Unable to open the file/home/stefano/Downloads/Smart Stand - A smart little stand for Smart Devices (Phones and Tablets) - 3416790/files/phone_stand.stl
+[error]	2026-03-02 13:53:03.605887[Thread 0x00007f66cc1e1ec0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Screw.STL.stl
+[error]	2026-03-02 13:53:03.606028[Thread 0x00007f658f7fe6c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Corsair_Headphone_Holder.STL.stl
+[error]	2026-03-02 13:53:03.606028[Thread 0x00007f65c85f16c0]:Unable to open the file/home/stefano/Downloads/patvibe/corsair-headphone-holder/Additional_bolt.STL.stl
+[warning]	2026-03-02 13:53:05.052468[Thread 0x00007f66cc1e1ec0]:01:53:05 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-02 13:53:05.055903[Thread 0x00007f66cc1e1ec0]:01:53:05 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-02 13:53:05.058672[Thread 0x00007f66cc1e1ec0]:01:53:05 PM: Warning: Error running JavaScript: Unsupported result type
+[warning]	2026-03-02 13:53:05.106568[Thread 0x00007f66cc1e1ec0]:01:53:05 PM: Warning: Error running JavaScript: Unsupported result type
+[error]	2026-03-02 13:53:06.746549[Thread 0x00007f66cc1e1ec0]:calc_exclude_triangles:Unable to create exclude triangles
+[warning]	2026-03-02 13:53:07.553757[Thread 0x00007f65448516c0]:[Orca Updater]: online version=1.10.1.1, current_version=1.10.1.1, no need to download
+[error]	2026-03-02 13:55:45.631842[Thread 0x00007f66cc1e1ec0]:Unable to open the file/home/stefano/Downloads/buttonHolder.stl
+[error]	2026-03-02 14:28:43.761596[Thread 0x00007f66cc1e1ec0]:calc_exclude_triangles:Unable to create exclude triangles
