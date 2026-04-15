@@ -5,13 +5,17 @@ Wants=network-online.target
 
 [Service]
 Type=simple
+# Lógica de fallback integrada
 # Usamos rclone para montar el SMB sin ser root
-ExecStart=/usr/bin/rclone mount truenas:stefano /media/stefano/truenas-stefano \
+ExecStart=/bin/bash -c 'if ping -c 1 -W 1 192.168.1.100 > /dev/null; then \
+    REMOTE="truenas_local:stefano"; \
+    else REMOTE="truenas_tailscale:stefano"; fi; \
+    /usr/bin/rclone mount $REMOTE /media/stefano/truenas-stefano \
     --password-command "cat /home/stefano/.config/rclone/pass.txt" \
     --vfs-cache-mode writes \
     --vfs-cache-max-size 5G \
     --dir-perms 0700 \
-    --file-perms 0600
+    --file-perms 0600'
 
 ExecStop=/usr/bin/fusermount -u /media/stefano/truenas-stefano
 Restart=on-failure
