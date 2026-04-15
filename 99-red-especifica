@@ -1,0 +1,41 @@
+#!/bin/bash
+# script para colocar en /etc/NetworkManager/dispatcher.d/99-red-especifica
+# sudo chmod +x /etc/NetworkManager/dispatcher.d/99-red-especifica
+# para que funcione hay que desahabilitar la conexion automatica de las configs de ethernet
+
+INTERFACE=$1
+ACTION=$2
+LAUNCHER_CON="Ethernet-Public"
+
+# Solo actuamos si la interfaz sube
+if [ "$INTERFACE" = "enp0s13f0u1u1c2" ] && [ "$ACTION" = "up" ]; then
+    
+    # 1. Evitar bucles: solo procesar si estamos en el perfil lanzador
+    CURRENT_CON=$(nmcli -t -f NAME,DEVICE connection show --active | grep "$INTERFACE" | cut -d: -f1)
+    if [ "$CURRENT_CON" != "$LAUNCHER_CON" ]; then
+        exit 0
+    fi
+
+    sleep 1 # Tiempo para que pueble la tabla ARP
+
+    # 2. Definir el "Mapa de Redes" (MAC -> Perfil)
+    declare -A REDES
+    REDES["b0:ec:dd:81:3a:58"]="Casa"
+    REDES["00:aa:bb:cc:dd:ee"]="Facu-Laboratorio"
+    REDES["11:22:33:44:55:66"]="Oficina-Proyecto"
+
+    # 3. Obtener la MAC del Gateway actual
+    GW_IP=$(ip route show default | awk '{print $3}')
+    GATEWAY_MAC=$(ip neighbor show "$GW_IP" | awk '{print $5}' | head -n 1 | tr '[:upper:]' '[:lower:]')
+
+    # 4. Buscar si la MAC está en nuestra lista
+    TARGET_CON=${REDES[$GATEWAY_MAC]}
+
+    # 5. Si la encontramos y es distinta a la actual, hacemos el salto
+    if [ -n "$TARGET_CON" ] && [ "$TARGET_CON" != "$LAUNCHER_CON" ]; then
+        logger "NM Dispatcher: Red conocida detectada ($GATEWAY_MAC). Saltando a $TARGET_CON"
+        nmcli connection up "$TARGET_CON"
+    else
+        logger "NM Dispatcher: Red desconocida o por defecto. Manteniendo $LAUNCHER_CON"
+    fi
+fi
