@@ -27,7 +27,7 @@ sudo pacman -S docker
 sudo pacman -S --needed base-devel git
 
 
-yay -S rofi-power-menu brave-browser blesh sugar-candy obsidian orca-slicer
+yay -S rofi-power-menu brave-browser blesh sugar-candy obsidian orca-slicer-bin
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
