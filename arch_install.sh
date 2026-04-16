@@ -8,12 +8,15 @@ git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor less xdg-desktop-portal-hyprland xdg-desktop-portal-gtk cliphist
+sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor less xdg-desktop-portal-hyprland xdg-desktop-portal-gtk cliphist fuse2 pavucontrol
 
 sudo tailscale set --operator=$USER
 tailscale configure systray --enable-startup systemd
 
 #TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
+
+# solo laptop
+sudo pacman -S swayosd
 
 xhost +local:root
 
@@ -40,7 +43,10 @@ sudo pacman -S docker blender
 sudo pacman -S --needed base-devel git
 
 
-yay -Syu rofi-power-menu brave-browser blesh sugar-candy obsidian orca-slicer-bin needrestart lazydocker
+yay -Syu rofi-power-menu blesh sugar-candy needrestart 
+
+# otros
+yay -S brave-browser lazydocker libqalculate discord obsidian orca-slicer-bin
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
