@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 # Lógica de fallback integrada
 # Usamos rclone para montar el SMB sin ser root
-ExecStart=/bin/bash -c 'if ping -c 1 -W 1 192.168.1.100 > /dev/null; then \
+ExecStart=/bin/bash -c 'if ${HOME}/.scripts/check_truenas.sh > /dev/null; then \
     REMOTE="truenas_local:share"; \
     else REMOTE="truenas_tailscale:share"; fi; \
     /usr/bin/rclone mount $REMOTE /media/stefano/truenas-share \
