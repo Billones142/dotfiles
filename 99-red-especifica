@@ -21,8 +21,6 @@ if [ "$INTERFACE" = "enp0s13f0u1u1c2" ] && [ "$ACTION" = "up" ]; then
     # 2. Definir el "Mapa de Redes" (MAC -> Perfil)
     declare -A REDES
     REDES["b0:ec:dd:81:3a:58"]="Casa"
-    REDES["00:aa:bb:cc:dd:ee"]="Facu-Laboratorio"
-    REDES["11:22:33:44:55:66"]="Oficina-Proyecto"
 
     # 3. Obtener la MAC del Gateway actual
     GW_IP=$(ip route show default | awk '{print $3}')
