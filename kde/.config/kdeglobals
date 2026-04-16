@@ -142,6 +142,9 @@ ColorSchemeHash=2c3f86428c11011a7c64ee1e7f47c274d498ff10
 Name=Breeze Dark
 TerminalApplication=alacritty
 
+[Icons]
+Theme=breeze-dark
+
 [KDE]
 LookAndFeelPackage=org.kde.breezedark.desktop
 ShowDeleteCommand=true
