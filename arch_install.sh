@@ -1,33 +1,45 @@
 #!/bin/bash
 #TODO: no borrar hasta terminar
 exit 0
-sudo pacman -S --needed base-devel git
+sudo pacman -Syu
+
+sudo pacman -S --needed base-devel git less
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration
+sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor
 
 sudo tailscale set --operator=$USER
+tailscale configure systray --enable-startup systemd
 
 #TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 xhost +local:root
+
+sudo groupadd -f docker
+sudo groupadd -f input
+
 sudo gpasswd -a $USER input
+sudo gpasswd -a $USER docker
 
 # GUI
-sudo pacman -S firewalld-config firewalld-applet nm-connection-editor sddm dolphin partitionmanager
+sudo pacman -S firewalld-config nm-connection-editor sddm dolphin partitionmanager
 
 #TODO: si tiene bluetooth
 #bluez bluez-utils blueman
 
+#TODO: bateria
+# power-profiles-daemon
+# sudo systemctl enable --now power-profiles-daemon.service
+
 
 # Otros
-sudo pacman -S docker
+sudo pacman -S docker blender
 
 sudo pacman -S --needed base-devel git
 
 
-yay -S rofi-power-menu brave-browser blesh sugar-candy obsidian orca-slicer-bin
+yay -Syu rofi-power-menu brave-browser blesh sugar-candy obsidian orca-slicer-bin needrestart lazydocker
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
@@ -45,13 +57,25 @@ flatpak install com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-pla
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
-#TODO: habilitar sugar-candy en sddm, /usr/share/sddm/themes/sugar-candy
+#TODO: 
+#/usr/lib/sddm/sddm.conf.d/default.conf
+#Current=sugar-candy
+# habilitar sugar-candy en sddm, /usr/share/sddm/themes/sugar-candy
 # echoMode: TextInput.Password
 # passwordMaskDelay: 0
 
+
+# servicios del sistema
 sudo systemctl enable --now firewalld
 sudo systemctl enable --now avahi-daemon
+sudo systemctl enable --now tlp.service
 
+sudo systemctl enable --now docker.socket
+
+# servicios de usuario
+systemctl --user daemon-reload
+
+systemctl --user enable --now tailscale-systray
 systemctl --user enable --now hyprpolkitagent
 systemctl --user enable --now blueman-applet
 
@@ -60,3 +84,7 @@ systemctl --user enable --now blueman-applet
 #sudo nvim /etc/nsswitch.conf
 sudo firewall-cmd --add-service=mdns --permanent
 sudo firewall-cmd --reload
+
+sudo mkdir -p /media/$USER/truenas-share /media/$USER/truenas-stefano
+sudo chown -R $USER:$USER /media/stefano/
+chmod -R u=rwx,g=,o= /media/stefano/
