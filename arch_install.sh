@@ -47,7 +47,8 @@ sudo pacman -S \
     cliphist \
     fuse2 \
     pavucontrol \
-    libreoffice
+    libreoffice \
+    github-cli
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
