@@ -1,5 +1,8 @@
 # Variables de NVIDIA para Wayland
 #env = AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
+export KWALLET_LOGIN_PATH=/run/user/1000/kwallet5.socket
+export KWALLET5_SOCKET=/run/user/1000/kwallet5.socket
+
 
 export LIBVA_DRIVER_NAME=nvidia
 export GBM_BACKEND=nvidia-drm

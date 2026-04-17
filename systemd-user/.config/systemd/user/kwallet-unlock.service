@@ -1,0 +1,14 @@
+[Unit]
+Description=Unlock KWallet automatically
+After=graphical-session.target
+Partof=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/pam_kwallet_init
+# Desbloquea la cartera "kdewallet" (ajusta el nombre si es necesario)
+ExecStartPost=/usr/bin/qdbus6 org.kde.kwalletd6 /modules/kwalletd6 org.kde.KWallet.open kdewallet 0 login
+RemainingAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target
