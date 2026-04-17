@@ -1,3 +1,6 @@
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+
 # Variables de NVIDIA para Wayland
 #env = AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
 export KWALLET_LOGIN_PATH=/run/user/1000/kwallet5.socket
