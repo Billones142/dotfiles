@@ -8,7 +8,7 @@ git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor less xdg-desktop-portal-hyprland xdg-desktop-portal-gtk cliphist fuse2 pavucontrol
+sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor less xdg-desktop-portal-hyprland xdg-desktop-portal-gtk cliphist fuse2 pavucontrol libreoffice
 
 sudo tailscale set --operator=$USER
 tailscale configure systray --enable-startup systemd
