@@ -8,7 +8,46 @@ git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S nmap swaync swayosd kdeconnect sway flatpak firewalld stow tailscale htop nvtop rofi xcb-util-cursor xorg-xhost nss-mdns wget python-reportlab python-pyqt5 breeze-icons qt5ct qt6ct gsfonts cantarell-fonts ttf-jetbrains-mono-nerd brightnessctl kwallet-pam kwalletmanager plasma-browser-integration hyprsunset network-manager-applet wine moor less xdg-desktop-portal-hyprland xdg-desktop-portal-gtk cliphist fuse2 pavucontrol libreoffice
+sudo pacman -S \
+    nmap \
+    swaync \
+    swayosd \
+    kdeconnect \
+    sway \
+    flatpak \
+    firewalld \
+    stow \
+    tailscale \
+    htop \
+    nvtop \
+    rofi \
+    xcb-util-cursor \
+    xorg-xhost \
+    nss-mdns \
+    wget \
+    python-reportlab \
+    python-pyqt5 \
+    breeze-icons \
+    qt5ct \
+    qt6ct \
+    gsfonts \
+    cantarell-fonts \
+    ttf-jetbrains-mono-nerd \
+    brightnessctl \
+    kwallet-pam \
+    kwalletmanager \
+    plasma-browser-integration \
+    hyprsunset \
+    network-manager-applet \
+    wine \
+    moor \
+    less \
+    xdg-desktop-portal-hyprland \
+    xdg-desktop-portal-gtk \
+    cliphist \
+    fuse2 \
+    pavucontrol \
+    libreoffice
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
@@ -18,7 +57,8 @@ tailscale configure systray --enable-startup systemd
 #TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 # solo laptop
-sudo pacman -S swayosd
+sudo pacman -S \
+    swayosd
 
 xhost +local:root
 
@@ -29,7 +69,12 @@ sudo gpasswd -a $USER input
 sudo gpasswd -a $USER docker
 
 # GUI
-sudo pacman -S firewalld-config nm-connection-editor sddm dolphin partitionmanager
+sudo pacman -S \
+    firewalld-config \
+    nm-connection-editor \
+    sddm \
+    dolphin \
+    partitionmanager
 
 #TODO: si tiene bluetooth
 #bluez bluez-utils blueman
@@ -42,13 +87,21 @@ sudo pacman -S firewalld-config nm-connection-editor sddm dolphin partitionmanag
 # Otros
 sudo pacman -S docker blender
 
-sudo pacman -S --needed base-devel git
-
-
-yay -Syu rofi-power-menu blesh sugar-candy needrestart 
+# programas yay
+yay -Syu \
+    rofi-power-menu \
+    blesh \
+    sugar-candy \
+    needrestart 
 
 # otros
-yay -S brave-browser lazydocker libqalculate discord obsidian orca-slicer-bin
+yay -S \
+    brave-browser \
+    lazydocker \
+    libqalculate \
+    discord \
+    obsidian \
+    orca-slicer-bin
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
@@ -73,23 +126,24 @@ gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 # echoMode: TextInput.Password
 # passwordMaskDelay: 0
 
+sudo systemctl daemon-reload
 
 # servicios del sistema
-sudo systemctl enable --now firewalld
-sudo systemctl enable --now avahi-daemon
-sudo systemctl enable --now tlp.service
-
-sudo systemctl enable --now docker.socket
+sudo systemctl enable --now \
+    firewalld
+    avahi-daemon
+    docker.socket
 
 # servicios de usuario
 systemctl --user daemon-reload
 
-systemctl --user enable --now tailscale-systray
-systemctl --user enable --now hyprpolkitagent
-systemctl --user enable --now blueman-applet
-systemctl --user enable --now swaync
-systemctl --user enable --now hypridle
-systemctl --user enable --now hyprpaper
+systemctl --user enable --now \
+    tailscale-systray
+    hyprpolkitagent
+    blueman-applet
+    swaync
+    hypridle
+    hyprpaper
 
 #TODO: activar servicio de detecion de mdns
 # hosts: mymachines **mdns_minimal [NOTFOUND=return]** resolve [!UNAVAIL=return] files myhostname dns
