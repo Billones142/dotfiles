@@ -48,7 +48,10 @@ sudo pacman -S \
     fuse2 \
     pavucontrol \
     libreoffice \
-    github-cli
+    github-cli \
+    mpv \
+    vlc \
+    vlc-plugins-all \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
@@ -75,7 +78,7 @@ sudo pacman -S \
     nm-connection-editor \
     sddm \
     dolphin \
-    partitionmanager
+    partitionmanager \
 
 #TODO: si tiene bluetooth
 #bluez bluez-utils blueman
@@ -86,14 +89,16 @@ sudo pacman -S \
 
 
 # Otros
-sudo pacman -S docker blender
+sudo pacman -S \
+    docker \
+    blender \
 
 # programas yay
 yay -Syu \
     rofi-power-menu \
     blesh \
     sugar-candy \
-    needrestart 
+    needrestart \
 
 # otros
 yay -S \
@@ -102,7 +107,7 @@ yay -S \
     libqalculate \
     discord \
     obsidian \
-    orca-slicer-bin
+    orca-slicer-bin \
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
@@ -139,12 +144,12 @@ sudo systemctl enable --now \
 systemctl --user daemon-reload
 
 systemctl --user enable --now \
-    tailscale-systray
-    hyprpolkitagent
-    blueman-applet
-    swaync
-    hypridle
-    hyprpaper
+    tailscale-systray \
+    hyprpolkitagent \
+    blueman-applet \
+    swaync \
+    hypridle \
+    hyprpaper \
 
 #TODO: activar servicio de detecion de mdns
 # hosts: mymachines **mdns_minimal [NOTFOUND=return]** resolve [!UNAVAIL=return] files myhostname dns
