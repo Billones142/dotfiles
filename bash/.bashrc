@@ -77,3 +77,6 @@ fastfetch
 [[ ${BLE_VERSION-} ]] && ble-attach
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+
+# OpenClaw Completion
+source "/home/stefano/.openclaw/completions/openclaw.bash"
