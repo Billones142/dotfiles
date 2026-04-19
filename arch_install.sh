@@ -2,6 +2,9 @@
 #TODO: no borrar hasta terminar
 exit 0
 
+# pide los permisos de sudo
+sudo -v
+
 # Mantener el sudo "vivo" en segundo plano
 # Esto corre un bucle que actualiza el timeout cada 60 segundos
 # hasta que el script principal termine.
