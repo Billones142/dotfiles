@@ -108,6 +108,10 @@ yay -S \
     discord \
     obsidian \
     orca-slicer-bin \
+    pgadmin4-desktop-bin
+    proton-pass-bin \
+    proton-authenticator-bin \
+    bottles
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
