@@ -1,6 +1,12 @@
 #!/bin/bash
 #TODO: no borrar hasta terminar
 exit 0
+
+# Mantener el sudo "vivo" en segundo plano
+# Esto corre un bucle que actualiza el timeout cada 60 segundos
+# hasta que el script principal termine.
+( while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null & )
+
 function fix_yay() {
     echo -e "${RED}⚠️  Detectado fallo en YAY. Iniciando protocolo de reparación...${RESET}"
     
@@ -27,6 +33,7 @@ function fix_yay() {
     echo -e "${GREEN}✅ YAY ha sido reconstruido exitosamente.${RESET}"
 }
 
+sudo pacman -Sy --noconfirm archlinux-keyring
 sudo pacman -Syu
 
 sudo pacman -S --needed base-devel git
@@ -122,11 +129,15 @@ sudo pacman -S \
 
 # Instalando yay si no esta instalado
 if ! yay --version > /dev/null 2>&1; then
+    # Si el comando falla (exit code != 0), ejecutamos la reparación
     fix_yay
 else
+    echo "👌 Yay está operativo."
+fi
+
 
 # programas yay
-yay -Syu \
+yay -Syu --noconfirm --answerclean All --answerdiff None \
     rofi-power-menu \
     blesh \
     sugar-candy \
@@ -151,7 +162,7 @@ else
     git clone https://github.com/Billones142/dotfiles $HOME/dotfiles
 fi
 
-flatpak install com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-player
+flatpak install -y com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-player
 
 # firewall
 #
