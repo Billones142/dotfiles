@@ -34,14 +34,14 @@ function fix_yay() {
 }
 
 sudo pacman -Sy --noconfirm archlinux-keyring
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
 sudo pacman -S --needed base-devel git
 git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S \
+sudo pacman -S --noconfirm \
     uwsm \
     nmap \
     swaync \
@@ -95,7 +95,7 @@ tailscale configure systray --enable-startup systemd
 #TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 # solo laptop
-sudo pacman -S \
+sudo pacman -S --noconfirm\
     swayosd
 
 xhost +local:root
@@ -107,7 +107,7 @@ sudo gpasswd -a $USER input
 sudo gpasswd -a $USER docker
 
 # GUI
-sudo pacman -S \
+sudo pacman -S --noconfirm \
     firewalld-config \
     nm-connection-editor \
     sddm \
@@ -123,7 +123,7 @@ sudo pacman -S \
 
 
 # Otros
-sudo pacman -S \
+sudo pacman -S --noconfirm \
     docker \
     blender \
 
@@ -144,7 +144,7 @@ yay -Syu --noconfirm --answerclean All --answerdiff None \
     needrestart \
 
 # otros
-yay -S \
+yay -S --noconfirm --answerclean All --answerdiff None \
     brave-browser \
     lazydocker \
     libqalculate \
