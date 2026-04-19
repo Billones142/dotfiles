@@ -9,6 +9,7 @@ git config --global core.pager 'moor'
 
 # necesario
 sudo pacman -S \
+    uwsm \
     nmap \
     swaync \
     swayosd \
@@ -47,7 +48,7 @@ sudo pacman -S \
     cliphist \
     fuse2 \
     pavucontrol \
-    libreoffice \
+    libreoffice-fresh \
     github-cli \
     mpv \
     vlc \
