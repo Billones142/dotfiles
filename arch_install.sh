@@ -1,6 +1,32 @@
 #!/bin/bash
 #TODO: no borrar hasta terminar
 exit 0
+function fix_yay() {
+    echo -e "${RED}⚠️  Detectado fallo en YAY. Iniciando protocolo de reparación...${RESET}"
+    
+    # 1. Asegurar herramientas de compilación (usando pacman, que es seguro)
+    sudo pacman -S --needed --noconfirm git base-devel
+    
+    # 2. Limpieza de versiones conflictivas previas
+    # Eliminamos yay, yay-git, o versiones debug para evitar conflictos de archivos
+    sudo pacman -Rns --noconfirm yay yay-git yay-bin yay-debug yay-git-debug 2>/dev/null || true
+    
+    # 3. Preparar entorno limpio en /tmp (RAM)
+    WORK_DIR=$(mktemp -d)
+    echo "🔧 Clonando yay en $WORK_DIR..."
+    git clone https://aur.archlinux.org/yay.git "$WORK_DIR/yay"
+    
+    # 4. Compilar e instalar
+    cd "$WORK_DIR/yay"
+    echo "🔨 Compilando yay..."
+    makepkg -si --noconfirm
+    
+    # 5. Limpieza
+    cd ~
+    rm -rf "$WORK_DIR"
+    echo -e "${GREEN}✅ YAY ha sido reconstruido exitosamente.${RESET}"
+}
+
 sudo pacman -Syu
 
 sudo pacman -S --needed base-devel git
@@ -93,6 +119,11 @@ sudo pacman -S \
 sudo pacman -S \
     docker \
     blender \
+
+# Instalando yay si no esta instalado
+if ! yay --version > /dev/null 2>&1; then
+    fix_yay
+else
 
 # programas yay
 yay -Syu \
