@@ -36,7 +36,7 @@ function fix_yay() {
 sudo pacman -Sy --noconfirm archlinux-keyring
 sudo pacman -Syu --noconfirm
 
-sudo pacman -S --needed base-devel git
+sudo pacman -S --needed --noconfirm base-devel git
 git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
