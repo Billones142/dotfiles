@@ -11,3 +11,6 @@ tailscale-systray.service
 **/OrcaSlicer/cache/
 **/OrcaSlicer/log/
 **/OrcaSlicer/plugins/
+
+# OpenClaw
+systemd-user/.config/systemd/user/openclaw-gateway.service
