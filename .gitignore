@@ -1,3 +1,9 @@
+*.pem
+*.log
+
+# Syncthing
+**/index-v2/
+
 # Ignorar plugins instalados y archivos de estado de Neovim
 **/nvim/.config/nvim/plugin/
 **/nvim/.config/nvim/undo/
