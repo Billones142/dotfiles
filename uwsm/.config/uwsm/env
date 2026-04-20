@@ -6,11 +6,11 @@ export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 export KWALLET_LOGIN_PATH=/run/user/1000/kwallet5.socket
 export KWALLET5_SOCKET=/run/user/1000/kwallet5.socket
 
-
-export LIBVA_DRIVER_NAME=nvidia
-export GBM_BACKEND=nvidia-drm
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export NVD_BACKEND=direct
+# sacado para evitar errores en otra pc que use los dotfiles
+#export LIBVA_DRIVER_NAME=nvidia 
+#export GBM_BACKEND=nvidia-drm
+#export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#export NVD_BACKEND=direct
 
 # Fix para WebKit (Nvidia)
 #export WEBKIT_DISABLE_DMABUF_RENDERER=1
