@@ -1,7 +1,7 @@
 export XDG_SESSION_TYPE=wayland
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export GBM_BACKEND=nvidia-drm
+#export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#export GBM_BACKEND=nvidia-drm
 
 # Cambia la ruta por la que corresponda a tu Intel según el comando anterior
 #export WLR_DRM_DEVICES=/dev/dri/by-path/pci-0000:01:00.0-render:/dev/dri/by-path/pci-0000:00:02.0-render
