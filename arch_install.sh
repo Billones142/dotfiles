@@ -46,8 +46,10 @@ git config --global core.pager 'moor'
 # necesario
 sudo pacman -S --noconfirm \
     uwsm \
+    alacritty \
     nmap \
     swaync \
+    waybar \
     swayosd \
     kdeconnect \
     sway \
@@ -89,6 +91,7 @@ sudo pacman -S --noconfirm \
     mpv \
     vlc \
     vlc-plugins-all \
+    syncthing \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
@@ -98,7 +101,7 @@ tailscale configure systray --enable-startup systemd
 #TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 # solo laptop
-sudo pacman -S --noconfirm\
+sudo pacman -S --noconfirm \
     swayosd
 
 xhost +local:root
@@ -200,12 +203,16 @@ systemctl --user enable --now \
     swaync \
     hypridle \
     hyprpaper \
+    waybar \
 
 #TODO: activar servicio de detecion de mdns
 # hosts: mymachines **mdns_minimal [NOTFOUND=return]** resolve [!UNAVAIL=return] files myhostname dns
 #sudo nvim /etc/nsswitch.conf
 sudo firewall-cmd --add-service=mdns --permanent
 sudo firewall-cmd --reload
+
+
+# TODO: crear wallet de kwallet y habilitar servicio para activacion
 
 sudo mkdir -p /media/$USER/truenas-share /media/$USER/truenas-stefano
 sudo chown -R $USER:$USER /media/stefano/
