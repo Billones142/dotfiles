@@ -2,7 +2,13 @@
 *.log
 
 # Syncthing
-**/index-v2/
+syncthing/.local/state/syncthing/index-v2/
+syncthing/.local/state/syncthing/key.pem
+syncthing/.local/state/syncthing/cert.pem
+syncthing/.local/state/syncthing/https-key.pem
+syncthing/.local/state/syncthing/https-cert.pem
+syncthing/.local/state/syncthing/syncthing.lock
+
 
 # Ignorar plugins instalados y archivos de estado de Neovim
 **/nvim/.config/nvim/plugin/
