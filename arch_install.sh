@@ -92,6 +92,20 @@ sudo pacman -S --noconfirm \
     vlc \
     vlc-plugins-all \
     syncthing \
+    sddm \
+    hyprland \
+    hyprwire \
+    hyprutils \
+    hyprpwcenter \
+    hyprpolkitagent \
+    hyprpaper \
+    hyprlock \
+    hyprlang \
+    hyprland-qt-support \
+    hypridle \
+    hyprgraphics \
+    hyprcursor \
+    xdg-desktop-portal-hyprland \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
