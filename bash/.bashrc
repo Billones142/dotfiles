@@ -24,10 +24,11 @@ export TERMINAL=alacritty
 export PAGER="moor"
 # NVM (Node Version Manager)
 export NVM_DIR="$HOME/.nvm"
-source /usr/share/nvm/init-nvm.sh
-
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# OpenClaw Completion
+[ -s "$HOME/.openclaw/completions/openclaw.bash" ] && \. source "$HOME/.openclaw/completions/openclaw.bash"
 
 # Colores de texto (foreground)
 BLACK="$(tput setaf 0)"
@@ -78,5 +79,3 @@ fastfetch
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
 
-# OpenClaw Completion
-source "/home/stefano/.openclaw/completions/openclaw.bash"
