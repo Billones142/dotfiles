@@ -2,6 +2,7 @@
 *.log
 
 # Syncthing
+*.tmp.*
 syncthing/.local/state/syncthing/index-v2/
 syncthing/.local/state/syncthing/key.pem
 syncthing/.local/state/syncthing/cert.pem
