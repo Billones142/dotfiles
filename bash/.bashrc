@@ -28,7 +28,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # OpenClaw Completion
-[ -s "$HOME/.openclaw/completions/openclaw.bash" ] && \. source "$HOME/.openclaw/completions/openclaw.bash"
+[ -s "$HOME/.openclaw/completions/openclaw.bash" ] && \. source "$HOME/.openclaw/completions/openclaw.bash" &> /dev/null
 
 # Colores de texto (foreground)
 BLACK="$(tput setaf 0)"
