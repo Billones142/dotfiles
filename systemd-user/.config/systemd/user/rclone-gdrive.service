@@ -13,7 +13,6 @@ ExecStart=/usr/bin/rclone mount gdrive: /media/stefano/cloud/gdrive \
     --password-command "cat /home/stefano/.config/rclone/pass.txt" \
     --vfs-cache-mode writes \
     --vfs-cache-max-size 10G \
-    --allow-other \
     --fuse-flag "o,x-gvfs-name=Google Drive" \
     --volname "Google Drive" \
     --metadata \
