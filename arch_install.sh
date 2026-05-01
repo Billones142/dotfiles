@@ -106,6 +106,7 @@ sudo pacman -S --noconfirm \
     hyprgraphics \
     hyprcursor \
     xdg-desktop-portal-hyprland \
+    swappy \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
