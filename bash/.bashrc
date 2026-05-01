@@ -74,7 +74,12 @@ ITALICS="$(tput sitm)"       # Texto en cursiva (no siempre soportado)
 # Configurar:
 # PS1='[\u@\h \W]\$ ' # Default
 PS1="\[${GREEN}\]\u\[${RESET}\]@\[${BLUE}\]\h\[${RESET}\]:\[${LIGHT_BLUE}\]\w\[${RESET}\]\$ "
-fastfetch
+
+# Ejecutar fastfetch al iniciar sesión interactiva
+if [ -x "$(command -v fastfetch)" ]; then
+    fastfetch
+fi
+
 [[ ${BLE_VERSION-} ]] && ble-attach
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
