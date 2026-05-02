@@ -40,5 +40,10 @@ sudo grub-editenv - set temp_timeout=0
 
 read -p "¿Reiniciar ahora? [S/n]: " CONFIRM
 if [[ "$CONFIRM" =~ ^[sS]$ || -z "$CONFIRM" ]]; then
-    hyprshutdown --post-cmd "systemctl reboot"
+    if hyprctl status; then
+        #echo command returned true
+        hyprshutdown --post-cmd "systemctl reboot"
+    else
+	systemctl reboot
+fi
 fi
