@@ -1,0 +1,323 @@
+{
+  "workbench.colorTheme": "Monokai",
+  "redhat.telemetry.enabled": false,
+  "editor.scrollbar.vertical": "hidden",
+  "editor.hideCursorInOverviewRuler": false,
+  "editor.overviewRulerBorder": false,
+  "editor.occurrencesHighlight": "off",
+  "window.commandCenter": true,
+  "workbench.startupEditor": "none",
+  "git.autofetch": true,
+  "editor.minimap.renderCharacters": false,
+  "git.openRepositoryInParentFolders": "never",
+  "java.debug.settings.showStaticVariables": true,
+  "sync.gist": "2db6e3505596d29bdc44c0f981f646b2",
+  "sync.autoUpload": false,
+  "sync.autoDownload": true,
+  "sync.forceDownload": true,
+  "git.enableSmartCommit": true,
+  "GitLive.Special branches": "main|master|trunk|dev|develop|qa|test|release[-/].*",
+  "GitLive.Issue tracker integration": "Disabled",
+  "workbench.editor.empty.hint": "hidden",
+  "window.zoomLevel": 1,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "amazonQ.suppressPrompts": {
+    "codeWhispererConnectionExpired": true
+  },
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+    "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "zig": "zig run",
+    "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "php": "php",
+    "python": "python -u",
+    "perl": "perl",
+    "perl6": "perl6",
+    "ruby": "ruby",
+    "go": "go run",
+    "lua": "lua",
+    "groovy": "groovy",
+    "powershell": "powershell -ExecutionPolicy ByPass -File",
+    "bat": "cmd /c",
+    "shellscript": "bash",
+    "fsharp": "fsi",
+    "csharp": "scriptcs",
+    "vbscript": "cscript //Nologo",
+    "typescript": "bun run",
+    "coffeescript": "coffee",
+    "scala": "scala",
+    "swift": "swift",
+    "julia": "julia",
+    "crystal": "crystal",
+    "ocaml": "ocaml",
+    "r": "Rscript",
+    "applescript": "osascript",
+    "clojure": "lein exec",
+    "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+    "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+    "racket": "racket",
+    "scheme": "csi -script",
+    "ahk": "autohotkey",
+    "autoit": "autoit3",
+    "dart": "dart",
+    "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+    "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+    "haskell": "runghc",
+    "nim": "nim compile --verbosity:0 --hints:off --run",
+    "lisp": "sbcl --script",
+    "kit": "kitc --run",
+    "v": "v run",
+    "sass": "sass --style expanded",
+    "scss": "scss --style expanded",
+    "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+    "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    "sml": "cd $dir && sml $fileName",
+    "mojo": "mojo run",
+    "erlang": "escript",
+    "spwn": "spwn build",
+    "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
+    "gleam": "gleam run -m $fileNameWithoutExt"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.insertSpaces": true,
+  "editor.guides.bracketPairs": true,
+  "extensions.ignoreRecommendations": true,
+  "workbench.experimental.enableNewProfilesUI": true,
+  "zig.initialSetupDone": true,
+  "zig.path": "zig",
+  "zig.zls.path": "c:\\Users\\Stefano\\AppData\\Roaming\\Code\\User\\globalStorage\\ziglang.vscode-zig\\zls_install\\zls.exe",
+  "amazonQ.telemetry": false,
+  "code-runner.runInTerminal": true,
+  "code-runner.languageIdToFileExtensionMap": {
+    "bat": ".bat",
+    "powershell": ".ps1",
+    "typescript": ".ts"
+  },
+  "python.defaultInterpreterPath": "C:\\Users\\Stefano\\AppData\\Local\\Microsoft\\WindowsApps\\python3.11.exe",
+  "editor.detectIndentation": false,
+  "workbench.activityBar.location": "hidden",
+  "editor.lineNumbers": "relative",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "task.allowAutomaticTasks": "on",
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "vim.useSystemClipboard": true,
+  "editor.minimap.size": "fill",
+  "vs-kubernetes": {
+    "vscode-kubernetes.minikube-path-windows": "C:\\Users\\Stefano\\.vs-kubernetes\\tools\\minikube\\windows-amd64\\minikube.exe",
+    "vs-kubernetes.minikube-show-information-expiration": "2025-10-04T17:42:46.728Z"
+  },
+  "cursor.cpp.enablePartialAccepts": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "diffEditor.ignoreTrimWhitespace": true,
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop"
+  ],
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "cmake.additionalCompilerSearchDirs": [
+    "C:/msys64/mingw32/bin",
+    "C:/msys64/mingw64/bin",
+    "C:/msys64/clang32/bin",
+    "C:/msys64/clang64/bin",
+    "C:/msys64/clangarm64/bin",
+    "C:/msys64/ucrt64/bin"
+  ],
+  "liveServer.settings.useLocalIp": true,
+  "liveServer.settings.host": "0.0.0.0",
+  "liveServer.settings.NoBrowser": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.tabSize": 2,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<Up>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Down>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Left>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Right>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    }
+  ],
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<Up>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Down>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Left>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    },
+    {
+      "before": [
+        "<Right>"
+      ],
+      "after": [
+        "<Nop>"
+      ]
+    }
+  ],
+  "dart.flutterSdkPath": "E:\\exe\\flutter",
+  "workbench.editorAssociations": {
+    "*.glb": "modelViewer.gltfPreview"
+  },
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "\"",
+        "_",
+        "d"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "p"
+      ],
+      "after": [
+        "\"",
+        "_",
+        "d",
+        "P"
+      ]
+    }
+  ],
+  "vim.handleKeys": {
+    "<C-d>": true,
+    "<C-s>": false,
+    "<C-z>": true,
+    "<C-e>": true,
+    "<C-S-v>": true,
+    "<C-S-c>": true
+  },
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "testing.coverageToolbarEnabled": true,
+  "testing.saveBeforeTest": false,
+  "testing.coverageBarThresholds": {
+    "red": 0,
+    "yellow": 60,
+    "green": 90
+  },
+  "editor.tokenColorCustomizations": {
+    "[custom]": {
+      "textMateRules": [
+        {
+          "scope": [
+            "punctuation.quasi.element",
+            "punctuation.definition.string.begin",
+            "punctuation.definition.string.end",
+            "punctuation.definition.quasi.begin",
+            "punctuation.definition.quasi.end"
+          ],
+          "settings": {
+            "foreground": "#00c4f5"
+          }
+        },
+        {
+          "scope": "string.unquoted",
+          "settings": {
+            "foreground": "#21e2d2"
+          }
+        },
+        {
+          "scope": "variable.parameter",
+          "settings": {
+            "fontStyle": ""
+          }
+        }
+      ]
+    }
+  },
+  "editor.minimap.enabled": true,
+  "editor.minimap.autohide": "mouseover",
+  "vscode-neovim.neovimExecutablePaths.win32": "C:\\Program Files\\Neovim\\bin\\nvim.exe",
+  "python.createEnvironment.trigger": "off"
+}

@@ -1,0 +1,58 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  // {
+  //   "command": "workbench.files.action.focusFilesExplorer",
+  //   "key": "ctrl+e",
+  //   "when": "editorTextFocus"
+  // },
+  {
+    "key": "ctrl+b",
+    "command": "-extension.vim_ctrl+b",
+    "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "workbench.view.testing.focus"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "-workbench.view.debug",
+    "when": "viewContainer.workbench.view.debug.enabled"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "workbench.action.terminal.kill",
+    "when": "!config.terminal.integrated.tabs.enabled && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never' || config.terminal.integrated.tabs.showActions == 'always' && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never' || isTerminalTabsNarrow && config.terminal.integrated.tabs.showActions == 'singleTerminalOrNarrow' && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never' || config.terminal.integrated.tabs.showActions == 'singleGroup' && terminalGroupCount == '1' && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never' || config.terminal.integrated.tabs.showActions == 'singleTerminal' && terminalGroupCount == '1' && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never' || config.terminal.integrated.tabs.showActions == 'singleTerminalOrNarrow' && terminalGroupCount == '1' && view == 'terminal' && config.terminal.integrated.tabs.hideCondition != 'never'"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "-workbench.action.quickOpenNavigatePreviousInViewPicker",
+    "when": "inQuickOpen && inViewsPicker"
+  },
+  {
+    "key": "ctrl+alt+d",
+    "command": "workbench.view.extension.test",
+    "when": "viewContainer.workbench.view.extension.test.enabled"
+  },
+  {
+    "key": "ctrl+shift+alt+d",
+    "command": "workbench.debug.action.focusWatchView"
+  },
+  {
+    "key": "ctrl+i",
+    "command": "composerMode.agent"
+  },
+  {
+    "key": "ctrl+[Semicolon]",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+  }
+]
