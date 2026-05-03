@@ -329,4 +329,5 @@
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "git.confirmSync": false,
 }
