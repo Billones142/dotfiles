@@ -16,10 +16,16 @@
 
 configuration {
     /* Mantenemos tu fuente y configuración base */
-    modi: "drun,run,window,p:rofi-power-menu";
+    modi: "drun,run,window,power:/home/stefano/.config/rofi/power_menu.sh,pres:/home/stefano/.config/rofi/presentation-menu.sh";
     show-icons: true;
     font: "JetBrainsMono Nerd Font 12";
+
+    /* Etiqueta que se verá en la barra de Rofi para tu nuevo menú */
+    display-test: "🛠️ Test";
     display-drun: "🔎 Apps";
+    display-power: "⏻ Sistema";
+    display-pres: " Presentación";
+
     run-shell-command: "{terminal} -e {cmd}";
 }
 
