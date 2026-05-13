@@ -330,4 +330,5 @@
     },
     "cursor.composer.shouldChimeAfterChatFinishes": true,
     "git.confirmSync": false,
+    "window.autoDetectColorScheme": false,
 }
