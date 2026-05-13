@@ -72,6 +72,8 @@ GODEBUG=netdns=go yay -Syu --noconfirm --answerclean All --answerdiff None
 echo -e "\n${BOLD}${YELLOW}[4/4] Actualizando Flatpaks...${RESET}"
 flatpak update -y 
 
+hyprpm update
+
 echo -e "\n${BOLD}${GREEN}✅ Sistema actualizado y limpio.${RESET}"
 notify-send --expire-time=7000 "Update Completo" "Arch Linux actualizado y verificado." 2>/dev/null || true
 sudo needrestart
