@@ -14,17 +14,17 @@ else
     # Ejecutar acción según la selección
     case "$1" in
         "$OPC_POWEROFF")
-            hyprshutdown --poweroff
+            hyprshutdown --post-cmd "systemctl poweroff"
             ;;
         "$OPC_REBOOT")
-            hyprshutdown --reboot
+            hyprshutdown --post-cmd "systemctl poweroff"
             ;;
         "$OPC_LOGOUT")
-            hyprshutdown --logout
+            hyprshutdown
             ;;
         "$OPC_SUSPEND")
             # Ejemplo de uso de --post-cmd para bloquear antes de suspender
-            hyprshutdown --suspend --post-cmd "hyprlock"
+            systemctl hybrid-sleep
             ;;
         "$OPC_SWITCH")
             # Comando estándar para volver al gestor de entrada (GDM/SDDM)
