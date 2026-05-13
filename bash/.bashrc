@@ -17,6 +17,7 @@ alias nano='nvim'
 alias update='~/scripts/update_all.sh'
 alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
 alias rsync='rsync --progress'
+alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566'
 
 export EDITOR=nvim
 export VISUAL=nvim
