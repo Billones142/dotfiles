@@ -17,7 +17,7 @@ else
             hyprshutdown --post-cmd "systemctl poweroff"
             ;;
         "$OPC_REBOOT")
-            hyprshutdown --post-cmd "systemctl poweroff"
+            hyprshutdown --post-cmd "systemctl restart"
             ;;
         "$OPC_LOGOUT")
             hyprshutdown
