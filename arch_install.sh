@@ -167,6 +167,7 @@ yay -Syu --noconfirm --answerclean All --answerdiff None \
 # otros
 yay -S --noconfirm --answerclean All --answerdiff None \
     brave-browser \
+    brave-origin-beta-bin \
     lazydocker \
     libqalculate \
     discord \
