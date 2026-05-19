@@ -107,6 +107,13 @@ sudo pacman -S --noconfirm \
     hyprcursor \
     xdg-desktop-portal-hyprland \
     swappy \
+    ark \
+    arj \
+    lrzip \
+    lzop \
+    7zip \
+    unarchiver \
+    unrar \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
