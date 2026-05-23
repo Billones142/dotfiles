@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "d:\\stefano\\new-proyect.ps1",
+                "${inputs:projectType}",
+                "${inputs:projectName}"
+            ],
+            "problemMatcher": [],
+            "label": "Create New Project",
+            "detail": "Creates a new project in the specified directory"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "projectType",
+            "type": "pickString",
+            "description": "Select the project type",
+            "options": [
+                "personal",
+                "university"
+            ],
+            "default": "personal"
+        },
+        {
+            "id": "projectName",
+            "type": "promptString",
+            "description": "Enter the name of the new project",
+            "default": "my-new-project"
+        }
+    ]
+}
