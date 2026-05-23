@@ -1,5 +1,5 @@
 {
-    "output" : ["HEADLESS-2", "DP-3", "eDP-1"],
+    "output" : ["virtual-fallback-display", "DP-3", "eDP-1"],
     "layer": "top",
     "position": "top",
     "mod": "dock",

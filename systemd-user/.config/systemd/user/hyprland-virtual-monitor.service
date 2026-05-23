@@ -1,14 +1,16 @@
 [Unit]
-Description=Forzar monitor virtual en Hyprland
-# Cambiamos a targets que UWSM sí reconoce
-After=graphical-session.target
+Description=Forzar monitor virtual en Hyprland (UWSM)
+# Esto vincula el servicio al ciclo de vida de tu sesión de Hyprland
+PartOf=wayland-session@hyprland.desktop.target
+After=wayland-session@hyprland.desktop.target
 
 [Service]
 Type=oneshot
+ImportCredential=uwsm.*
 ExecStart=%h/.local/bin/headless_fix.sh
 # Necesitamos que el servicio herede el entorno de UWSM
-ImportCredential=uwsm.*
+ExecStartPre=/usr/bin/bash -c 'hyprctl monitors | grep -o "HEADLESS-[0-9]\+" | xargs -I {} hyprctl output remove {} || true'
 
 [Install]
 # Este es el target genérico para cualquier sesión gráfica de usuario
-WantedBy=graphical-session.target
+WantedBy=wayland-session@hyprland.desktop.target
