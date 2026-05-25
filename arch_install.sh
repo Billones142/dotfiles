@@ -68,7 +68,7 @@ sudo pacman -S --noconfirm \
     python-pyqt5 \
     breeze-icons \
     qt5ct \
-    qt6ct \
+    #qt6ct \ # remplazado por qt6ct-kde para compatibilidad con kde
     gsfonts \
     cantarell-fonts \
     ttf-jetbrains-mono-nerd \
@@ -170,6 +170,7 @@ yay -Syu --noconfirm --answerclean All --answerdiff None \
     blesh \
     sugar-candy \
     needrestart \
+    qt6ct-kde \
 
 # otros
 yay -S --noconfirm --answerclean All --answerdiff None \
