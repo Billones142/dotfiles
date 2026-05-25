@@ -11,24 +11,26 @@ if [ -z "$1" ]; then
     # Listar opciones para Rofi
     echo -e "$OPC_POWEROFF\n$OPC_REBOOT\n$OPC_LOGOUT\n$OPC_SUSPEND\n$OPC_SWITCH"
 else
+    #pkill rofi
     # Ejecutar acción según la selección
     case "$1" in
         "$OPC_POWEROFF")
-            hyprshutdown --post-cmd "systemctl poweroff"
+	    (setsid hyprshutdown --post-cmd "systemctl poweroff" > /dev/null 2>&1 &)
             ;;
         "$OPC_REBOOT")
-            hyprshutdown --post-cmd "systemctl reboot"
+	    (setsid hyprshutdown --post-cmd "systemctl reboot" > /dev/null 2>&1 &)
             ;;
         "$OPC_LOGOUT")
-            hyprshutdown
+	    (setsid hyprshutdown > /dev/null 2>&1 &)
             ;;
         "$OPC_SUSPEND")
             # Ejemplo de uso de --post-cmd para bloquear antes de suspender
-            systemctl hybrid-sleep
+            systemctl hybrid-sleep &
             ;;
         "$OPC_SWITCH")
             # Comando estándar para volver al gestor de entrada (GDM/SDDM)
-            dm-tool switch-to-greeter || loginctl lock-session
+            dm-tool switch-to-greeter || loginctl lock-session &
             ;;
     esac
+    exit 0
 fi

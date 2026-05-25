@@ -26,7 +26,7 @@ configuration {
     display-power: "⏻ Sistema";
     display-pres: " Presentación";
 
-    run-shell-command: "{terminal} -e {cmd}";
+    //run-shell-command: "{terminal} -e {cmd}";
 }
 
 window {
