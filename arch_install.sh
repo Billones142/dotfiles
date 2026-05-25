@@ -114,6 +114,7 @@ sudo pacman -S --noconfirm \
     7zip \
     unarchiver \
     unrar \
+    gsmartcontrol \
 
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
