@@ -12,10 +12,17 @@ RESET=$(tput sgr0)
 # pide los permisos de sudo
 sudo -v
 
-# Mantener el sudo "vivo" en segundo plano
-# Esto corre un bucle que actualiza el timeout cada 60 segundos
-# hasta que el script principal termine.
-( while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null & )
+# Mantener el sudo "vivo" en segundo plano de forma robusta
+# Usamos un bucle infinito simple que solo refresca el token cada 60 segundos.
+# Al usar 'disown', lo separamos completamente del flujo de procesos de yay/makepkg.
+while true; do 
+    sudo -n true 2>/dev/null
+    sleep 60
+done &
+SUDO_KEEP_ALIVE_PID=$!
+
+# Asegurar que el bucle muera SÍ O SÍ cuando el script termine (con éxito o por error)
+trap "kill $SUDO_KEEP_ALIVE_PID 2>/dev/null" EXIT
 
 # --- FUNCIÓN DE AUTOREPARACIÓN ---
 function fix_yay() {
@@ -72,8 +79,9 @@ GODEBUG=netdns=go yay -Syu --noconfirm --answerclean All --answerdiff None
 echo -e "\n${BOLD}${YELLOW}[4/4] Actualizando Flatpaks...${RESET}"
 flatpak update -y 
 
-hyprpm update
+hyprpm update | true
 
 echo -e "\n${BOLD}${GREEN}✅ Sistema actualizado y limpio.${RESET}"
 notify-send --expire-time=7000 "Update Completo" "Arch Linux actualizado y verificado." 2>/dev/null || true
+
 sudo needrestart
