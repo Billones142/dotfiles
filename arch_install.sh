@@ -186,7 +186,8 @@ yay -S --noconfirm --answerclean All --answerdiff None \
     pgadmin4-desktop-bin
     proton-pass-bin \
     proton-authenticator-bin \
-    bottles
+    bottles \
+    qalculate-gtk \
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
