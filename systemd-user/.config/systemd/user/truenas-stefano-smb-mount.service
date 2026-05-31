@@ -2,6 +2,7 @@
 Description=RClone TrueNAS SMB Mount
 After=network-online.target
 Wants=network-online.target
+Conflicts=truenas-stefano-sshfs-mount.service
 
 [Service]
 Type=simple
