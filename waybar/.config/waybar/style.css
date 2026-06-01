@@ -95,6 +95,14 @@ tooltip {
     border-radius: 4px;
 }
 
+/* resaltado del espacio de trabajo actual */
+#workspaces button.active {
+    background-color: @base; /* tu naranja oscuro de fondo */
+    color: @dark_orange; /* texto oscuro para mantener el contraste */
+    border-bottom: 3px solid @orange_glow; /* línea con brillo naranja */
+    font-weight: bold;
+}
+
 #workspaces button:hover {
     background: @surface0;
     color: @text;

@@ -11,6 +11,8 @@
 
     // --- ORDEN DE LOS MÓDULOS ---
     "modules-left": [
+	"cpu",
+	"memory",
         "hyprland/workspaces",
         "hyprland/submap",
         "hyprland/window"
@@ -34,8 +36,6 @@
         "all-outputs": true,
         "on-click": "activate",
         "format": "{name}",
-        // "persistent-workspaces" funciona diferente en Hyprland.
-        // "*" significa "en todos los monitores".
         "persistent-workspaces": {
             "*": 0 // Muestra siempre 5 escritorios vacíos
         }
@@ -53,6 +53,16 @@
     },
 
     // --- RESTO DE TU CONFIGURACIÓN (MANTENIDA IGUAL) ---
+
+    "cpu": { 
+      "interval": 5, 
+      "format": "CPU:{usage}%" 
+    },
+
+    "memory": { 
+        "interval": 20, 
+        "format": "RAM:{percentage}%" 
+    },
 
     "tray": {
         //"icon-size": 13,
