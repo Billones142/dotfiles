@@ -1,11 +1,12 @@
 [Added Associations]
 application/json=nvim.desktop;
 application/msixbundle=org.gnome.FileRoller.desktop;wine-Programs-7-Zip-7-Zip File Manager.desktop;
+application/octet-stream=imhex.desktop;
 application/pdf=brave-origin-beta.desktop;brave-browser.desktop;
 application/x-ms-shortcut=nvim.desktop;
 application/x-zerosize=nvim.desktop;libreoffice-writer.desktop;
 application/xml=nvim.desktop;
-application/zip=org.gnome.FileRoller.desktop;wine-Programs-7-Zip-7-Zip File Manager.desktop;
+application/zip=org.kde.ark.desktop;org.gnome.FileRoller.desktop;imhex.desktop;
 image/jpeg=wine-extension-psd.desktop;
 image/vnd.microsoft.icon=imv-3.desktop;org.gimp.GIMP.desktop;
 inode/directory=org.kde.dolphin.desktop;thunar.desktop;pcmanfm.desktop;
@@ -16,6 +17,7 @@ video/x-matroska=mpv.desktop;vlc.desktop;
 
 [Default Applications]
 application/json=nvim.desktop
+application/octet-stream=imhex.desktop;
 application/pdf=brave-origin-beta.desktop;
 application/x-pka=CiscoPacketTracer-9.0.0.desktop
 application/x-pksz=CiscoPacketTracer-9.0.0.desktop
@@ -23,6 +25,7 @@ application/x-pkt=CiscoPacketTracer-9.0.0.desktop
 application/x-pkz=CiscoPacketTracer-9.0.0.desktop
 application/x-zerosize=nvim.desktop
 application/xml=nvim.desktop;
+application/zip=org.kde.ark.desktop;
 audio/flac=mpv.desktop
 audio/mpeg=mpv.desktop
 image/gif=imv.desktop
