@@ -1,0 +1,24 @@
+[Unit]
+Description=TrueNAS share SFTP Mount
+After=network-online.target
+Wants=network-online.target
+Conflicts=truenas-share-smb-mount.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c 'if [ -f %h/.scripts/check_truenas.sh ] && %h/.scripts/check_truenas.sh; then \
+    REMOTE="truenas_local_sftp"; \
+    else REMOTE="truenas_local_sftp"; fi; \
+    /usr/bin/rclone mount $$REMOTE://mnt/Datos/share /media/stefano/truenas-share \
+  --password-command "cat $HOME/.config/rclone/pass.txt" \
+  --vfs-cache-mode writes \
+  --vfs-cache-max-size 5G \
+  --dir-perms 0700 \
+  --file-perms 0600'
+
+ExecStop=/usr/bin/fusermount -u /media/stefano/truenas-share
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

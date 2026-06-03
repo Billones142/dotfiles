@@ -6,8 +6,6 @@ Conflicts=truenas-stefano-sshfs-mount.service
 
 [Service]
 Type=simple
-# Lógica de fallback integrada
-# Usamos rclone para montar el SMB sin ser root
 ExecStart=/bin/bash -c 'if ${HOME}/.scripts/check_truenas.sh > /dev/null; then \
     REMOTE="truenas_local:stefano"; \
     else REMOTE="truenas_tailscale:stefano"; fi; \
