@@ -1,0 +1,44 @@
+
+hl.device({
+    name = "logitech-usb-keyboard",
+    kb_layout = "es",
+})
+
+-- laptop Dell Latitude 7430 
+hl.device({
+    name = "at-translated-set-2-keyboard",
+    kb_layout = "us",
+})
+
+-- Sunshine keyboard
+hl.device({
+    name = "keyboard-passthrough",
+    kb_layout = "es",
+})
+
+hl.device({
+    name = "wireless-controller-touchpad",
+    enabled = false,
+})
+
+hl.device({
+    name = "qdtech-mpi5001",
+    --enabled = false
+    output = "desc:Mediatrix Peripherals Inc MPI5001 0x00000001",
+})
+
+-- Laptop touchpad
+hl.device({
+    name = "ven_0488:00-0488:1040-touchpad",
+    -- especifico touchpad
+    disable_while_typing = true,
+    ["tap-to-click"] = true,
+    clickfinger_behavior = true,
+    -- especifico mouse
+    natural_scroll = true,
+    drag_lock = true,
+    sensitivity = 0.3,
+    scroll_factor = 0.5,
+})
+
+
