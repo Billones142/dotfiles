@@ -188,6 +188,7 @@ yay -S --noconfirm --answerclean All --answerdiff None \
     proton-authenticator-bin \
     bottles \
     qalculate-gtk \
+    imhex \
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
