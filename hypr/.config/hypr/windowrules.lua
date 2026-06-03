@@ -43,7 +43,7 @@ hl.window_rule({
         title = "^$",
     },
     stay_focused = true,
-    min_size = "1 1",
+    min_size = {1, 1},
 })
 
 -- >> LANZADORES (Lutris, Heroic)  
@@ -218,7 +218,7 @@ hl.window_rule({
     decorate = false,
     nearest_neighbor = true,
     xray = true,
-    min_size = "1,1",
+    min_size = {1,1},
     keep_aspect_ratio = true,
 })
 

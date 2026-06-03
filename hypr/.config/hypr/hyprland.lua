@@ -32,7 +32,7 @@ hl.monitor({
     mirror = "virtual-fallback-display",
     mode = "1920x1080@144",
     scale = "1",
-    bitdepth = "8",
+    bitdepth = 8,
     vrr = 1,
     --bitdepth = 10,
     --cm = hdr,
@@ -45,7 +45,7 @@ hl.monitor({
     mirror = "virtual-fallback-display",
     mode = "1920x1080@60",
     scale = "1.2",
-    bitdepth = "8",
+    bitdepth = 8,
     vrr = 1,
 })
 
@@ -62,7 +62,7 @@ hl.monitor({
 hl.monitor({
     output = "desc:Mediatrix Peripherals Inc MPI5001 0x00000001",
     mode = "1280x720@60",
-    bitdepth = "8",
+    bitdepth = 8,
     scale = "1.6",
     position = "560x1080",
 })
@@ -75,26 +75,25 @@ hl.monitor({
 
 --monitor=,preferred,auto,1
 
--- Source: ~/.config/hypr/monitors_presentation.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("monitors_presentation")
 
 -- Hace que algunas apps con datos posiblemente sensibles no se vean al compartir pantalla
-local streamer_mode = false
+streamer_mode = false
 
 -- --- PROGRAMAS ---
-local terminal = "alacritty"
+terminal = "alacritty"
 --$menu = wofi --show drun
 --$menu = rofi -show drun
-local menu = "~/.config/hypr/scripts/rofi_launcher.sh"
-local fileManager = "dolphin"
-local screenshot = "grim -g \"$(slurp)\" - | swappy -f -"
+menu = "~/.config/hypr/scripts/rofi_launcher.sh"
+fileManager = "dolphin"
+screenshot = "grim -g \"$(slurp)\" - | swappy -f -"
 
 -- comandos
-local poweroff = "hyprshutdown --post-cmd \"systemctl poweroff\""
-local reboot = "hyprshutdown --post-cmd \"systemctl reboot\""
-local logout = "hyprshutdown"
+poweroff = "hyprshutdown --post-cmd \"systemctl poweroff\""
+reboot = "hyprshutdown --post-cmd \"systemctl reboot\""
+logout = "hyprshutdown"
 --$browser= uwsm app -- brave-browser.desktop
-local browser = "uwsm app -- com.brave.Origin.beta.desktop"
+browser = "uwsm app -- com.brave.Origin.beta.desktop"
 
 -- --- AUTOSTART ---
 --# para uwsm usar el comando para los programas: uwsm app -- [comando]
@@ -120,8 +119,8 @@ local browser = "uwsm app -- com.brave.Origin.beta.desktop"
 -- Plugins
 
 -- --- PERMISOS ---
-hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", allow = "allow" })
-hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", allow = "allow" })
+hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
 
 -- Layouts
 --workspace = 1, layout:master

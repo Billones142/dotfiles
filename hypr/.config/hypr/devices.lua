@@ -32,7 +32,7 @@ hl.device({
     name = "ven_0488:00-0488:1040-touchpad",
     -- especifico touchpad
     disable_while_typing = true,
-    ["tap-to-click"] = true,
+    tap_to_click = true,
     clickfinger_behavior = true,
     -- especifico mouse
     natural_scroll = true,

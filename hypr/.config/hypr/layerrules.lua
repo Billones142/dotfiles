@@ -13,7 +13,6 @@ hl.layer_rule({
     match = {
         namespace = "swaync-control-center",
     },
-    no_
     no_screen_share = streamer_mode
 })
 

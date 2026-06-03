@@ -23,15 +23,15 @@ hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("rofi -show power"))
 hl.define_submap("power_menu", function()
 
     -- L - Logout (Ejecuta directo o podrías pedir otra confirmación)
-    hl.bind("L", hl.dsp.exec_cmd("$logout"))
+    hl.bind("L", hl.dsp.exec_cmd(logout))
     hl.bind("L", hl.dsp.submap("reset"))
 
     -- S - Shutdown (Usa el post-cmd que mencionaste)
-    hl.bind("S", hl.dsp.exec_cmd("$poweroff"))
+    hl.bind("S", hl.dsp.exec_cmd(poweroff))
     hl.bind("S", hl.dsp.submap("reset"))
 
     -- R - Reboot
-    hl.bind("R", hl.dsp.exec_cmd("$reboot"))
+    hl.bind("R", hl.dsp.exec_cmd(reboot))
     hl.bind("R", hl.dsp.submap("reset"))
 
     -- Cancelar
@@ -39,17 +39,17 @@ hl.define_submap("power_menu", function()
     hl.bind("N", hl.dsp.submap("reset"))
 end)
 
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("$browser"))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm app -- $terminal"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm app -- " .. terminal))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- $fileManager"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("$menu"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 --bind = $mainMod, J, togglesplit,
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("$screenshot"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(screenshot))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload && pkill -SIGUSR2 waybar"))
 hl.bind(mainMod .. " + CTRL + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 
@@ -120,11 +120,11 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
 
 -- Botón de Apagado (Power)
-hl.bind("XF86PowerOff", hl.dsp.exec_cmd("$poweroff"), { locked = true })
+hl.bind("XF86PowerOff", hl.dsp.exec_cmd(poweroff), { locked = true })
 
 -- Botón de Reinicio (si tu teclado/laptop tiene uno dedicado)
 -- Nota: A veces se mapea como una combinación o tecla especial
-hl.bind("XF86Sleep", hl.dsp.exec_cmd("$reboot"), { locked = true })
+hl.bind("XF86Sleep", hl.dsp.exec_cmd(reboot), { locked = true })
 
 -- Multimedia
 --bindel = ,XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
