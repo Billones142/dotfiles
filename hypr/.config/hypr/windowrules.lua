@@ -54,7 +54,7 @@ hl.window_rule({
 hl.window_rule({
     name = "brave-browser",
     match = {
-        class = "^(brave-origin-beta)$",
+        class = "^(brave-brows:r|brave-origin-beta|Brave-origin-beta)$",
     },
     --match:class = ^(brave-browser)$
     no_blur = true,
@@ -447,6 +447,17 @@ hl.window_rule({
     workspace = "5 silent",
     float = false,
 })
+
+-- xwaylandvideobridge
+hl.window_rule({
+    name = "xwaylandvideobridge",
+    match = {
+        class = "^(xwaylandvideobridge)$",
+    },
+    workspace = "special:xwaylandvideobridge silent",
+    float = false,
+})
+
 
 -- Reglas para el Video Peek (wl-mirror)
 -- TODO: manual review — top-level key 'windowrulev = float, title:^(hypr_video_peek)$' has no enclosing section
