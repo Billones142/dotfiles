@@ -93,3 +93,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+#
+export PATH="/home/stefano/.local/share/gem/ruby/3.4.0/bin:$PATH"
