@@ -1,3 +1,18 @@
+-- Redragon azure usb
+hl.device({
+    name = "by-tech-gaming-keyboard-1",
+    kb_layout = "es",
+})
+-- Redragon azure dongle
+hl.device({
+    name = "compx-2.4g-wireless-receiver",
+    kb_layout = "es",
+})
+-- Redragon azure bt
+hl.device({
+    name = "bt-3.0kb-keyboard",
+    kb_layout = "es",
+})
 
 hl.device({
     name = "logitech-usb-keyboard",
