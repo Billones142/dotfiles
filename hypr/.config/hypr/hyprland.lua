@@ -33,9 +33,8 @@ hl.monitor({
     mode = "1920x1080@144",
     scale = "1",
     bitdepth = 8,
-    vrr = 1,
-    --bitdepth = 10,
     --cm = hdr,
+    vrr = 1,
 })
 
 -- laptop-stefano
@@ -82,13 +81,13 @@ streamer_mode = false
 
 -- --- PROGRAMAS ---
 terminal = "alacritty"
+fileManager = "dolphin"
+
+-- comandos
 --$menu = wofi --show drun
 --$menu = rofi -show drun
 menu = "~/.config/hypr/scripts/rofi_launcher.sh"
-fileManager = "dolphin"
 screenshot = "grim -g \"$(slurp)\" - | swappy -f -"
-
--- comandos
 poweroff = "hyprshutdown --post-cmd \"systemctl poweroff\""
 reboot = "hyprshutdown --post-cmd \"systemctl reboot\""
 logout = "hyprshutdown"
@@ -299,11 +298,9 @@ hl.config({
     -- --- ANIMACIONES ---
     animations = {
         enabled = false,
-        -- Esto reemplaza a "layerrule = noanim, waybar"
     },
     -- --- LAYOUTS ---
     dwindle = {
-        --pseudotile = true
         preserve_split = true,
     },
     -- --- GESTURES (ELIMINADO) ---
