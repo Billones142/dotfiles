@@ -61,7 +61,11 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 --bind = $mainMod, J, togglesplit,
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(screenshot))
+--hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(screenshot))
+hl.bind(mainMod .. " + SHIFT + S", function()
+    hl.plugin.hyprcapture.open()
+end)
+
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload && pkill -SIGUSR2 waybar"))
 hl.bind(mainMod .. " + CTRL + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 
