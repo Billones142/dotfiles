@@ -41,8 +41,20 @@ end)
 
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm app -- " .. terminal))
-hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
+--
+-- bloquear acceso
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm app -- loginctl lock-session"))
+
+-- cerrar ventana
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
+-- forzar cierre de proceso de ventana: sigterm 9
+hl.bind(mainMod .. " + CONTROL + T", hl.dsp.window.signal({ signal = 9 }))
+-- pausar proceso de ventana: sigcont 18
+hl.bind(mainMod .. " + CONTROL + C", hl.dsp.window.signal({ signal = 18 }))
+-- reanudar proceso de ventana: sigstop 19
+hl.bind(mainMod .. " + CONTROL + S", hl.dsp.window.signal({ signal = 19 }))
+
+
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
