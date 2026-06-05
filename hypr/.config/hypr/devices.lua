@@ -8,9 +8,14 @@ hl.device({
     name = "compx-2.4g-wireless-receiver",
     kb_layout = "es",
 })
--- Redragon azure bt
+-- Redragon azure BT 3.0
 hl.device({
     name = "bt-3.0kb-keyboard",
+    kb_layout = "es",
+})
+-- Redragon azure BT 5.0
+hl.device({
+    name = "bt-5.0kb-keyboard",
     kb_layout = "es",
 })
 
