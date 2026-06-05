@@ -14,13 +14,17 @@ vim.opt.rtp:prepend(lazypath)
 -- 2. Lista de Plugins
 require("lazy").setup({
   rocks = {
-    enabled = false, -- Desactiva LuaRocks por completo en Lazy
+    enabled = true,
   },
 
   {
-  "vhyrro/luarocks.nvim",
-  priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
-  config = true,
+    "vhyrro/luarocks.nvim",
+    priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
+    config = true,
+    event = "VeryLazy", 
+    opts = {
+      rocks = { "dkjson" }, -- Le forzamos explícitamente a validar el paquete JSON
+    },
   },
 
   -- Plugin de Multicursor
@@ -90,7 +94,11 @@ require("lazy").setup({
     config = function()
       -- Le pasamos a lspconfig las capacidades visuales que maneja blink.cmp
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-      require("lspconfig").lua_ls.setup({ capabilities = capabilities })
+      -- [CORRECCIÓN] Usamos la API moderna recomendada (vim.lsp.config) en lugar de require('lspconfig')
+      vim.lsp.config("lua_ls", {
+        cmd = { "lua-language-server" },
+        capabilities = capabilities,
+      })
     end,
   },
 })
