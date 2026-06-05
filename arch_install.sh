@@ -143,6 +143,8 @@ sudo pacman -S --noconfirm \
     sddm \
     dolphin \
     partitionmanager \
+    mangohud \
+    lib32-mangohud \
 
 #TODO: si tiene bluetooth
 #bluez bluez-utils blueman
@@ -173,6 +175,7 @@ yay -Syu --noconfirm --answerclean All --answerdiff None \
     sugar-candy \
     needrestart \
     qt6ct-kde \
+    xwaylandvideobridge \
 
 # otros
 yay -S --noconfirm --answerclean All --answerdiff None \
@@ -199,12 +202,8 @@ fi
 flatpak install -y com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-player
 
 # firewall
-#
+# TODO: agregar a kdeconnect como habilitado
 
-# modo oscuro
-#TODO: agregar cambios a qt5/6
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
 #TODO: 
 #/usr/lib/sddm/sddm.conf.d/default.conf
