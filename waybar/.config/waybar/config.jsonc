@@ -60,7 +60,7 @@
     },
 
     "memory": { 
-        "interval": 20, 
+        "interval": 10, 
         "format": "RAM:{percentage}%" 
     },
 
