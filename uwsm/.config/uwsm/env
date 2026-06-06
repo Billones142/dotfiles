@@ -21,9 +21,11 @@ export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Preferencias de Usuario
 export BROWSER=brave
-export FILEMANAGER=thunar
+export FILEMANAGER=dolphin
 export TERMINAL=alacritty
 export EDITOR=nvim
+export VISUAL=nvim
+export PAGER=moor
 
 #env = ELECTRON_OZONE_PLATFORM_HINT,auto
 

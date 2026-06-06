@@ -22,7 +22,7 @@ alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoin
 export EDITOR=nvim
 export VISUAL=nvim
 export TERMINAL=alacritty
-export PAGER="moor"
+export PAGER=moor
 # NVM (Node Version Manager)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
