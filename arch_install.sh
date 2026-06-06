@@ -117,6 +117,12 @@ sudo pacman -S --noconfirm \
     gsmartcontrol \
     kio-admin \
 
+# servidor de lenguaje
+sudo pacman -S --noconfirm \
+    clang \
+    rust-analyzer \
+    gopls \
+
 # TODO: agregar pam_kwallet.so en /etc/pam.d/sddm
 
 sudo tailscale set --operator=$USER
