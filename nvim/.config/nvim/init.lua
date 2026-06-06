@@ -87,18 +87,29 @@ require("lazy").setup({
     },
   },
 
-  -- Modificamos nvim-lspconfig para que use las capacidades de blink
   {
     "neovim/nvim-lspconfig",
     dependencies = { "folke/lazydev.nvim", "saghen/blink.cmp" },
     config = function()
-      -- Le pasamos a lspconfig las capacidades visuales que maneja blink.cmp
+      -- Extraemos las capacidades asíncronas que maneja blink.cmp
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-      -- [CORRECCIÓN] Usamos la API moderna recomendada (vim.lsp.config) en lugar de require('lspconfig')
-      vim.lsp.config("lua_ls", {
-        cmd = { "lua-language-server" },
-        capabilities = capabilities,
-      })
+      
+      -- Lista de servidores binarios a registrar de forma masiva
+      local servers = {
+        lua_ls = { cmd = { "lua-language-server" } },
+        gopls = { cmd = { "gopls" } },
+        rust_analyzer = { cmd = { "rust-analyzer" } },
+        clangd = { cmd = { "clangd" } }
+      }
+
+      -- Registramos cada entorno usando la API moderna nativa de Neovim
+      for server_name, config in pairs(servers) do
+        vim.lsp.config(server_name, {
+          cmd = config.cmd,
+          capabilities = capabilities,
+          -- Aquí puedes añadir opciones específicas ('opts') por servidor si lo necesitas
+        })
+      end
     end,
   },
 })
