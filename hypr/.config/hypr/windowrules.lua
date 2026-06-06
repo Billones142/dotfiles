@@ -50,15 +50,31 @@ hl.window_rule({
 -- Al Workspace 5 junto con Steam  
 
 -- --- 3. NAVEGACIÓN Y WEB APPS ---  
+local braveClass= "^(brave-browser|brave-origin-beta|Brave-origin-beta)$"
 
 hl.window_rule({
     name = "brave-browser",
     match = {
-        class = "^(brave-brows:r|brave-origin-beta|Brave-origin-beta)$",
+        class = braveClass,
     },
     --match:class = ^(brave-browser)$
     no_blur = true,
     opacity = "1 override 1 override",
+    border_color = "rgb(d05d0e)",
+})
+
+-- >> BRAVE (Principal)  
+hl.window_rule({
+    name = "brave-browser-principal",
+    match = {
+        class = braveClass,
+        title = "^(Principal)$",
+    },
+    --match:class = ^(brave-browser)$
+    --maximize = true
+    no_blur = true,
+    workspace = "1",
+    float = false,
     border_color = "rgb(d05d0e)",
 })
 
@@ -399,21 +415,6 @@ hl.window_rule({
     },
     render_unfocused = true,
     workspace = "6 silent",
-})
-
--- >> BRAVE (Principal)  
-hl.window_rule({
-    name = "brave-browser-principal",
-    match = {
-        class = "^(brave-origin-beta)$",
-        title = "^(Principal)$",
-    },
-    --match:class = ^(brave-browser)$
-    --maximize = true
-    no_blur = true,
-    workspace = "1",
-    float = false,
-    border_color = "rgb(d05d0e)",
 })
 
 -- steam (para ventanas de propiedades de juegos)
