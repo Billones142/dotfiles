@@ -18,6 +18,8 @@ configuration {
     /* Mantenemos tu fuente y configuración base */
     modi: "drun,run,window,power:/home/stefano/.config/rofi/power_menu.sh,pres:/home/stefano/.config/rofi/presentation-menu.sh";
     show-icons: true;
+    drun-show-actions: true;
+    //kb-custom-1: "Alt+a";
     font: "JetBrainsMono Nerd Font 12";
 
     /* Etiqueta que se verá en la barra de Rofi para tu nuevo menú */
