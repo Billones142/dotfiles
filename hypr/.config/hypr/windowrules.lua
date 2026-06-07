@@ -346,7 +346,7 @@ hl.window_rule({
 hl.window_rule({
     name = "webapp-ytmusic",
     match = {
-        class = "^(brave-music.youtube.com__-Default)$",
+        class = "^(.*-music.youtube.com__-Default)$",
     },
     workspace = "special:ytmusic silent",
     float = false,
@@ -356,7 +356,7 @@ hl.window_rule({
 hl.window_rule({
     name = "webapp-whatsapp",
     match = {
-        class = "^(brave-web.whatsapp.com__-Default)$",
+        class = "^(.*-web.whatsapp.com__-Default)$",
     },
     workspace = "special:whatsapp silent",
     float = false,
