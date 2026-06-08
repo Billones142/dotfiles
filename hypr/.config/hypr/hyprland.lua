@@ -95,7 +95,6 @@ hl.monitor({
 
 --monitor=,preferred,auto,1
 
-require("monitors_presentation")
 
 -- Hace que algunas apps con datos posiblemente sensibles no se vean al compartir pantalla
 streamer_mode = false
@@ -149,6 +148,10 @@ hl.on("hyprland.start", function()
 
     -- Plugins
     uwsm_execute("hyprpm reload -n")
+
+
+    hl.exec_cmd("touch $HOME/.config/hypr/monitors_sunshine.lua")
+    hl.exec_cmd("touch $HOME/.config/hypr/monitors_presentation.lua")
 end)
 
 
@@ -225,20 +228,18 @@ hl.animation({
     enabled = false,
 })
 
--- Source: ~/.config/hypr/devices.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("devices")
 
--- Source: ~/.config/hypr/binds.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("binds")
 
--- Source: ~/.config/hypr/layerrules.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("layerrules")
 
--- Source: ~/.config/hypr/windowrules.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("windowrules")
 
--- Source: ~/.config/hypr/monitors_sunshine.conf — convert this file to Lua and ensure it is on Lua's package.path.
+require("monitors_presentation")
+
 require("monitors_sunshine")
+
 
 -- TODO: manual review — plugin section ''. The new Lua API exposes plugins via hl.plugin.<name>(...) — wire up per the plugin's docs.
 --[[
