@@ -128,9 +128,9 @@ hl.on("hyprland.start", function()
     --hl.exec_cmd("echo $HYPRLAND_INSTANSE_SIGNATURE > /home/stefano/.cache/hyprsignature.txt")
 
     --- APPS DE SISTEMA ---
-    --hl.exec_cmd("uwsm app -- /usr/lib/pam_kwallet_init")
-    --hl.exec_cmd("uwsm app -- xembedsniproxy")
-    --hl.exec_cmd("uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    uwsm_execute("uwsm app -- /usr/lib/pam_kwallet_init")
+    uwsm_execute("uwsm app -- xembedsniproxy")
+    --uwsm_execute("uwsm app -- dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
     -- inhibir el boton de inicio
     uwsm_execute("systemd-inhibit --what=handle-power-key:handle-reboot-key:handle-lid-switch --who=\"Hyprland Session\" --why=\"Custom shutdown/lid handling\" --mode=block Hyprland")
@@ -171,12 +171,12 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 run_if_pc("GAMER", function()
-    hl.env("MANGOHUD_PCI_DEV","pci_dev=0000:01:00.0")
+    hl.env("MANGOHUD_CONFIG","read_cfg,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
     hl.env("DXVK_FILTER_DEVICE_NAME","NVIDIA GeForce RTX 3090")
 end)
 
 run_if_pc("laptop-stefano", function()
-    hl.env("MANGOHUD_PCI_DEV","pci_dev=0000:00:02.0")
+    hl.env("MANGOHUD_CONFIG","read_cfg,pci_dev=0000\\:00\\:02.0")
     hl.env("DXVK_FILTER_DEVICE_NAME","Intel(R) Iris(R) Xe Graphics (ADL GT2)");
 
     hl.env("MOZ_ENABLE_WAYLAND","1")
