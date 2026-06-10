@@ -77,7 +77,7 @@ ITALICS="$(tput sitm)"       # Texto en cursiva (no siempre soportado)
 PS1="\[${GREEN}\]\u\[${RESET}\]@\[${BLUE}\]\h\[${RESET}\]:\[${LIGHT_BLUE}\]\w\[${RESET}\]\$ "
 
 # Ejecutar fastfetch al iniciar sesión interactiva
-if [ -x "$(command -v fastfetch)" ]; then
+if [ -x "$(command -v fastfetch)" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
     fastfetch
 fi
 
