@@ -21,9 +21,20 @@ end
 
 local systemdID = get_cmd_output("cat /etc/machine-id");
 
+
+local pcActual = (function ()
+    for clave, datos in pairs(pcs) do
+        if systemdID == datos.systemdID then
+            hl.notification.create({ text="Pc actual: "..clave, duration=5000})
+            return clave
+        end
+    end
+    return nil
+end)()
+
 -- funcion que ejecuta una funcion lambda si la pc es la especificada
 function run_if_pc(pc, funcion)
-	if (systemdID == pcs[pc].systemdID) then
+	if (pc == pcActual) then
 		funcion();
 	end
 end
@@ -61,7 +72,7 @@ hl.monitor({
 -- laptop-stefano
 hl.monitor({
     output = "desc:AU Optronics 0x4A90",
-    --mirror = HEADLESS-2,
+    --mirror = "virtual-fallback-display",
     mirror = "virtual-fallback-display",
     mode = "1920x1080@60",
     scale = "1.2",
@@ -171,7 +182,7 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 run_if_pc("GAMER", function()
-    hl.env("MANGOHUD_CONFIG","read_cfg,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
+    hl.env("MANGOHUD_CONFIG","read_cfg,cpu_text=i7-8700k,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
     hl.env("DXVK_FILTER_DEVICE_NAME","NVIDIA GeForce RTX 3090")
 end)
 

@@ -55,9 +55,8 @@ local braveClass= "^(brave-browser|brave-origin-beta|Brave-origin-beta)$"
 hl.window_rule({
     name = "brave-browser",
     match = {
-        class = braveClass,
+        initial_class = braveClass,
     },
-    --match:class = ^(brave-browser)$
     no_blur = true,
     opacity = "1 override 1 override",
     border_color = "rgb(d05d0e)",
@@ -67,10 +66,9 @@ hl.window_rule({
 hl.window_rule({
     name = "brave-browser-principal",
     match = {
-        class = braveClass,
-        title = "^(Principal)$",
+        initial_class = braveClass,
+        initial_title = "^(Principal)$",
     },
-    --match:class = ^(brave-browser)$
     --maximize = true
     no_blur = true,
     workspace = "1",
@@ -112,11 +110,13 @@ hl.window_rule({
 -- --- 5. COMPATIBILIDAD (XWayland Video Bridge) ---  
 -- Necesario para compartir pantalla en Discord/Zoom  
 hl.window_rule({
-    name = "xwayland-videobridge",
+    name = "xwaylandvideobridge",
     match = {
         class = "^(xwaylandvideobridge)$",
     },
     opacity = "0.0 override 0.0 override",
+    workspace = "special:xwaylandvideobridge silent",
+    float = false,
     no_anim = true,
     no_initial_focus = true,
     max_size = "1 1",
@@ -449,15 +449,6 @@ hl.window_rule({
     float = false,
 })
 
--- xwaylandvideobridge
-hl.window_rule({
-    name = "xwaylandvideobridge",
-    match = {
-        class = "^(xwaylandvideobridge)$",
-    },
-    workspace = "special:xwaylandvideobridge silent",
-    float = false,
-})
 
 
 -- Reglas para el Video Peek (wl-mirror)
