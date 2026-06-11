@@ -25,7 +25,8 @@ else
             ;;
         "$OPC_SUSPEND")
             # Ejemplo de uso de --post-cmd para bloquear antes de suspender
-            systemctl hybrid-sleep &
+            #systemctl hybrid-sleep &
+            systemctl suspend-then-hibernate &
             ;;
         "$OPC_SWITCH")
             # Comando estándar para volver al gestor de entrada (GDM/SDDM)
