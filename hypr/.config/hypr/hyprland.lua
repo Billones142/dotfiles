@@ -25,7 +25,7 @@ local systemdID = get_cmd_output("cat /etc/machine-id");
 local pcActual = (function ()
     for clave, datos in pairs(pcs) do
         if systemdID == datos.systemdID then
-            hl.notification.create({ text="Pc actual: "..clave, duration=5000})
+            hl.notification.create({ text="Configuracion: "..clave, duration=5000})
             return clave
         end
     end
@@ -48,7 +48,7 @@ end
 -- Monitor principal para que sunshine pueda tener un stream constante
 hl.monitor({
     output = "virtual-fallback-display",
-    mode = "1920x1080@144",
+    mode = "1920x1080@160",
     position = "0x0",
     --position = auto
     scale = "1",
@@ -123,7 +123,7 @@ poweroff = "hyprshutdown --post-cmd \"systemctl poweroff\""
 reboot = "hyprshutdown --post-cmd \"systemctl reboot\""
 logout = "hyprshutdown"
 --$browser= uwsm app -- brave-browser.desktop
-browser = "uwsm app -- com.brave.Origin.beta.desktop"
+browser = "uwsm app -- brave-origin.desktop"
 
 
 function uwsm_execute(command)

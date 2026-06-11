@@ -50,7 +50,7 @@ hl.window_rule({
 -- Al Workspace 5 junto con Steam  
 
 -- --- 3. NAVEGACIÓN Y WEB APPS ---  
-local braveClass= "^(brave-browser|brave-origin-beta|Brave-origin-beta)$"
+local braveClass= "^(brave-browser|brave-origin|Brave-origin|brave-origin-beta|Brave-origin-beta)$"
 
 hl.window_rule({
     name = "brave-browser",
