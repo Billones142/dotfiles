@@ -112,6 +112,9 @@ require("lazy").setup({
       end
     end,
   },
+  {
+    "tpope/vim-fugitive"
+  }
 })
 
 -- 3. Configuraciones básicas
@@ -120,6 +123,7 @@ vim.o.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus' -- Requiere xclip o wl-clipboard en tu sistema Linux
 vim.o.termguicolors = true      -- Necesario para que los colores se vean bien (True Color)
+vim.o.smartindent = true
 
 -- Atajo para ver el error/warning de la línea actual en un panel flotante
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = "Ver error o warning actual" })
