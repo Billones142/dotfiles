@@ -20,7 +20,7 @@ export GTK_THEME=Adwaita:dark
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Preferencias de Usuario
-export BROWSER=brave
+export BROWSER=brave-origin
 export FILEMANAGER=dolphin
 export TERMINAL=alacritty
 export EDITOR=nvim
