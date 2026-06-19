@@ -95,3 +95,5 @@ esac
 # pnpm end
 #
 export PATH="/home/stefano/.local/share/gem/ruby/3.4.0/bin:$PATH"
+
+complete -C /usr/bin/terraform terraform
