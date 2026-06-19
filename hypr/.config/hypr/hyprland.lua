@@ -22,15 +22,16 @@ end
 local systemdID = get_cmd_output("cat /etc/machine-id");
 
 
-local pcActual = (function ()
-    for clave, datos in pairs(pcs) do
+local pcActual <const> = (function ()
+    for nombrePc, datos in pairs(pcs) do
         if systemdID == datos.systemdID then
-            hl.notification.create({ text="Configuracion: "..clave, duration=5000})
-            return clave
+            hl.notification.create({ text="Configuracion: "..nombrePc, duration=5000});
+            return nombrePc;
         end
     end
     return nil
 end)()
+
 
 -- funcion que ejecuta una funcion lambda si la pc es la especificada
 function run_if_pc(pc, funcion)
@@ -152,6 +153,7 @@ hl.on("hyprland.start", function()
     --uwsm_execute("obs --minimize-to-tray --startreplaybuffer --scene Replay")
     uwsm_execute("kdeconnect-indicator")
     uwsm_execute("swayosd-server")
+    uwsm_execute("opensnitch-ui")
     --- PORTAPAPELES (CLIPBOARD) ---
     -- Iniciar servicios de copiado
     uwsm_execute("wl-paste --type text --watch cliphist store")
@@ -178,11 +180,13 @@ hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = 
 
 --- Variables de entorno
 hl.env("GDK_SCALE", "1")
+hl.env("XCURSOR_THEME", "Breeze-Dark")
 hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_THEME", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 run_if_pc("GAMER", function()
-    hl.env("MANGOHUD_CONFIG","read_cfg,cpu_text=i7-8700k,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
+    hl.env("MANGOHUD_CONFIG","read_cfg,network=eno2,cpu_text=i7-8700k,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
     hl.env("DXVK_FILTER_DEVICE_NAME","NVIDIA GeForce RTX 3090")
 end)
 
