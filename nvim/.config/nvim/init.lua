@@ -49,7 +49,6 @@ require("lazy").setup({
     end,
   },
 
-  -- Lazydev: Prepara el entorno para que Neovim y Hyprland entiendan Lua
   {
     "folke/lazydev.nvim",
     ft = "lua", -- Solo se activa al abrir archivos .lua
@@ -114,6 +113,15 @@ require("lazy").setup({
   },
   {
     "tpope/vim-fugitive"
+  },
+  {
+    "ibhagwan/fzf-lua",
+    enabled = true,
+    keys = {
+      { "<leader>ff", "<cmd>FzfLua files<CR>",      desc = "Find files" },
+      { "<leader>fg", "<cmd>FzfLua live_grep<CR>",  desc = "Live grep" },
+    },
+    opts = {},
   }
 })
 
@@ -124,6 +132,10 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus' -- Requiere xclip o wl-clipboard en tu sistema Linux
 vim.o.termguicolors = true      -- Necesario para que los colores se vean bien (True Color)
 vim.o.smartindent = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.undofile = true
+vim.opt.swapfile = false
 
 -- Atajo para ver el error/warning de la línea actual en un panel flotante
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = "Ver error o warning actual" })
