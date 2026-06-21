@@ -15,13 +15,13 @@ else
     # Ejecutar acción según la selección
     case "$1" in
         "$OPC_POWEROFF")
-	    (setsid hyprshutdown --post-cmd "systemctl poweroff" > /dev/null 2>&1 &)
+	    (setsid hyprshutdown  --top-label "Shutting down..."--post-cmd "systemctl poweroff" > /dev/null 2>&1 &)
             ;;
         "$OPC_REBOOT")
-	    (setsid hyprshutdown --post-cmd "systemctl reboot" > /dev/null 2>&1 &)
+	    (setsid hyprshutdown --top-label "Rebooting..." --post-cmd "systemctl reboot" > /dev/null 2>&1 &)
             ;;
         "$OPC_LOGOUT")
-	    (setsid hyprshutdown > /dev/null 2>&1 &)
+	    (setsid hyprshutdown  --top-label "Loging out..." > /dev/null 2>&1 &)
             ;;
         "$OPC_SUSPEND")
             # Ejemplo de uso de --post-cmd para bloquear antes de suspender
