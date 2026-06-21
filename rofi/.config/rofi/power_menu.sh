@@ -15,7 +15,7 @@ else
     # Ejecutar acción según la selección
     case "$1" in
         "$OPC_POWEROFF")
-	    (setsid hyprshutdown  --top-label "Shutting down..."--post-cmd "systemctl poweroff" > /dev/null 2>&1 &)
+	    (setsid hyprshutdown  --top-label "Shutting down..." --post-cmd "systemctl poweroff" > /dev/null 2>&1 &)
             ;;
         "$OPC_REBOOT")
 	    (setsid hyprshutdown --top-label "Rebooting..." --post-cmd "systemctl reboot" > /dev/null 2>&1 &)
