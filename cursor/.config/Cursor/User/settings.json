@@ -98,7 +98,7 @@
         "powershell": ".ps1",
         "typescript": ".ts"
     },
-    "python.defaultInterpreterPath": "C:\\Users\\Stefano\\AppData\\Local\\Microsoft\\WindowsApps\\python3.11.exe",
+    "python.defaultInterpreterPath": "/bin/python",
     "editor.detectIndentation": false,
     "workbench.activityBar.location": "hidden",
     "editor.lineNumbers": "relative",
@@ -334,4 +334,7 @@
     "git.confirmSync": false,
     "window.autoDetectColorScheme": false,
     "geminicodeassist.project": "natural-clarity-9s8qv",
+    "remote.SSH.remotePlatform": {
+        "gamer-linux": "linux"
+    },
 }
