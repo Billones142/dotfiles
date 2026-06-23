@@ -449,6 +449,26 @@ hl.window_rule({
     float = false,
 })
 
+-- OpenSnitch
+hl.window_rule({
+    name = "opensnitch-main",
+    match = {
+        class = "^(opensnitch_ui)$",
+        title = "^(OpenSnitch Network Statistics.*)$",
+    },
+    size = "782 539",
+    float= true,
+})
+
+hl.window_rule({
+    name = "opensnitch-popup",
+    match = {
+        class = "^(opensnitch_ui)$",
+        title = "^(OpenSnitch.*)$",
+    },
+    float= true,
+    pin = true,
+})
 
 
 -- Reglas para el Video Peek (wl-mirror)
