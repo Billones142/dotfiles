@@ -1,0 +1,20 @@
+[Desktop Entry]
+Version=1.0
+Name=Youtube Music
+Comment=Web App
+Exec=chromium --app="https://music.youtube.com" --class=WebApp-YoutubeMusicChromium5294 --name=WebApp-YoutubeMusicChromium5294 --user-data-dir=/home/stefano/.local/share/ice/profiles/YoutubeMusicChromium5294 --log-level=3 --disable-gpu-vsync --disable-sync --disable-component-update --disable-default-apps --no-pings --disable-background-networking --process-per-site --js-flags="--max-semi-space-size=1 --max-old-space-size=256" --gcm-checkin-url="[http://127.0.0.1](http://127.0.0.1)"  --gcm-mcs-url="[http://127.0.0.1](http://127.0.0.1)"
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/home/stefano/.local/share/ice/icons/YoutubeMusicChromium.png
+Categories=GTK;WebApps;
+MimeType=text/html;text/xml;application/xhtml_xml;
+StartupWMClass=WebApp-YoutubeMusicChromium5294
+StartupNotify=true
+X-WebApp-Browser=Chromium
+X-WebApp-URL=https://music.youtube.com
+X-WebApp-CustomParameters=--log-level=3 --disable-gpu-vsync --disable-sync --disable-component-update --disable-default-apps --no-pings --disable-background-networking --process-per-site --js-flags="--max-semi-space-size=1 --max-old-space-size=256" --gcm-checkin-url="[http://127.0.0.1](http://127.0.0.1)"  --gcm-mcs-url="[http://127.0.0.1](http://127.0.0.1)"
+X-WebApp-Navbar=false
+X-WebApp-PrivateWindow=false
+X-WebApp-Isolated=true
+
