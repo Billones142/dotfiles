@@ -182,6 +182,7 @@ yay -Syu --noconfirm --answerclean All --answerdiff None \
     needrestart \
     qt6ct-kde \
     xwaylandvideobridge \
+    bash-complete-alias \
 
 # otros
 yay -S --noconfirm --answerclean All --answerdiff None \
