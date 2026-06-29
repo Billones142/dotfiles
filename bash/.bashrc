@@ -1,6 +1,8 @@
-#
 # ~/.bashrc
-#
+
+# bash complete alias
+source /usr/share/bash-complete-alias/complete_alias
+
 # Cargar ble.sh
 [[ $- == *i* ]] && source /usr/share/blesh/ble.sh --noattach
 
@@ -10,6 +12,7 @@
 alias modo_xbox='sudo inputplumber device 0 profile load ~/xbox_mode.yaml && echo "🎮 Modo Xbox Activado"'
 alias modo_ps='sudo inputplumber device 0 profile load ~/ds4_mode.yaml && echo "🎮 Modo PlayStation Activado"'
 
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fixaudio='systemctl --user restart pipewire wireplumber'
@@ -18,6 +21,9 @@ alias update='~/scripts/update_all.sh'
 alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
 alias rsync='rsync --progress'
 alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566'
+
+# autocompletado para alias
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
 export EDITOR=nvim
 export VISUAL=nvim
