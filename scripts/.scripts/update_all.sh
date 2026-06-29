@@ -69,11 +69,11 @@ else
 fi
 
 # 3. Yay (Sistema + AUR) - Ahora seguro
-echo -e "\n${BOLD}${YELLOW}[3/4] Actualizando Sistema y AUR (Clean Build)...${RESET}"
+#echo -e "\n${BOLD}${YELLOW}[3/4] Actualizando Sistema y AUR (Clean Build)...${RESET}"
 # --answerclean All: Borra caché de compilación (más estable)
 # --answerdiff None: No muestra cambios en el código
 # --noconfirm: No pregunta "¿Continuar?" ni muestra menú de exclusión
-GODEBUG=netdns=go yay -Syu --noconfirm --answerclean All --answerdiff None
+#GODEBUG=netdns=go yay -Syu --noconfirm --answerclean All --answerdiff None
 
 # 4. Flatpak
 echo -e "\n${BOLD}${YELLOW}[4/4] Actualizando Flatpaks...${RESET}"
