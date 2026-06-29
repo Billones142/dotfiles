@@ -279,7 +279,8 @@ hl.config({
         --vfr = true
         vrr = true,
         render_unfocused_fps = 30,
-	disable_autoreload = false
+	disable_autoreload = false,
+	always_follow_on_dnd = true,
     },
     xwayland = {
         force_zero_scaling = true,

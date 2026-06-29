@@ -75,6 +75,7 @@ hl.window_rule({
     float = false,
     border_color = "rgb(d05d0e)",
 })
+-- TODO: hacer que las ventanas con el mismo PID que brave se  puedan identificar
 
 -- --- 4. UTILIDADES FLOTANTES ---  
 
@@ -129,10 +130,19 @@ hl.window_rule({
         class = "^(org.kde.dolphin)$",
         initial_title = "^(.* — Dolphin)$",
     },
-    float = true,
+    --float = true,
+})
+
+hl.window_rule({
+    name = "dolphin-main-floating",
+    match = {
+        class = "^(org.kde.dolphin)$",
+        initial_title = "^(.* — Dolphin)$",
+	float = true,
+    },
     center = true,
     --size = 1200 800
-    size = "monitor_w*0.84 monitor_h*0.84",
+    max_size = {"monitor_w * 0.84", "monitor_h * 0.84"},
 })
 
 hl.window_rule({

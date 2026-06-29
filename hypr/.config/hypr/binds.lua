@@ -2,6 +2,9 @@
 
 local mainMod = "SUPER"
 
+-- TODO: Hacer que cambie la distribucion de teclado
+--hl.bind(mainMod .. " + SHIFT + SPACE", )
+
 -- Convertir la ventana actual en un Grupo (o añadirla a uno existente)
 hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 
