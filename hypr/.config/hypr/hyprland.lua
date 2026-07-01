@@ -167,7 +167,16 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("touch $HOME/.config/hypr/monitors_presentation.lua")
 end)
 
+-- PLUGINS
+run_if_pc("GAMER", function()
+    hyprcapture_enabled = true;
+    hyprglass_enabled = true;
+end)
 
+run_if_pc("laptop-stefano", function()
+    hyprcapture_enabled = true;
+    hyprglass_enabled = true;
+end)
 
 -- --- PERMISOS ---
 hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow" })

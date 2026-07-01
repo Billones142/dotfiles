@@ -1,18 +1,15 @@
--- TODO: mover variables al archivo principal en la zona de las pc's
-local hyprcapture_enabled = true;
-local hyprglass_enabled = true;
+local _hyprcapture_enabled = hl.plugin.hyprcapture and hyprcapture_enable;
+local _hyprglass_enabled = hl.plugin.hyprglass and hyprglass_enable;
 
-local _hyprcapture_enabled = hl.plugin.hyprcapture and hyprcapture_enabled;
-local _hyprglass_enabled = hl.plugin.hyprglass and hyprglass_enabled;
-
-local function notifyNotInstalledPlugin(pluginName,  pluginExist, pluginWillEnable)
-    if (not pluginWillEnable) and (not hl.plugin.hyprcapture) then
-        hl.notification.create({ text=pluginName.." habilitado pero no instalado", duration=20000});
+local function notifyNotInstalledPlugin(pluginName, pluginExist, pluginIsConfigured)
+    --hl.notification.create({ text=pluginName .. (pluginIsConfigured and " seConfiguro" or " noSeConfiguro") .. (pluginExist and " existe" or " noExiste"), duration=20000}); -- DEBUG
+    if (not pluginWillEnable) and (not pluginExist) then
+        hl.notification.create({ text=pluginName.." configurado pero no instalado/habilitado", duration=20000});
     end
 end
 
-notifyNotInstalledPlugin("Hyprcapture", hl.plugin.hyprcapture, _hyprcapture_enabled);
-notifyNotInstalledPlugin("Hyprglass", hl.plugin.hyprglass, _hyprglass_enabled);
+notifyNotInstalledPlugin("Hyprcapture", hl.plugin.hyprcapture, hyprcapture_enabled);
+notifyNotInstalledPlugin("Hyprglass", hl.plugin.hyprglass, hyprglass_enabled);
 
 -- TODO: manual review — plugin section ''. The new Lua API exposes plugins via hl.plugin.<name>(...) — wire up per the plugin's docs.
 --[[
