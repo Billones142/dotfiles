@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Plasma (Nested in Hyprland)
+Comment=Ejecutar shell de Plasma dentro de otro compositor
+Exec=/home/stefano/.scripts/plasma_embeded.sh
+Icon=plasma
+Type=Application
+Terminal=false
+Categories=System;Settings;
