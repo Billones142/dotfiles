@@ -1,8 +1,8 @@
 /* --- TEMA VISUAL: NARANJA WOFI STYLE --- */
 * {
-    /* Paleta Naranja y Fondo Oscuro */
-    background:     #11111b;  /* Fondo casi negro */
-    background-alt: #1e1e2e;  /* Fondo items */
+    /* Paleta Naranja y Fondo Oscuro con Transparencia para Hyprglass */
+    background:     #11111bA0;  /* Fondo con transparencia (aprox 62%) */
+    background-alt: #1e1e2eA0;  /* Fondo items con transparencia */
     foreground:     #cdd6f4;  /* Texto blanco suave */
     
     /* EL PROTAGONISTA: NARANJA */
@@ -32,73 +32,125 @@ configuration {
 }
 
 window {
-    //width: 600px;
-    width: 45%;
-    height: 90%;
+    transparency: "real";
+    width: 40%;
+    height: 60%;
     
-    /* Bordes Naranjas brillantes */
-    border: 2px solid;
-    border-radius: 10px;
-    border-color: @border-color;
+    /* Soft glowing border (Peach colored with opacity) */
+    border: 1px;
+    border-radius: 16px;
+    border-color: #fab38760;
     background-color: @background;
+    padding: 18px;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [inputbar, listview];
 }
 
 /* --- LISTA Y ELEMENTOS --- */
+listview {
+    background-color: transparent;
+    border: 0px;
+    spacing: 6px;
+    scrollbar: false;
+    margin: 10px 0px 0px 0px;
+}
+
 element {
-    padding: 8px;
+    padding: 10px 12px;
     background-color: transparent;
     text-color: @foreground;
-    border-radius: 5px;
+    border-radius: 8px;
+    border: 1px;
+    border-color: transparent; /* Evita que el texto tiemble al seleccionarse */
 }
 
+/* Normal States */
+element normal.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element normal.urgent {
+    background-color: @urgent;
+    text-color: @foreground;
+}
+
+element normal.active {
+    background-color: @active;
+    text-color: @foreground;
+}
+
+/* Selected States (Soft Peach Glass Pill) */
 element selected.normal {
-    /* Aquí ocurre la magia del estilo Wofi */
-    background-color: @selected;
-    text-color: @selected-fg;
+    background-color: #fab38722; /* Fondo naranja muy traslúcido */
+    border-color: @selected;      /* Borde naranja brillante */
+    text-color: #ffffff;
 }
 
+element selected.urgent {
+    background-color: @urgent;
+    text-color: @foreground;
+}
+
+element selected.active {
+    background-color: @active;
+    text-color: @foreground;
+}
+
+/* Alternate States (All transparent to avoid dark blocks) */
 element alternate.normal {
-    // background-color: #F5E0DC;  /* El color crema que ya tienes (ejemplo) */
-    //text-color:       #1e1e2e;  /* <--- CAMBIA ESTO: Pon un color OSCURO (negro/gris) */
-    //text-color:       inherit;
-    //background-color: transparent;
-    background-color: #5F5F5F;
-    text-color:       #ffffff;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element alternate.urgent {
+    background-color: @urgent;
+    text-color: @foreground;
+}
+
+element alternate.active {
+    background-color: @active;
+    text-color: @foreground;
 }
 
 element-text {
-    /* Importante para que el texto herede el color (negro sobre naranja) */
     text-color: inherit;
     vertical-align: 0.5;
-}
-
-/* Opcional: A veces el texto se define en un sub-elemento */
-element-text alternate.normal {
-    text-color:       #1e1e2e;
+    background-color: transparent;
 }
 
 element-icon {
-    size: 32px;
+    size: 24px;
+    margin: 0px 12px 0px 0px;
+    background-color: transparent;
+    text-color: inherit;
 }
 
-/* --- BARRA DE BÚSQUEDA --- */
+/* --- BARRA DE BÚSQUEDA ESTILO SPOTLIGHT --- */
 inputbar {
     children: [prompt, entry];
-    background-color: transparent;
-    padding: 10px;
+    background-color: #1e1e2e50; /* Caja de búsqueda integrada y translúcida */
+    border: 1px;
+    border-color: #ffffff10;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 0px 0px 8px 0px;
 }
 
 prompt {
-    background-color: @selected;
-    text-color: @background;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin: 0px 10px 0px 0px;
+    background-color: transparent;
+    text-color: @selected;
+    padding: 0px;
+    margin: 0px 12px 0px 0px;
+    vertical-align: 0.5;
 }
 
 entry {
-    background-color: @background-alt;
+    background-color: transparent;
     text-color: @foreground;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 0px;
+    vertical-align: 0.5;
 }
