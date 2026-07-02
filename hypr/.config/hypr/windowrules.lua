@@ -427,6 +427,16 @@ hl.window_rule({
     workspace = "6 silent",
 })
 
+-- Launcher Epic
+hl.window_rule({
+    name = "EpicGamesLauncher",
+    match = {
+	initial_title = "Epic Games Launcher",
+    },
+    render_unfocused = true,
+    workspace = "5 silent",
+})
+
 -- steam (para ventanas de propiedades de juegos)
 hl.window_rule({
     name = "steam-game-config",
