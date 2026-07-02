@@ -1,15 +1,15 @@
-local _hyprcapture_enabled = hl.plugin.hyprcapture and hyprcapture_enable;
-local _hyprglass_enabled = hl.plugin.hyprglass and hyprglass_enable;
+local _hyprcapture_enabled = hl.plugin.hyprcapture and hyprcapture_enabled;
+local _hyprglass_enabled = hl.plugin.hyprglass and hyprglass_enabled;
 
 local function notifyNotInstalledPlugin(pluginName, pluginExist, pluginIsConfigured)
     --hl.notification.create({ text=pluginName .. (pluginIsConfigured and " seConfiguro" or " noSeConfiguro") .. (pluginExist and " existe" or " noExiste"), duration=20000}); -- DEBUG
-    if (not pluginWillEnable) and (not pluginExist) then
+    if pluginIsConfigured and (not pluginExist) then
         hl.notification.create({ text=pluginName.." configurado pero no instalado/habilitado", duration=20000});
     end
 end
 
-notifyNotInstalledPlugin("Hyprcapture", hl.plugin.hyprcapture, hyprcapture_enabled);
-notifyNotInstalledPlugin("Hyprglass", hl.plugin.hyprglass, hyprglass_enabled);
+notifyNotInstalledPlugin("Hyprcapture", hl.plugin.hyprcapture, _hyprcapture_enabled);
+notifyNotInstalledPlugin("Hyprglass", hl.plugin.hyprglass, _hyprglass_enabled);
 
 -- TODO: manual review — plugin section ''. The new Lua API exposes plugins via hl.plugin.<name>(...) — wire up per the plugin's docs.
 --[[
@@ -23,7 +23,7 @@ notifyNotInstalledPlugin("Hyprglass", hl.plugin.hyprglass, hyprglass_enabled);
   --        gesture_distance = 300
   --    }
   hy3 { ... }
-]]
+--]]
 
 if _hyprcapture_enabled then
     hl.config({
@@ -89,6 +89,7 @@ if _hyprglass_enabled then
     hg.layer("swaync")
     hg.layer("quickshell:bezel", { preset = "ui", mask_threshold = 0.3 })
     hg.layer("debug-panel", { exclude = true })
+    hg.layer("rofi", { preset = "rofi_glass" })
 
     -- Presets
     hg.preset("clear", {
@@ -96,6 +97,12 @@ if _hyprglass_enabled then
         blur_strength = 1.5,
         dark = { brightness = 0.7 },
         light = { brightness = 1.2 },
+    })
+
+    hg.preset("rofi_glass", {
+        glass_opacity = 0.65,
+        blur_strength = 2.0,
+        dark = { brightness = 0.75 },
     })
 
     hg.preset("contrasted", {

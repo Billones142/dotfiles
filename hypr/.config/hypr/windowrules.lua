@@ -427,13 +427,24 @@ hl.window_rule({
     workspace = "6 silent",
 })
 
+--
+hl.window_rule({
+    name = "SystrayWine",
+    match = {
+        class = "^(steam_app_.*|steam_proton|cs2|gamescope)$",
+	initial_title = "",
+    },
+    workspace = "",
+})
+
 -- Launcher Epic
 hl.window_rule({
     name = "EpicGamesLauncher",
     match = {
+        class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe)$",
 	initial_title = "Epic Games Launcher",
     },
-    render_unfocused = true,
+    float= true,
     workspace = "5 silent",
 })
 
