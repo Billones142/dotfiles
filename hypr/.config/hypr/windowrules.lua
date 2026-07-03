@@ -50,7 +50,7 @@ hl.window_rule({
 -- Al Workspace 5 junto con Steam  
 
 -- --- 3. NAVEGACIÓN Y WEB APPS ---  
-local braveClass= "^(brave-browser|brave-origin|Brave-origin|brave-origin-beta|Brave-origin-beta)$"
+local braveClass= "^(brave-browser|brave-origin|Brave-origin-beta|Brave-origin-beta)$"
 
 hl.window_rule({
     name = "brave-browser",
@@ -61,21 +61,6 @@ hl.window_rule({
     opacity = "1 override 1 override",
     border_color = "rgb(d05d0e)",
 })
-
--- >> BRAVE (Principal)  
-hl.window_rule({
-    name = "brave-browser-principal",
-    match = {
-        initial_class = braveClass,
-        initial_title = "^(Principal)$",
-    },
-    --maximize = true
-    no_blur = true,
-    workspace = "1",
-    float = false,
-    border_color = "rgb(d05d0e)",
-})
--- TODO: hacer que las ventanas con el mismo PID que brave se  puedan identificar
 
 -- --- 4. UTILIDADES FLOTANTES ---  
 
@@ -348,6 +333,23 @@ hl.window_rule({
     float = true,
     size = "80% 80%",
 })
+
+
+-- >> BRAVE (Principal): debajo de la regla de ventanas flotantes para el workspace 1
+hl.window_rule({
+    name = "brave-browser-principal",
+    match = {
+        initial_class = braveClass,
+        initial_title = "^(Principal)$",
+    },
+    --maximize = true
+    no_blur = true,
+    workspace = "1",
+    float = false,
+    border_color = "rgb(d05d0e)",
+})
+-- TODO: hacer que las ventanas con el mismo PID que brave se  puedan identificar
+
 
 hl.window_rule({
     name = "workspace10",
