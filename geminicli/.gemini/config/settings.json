@@ -1,0 +1,24 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "enablePermanentToolApproval": true
+  },
+  "general": {
+    "vimMode": true, "enableAutoUpdate": false,
+    "enableNotifications": true,
+    "notificationMethod": "auto"
+  },
+  "ui": {
+    "showCitations": false,
+    "showModelInfoInChat": true,
+    "inlineThinkingMode": "full"
+  },
+  "output": {
+    "format": "text"
+  },
+  "model": {
+    "name": ""
+  }
+}
