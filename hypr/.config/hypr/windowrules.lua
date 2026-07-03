@@ -116,7 +116,23 @@ hl.window_rule({
         class = "^(xwaylandvideobridge)$",
     },
     opacity = "0.0 override 0.0 override",
-    workspace = "special:xwaylandvideobridge silent",
+    workspace = "special:hidden silent",
+    float = false,
+    no_anim = true,
+    no_initial_focus = true,
+    max_size = "1 1",
+    no_blur = true,
+})
+
+
+hl.window_rule({
+    name = "xembedsniproxy",
+    match = {
+        class = "^(xembedsniproxy)$",
+	float = true,
+    },
+    opacity = "0.0 override 0.0 override",
+    workspace = "special:hidden silent",
     float = false,
     no_anim = true,
     no_initial_focus = true,
