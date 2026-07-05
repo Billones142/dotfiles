@@ -1,0 +1,31 @@
+colors:
+  primary:
+    background: '0x1E1E2E'  # Color de fondo
+    foreground: '0xF8F8F2'   # Color de texto principal
+
+  # Colores para la terminal
+  cursor:
+    text: '0xFFFFFF'         # Color del texto del cursor
+    cursor: '0xFF00FF'       # Color del cursor
+
+  # Configuración de colores adicionales
+  normal:
+    black:   '0x000000'
+    red:     '0xFF5555'
+    green:   '0x50FA7B'
+    yellow:  '0xF1FA8C'
+    blue:    '0xBD93F9'
+    magenta: '0xFF79C6'
+    cyan:    '0x8BE9FD'
+    white:   '0xBFBFBF'
+
+  # Colores para letras especiales
+  bright:
+    black:   '0x4D4D4D'
+    red:     '0xFF6E6E'
+    green:   '0x69FF94'
+    yellow:  '0xFFFFA5'
+    blue:    '0xE1A8FF'
+    magenta: '0xFF9EFA'
+    cyan:    '0xA4FFFF'
+    white:   '0xFFFFFF'
