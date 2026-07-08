@@ -67,7 +67,7 @@ hl.monitor({
     scale = "1",
     bitdepth = 8,
     --cm = hdr,
-    vrr = true,
+    vrr = 2,
 })
 
 -- laptop-stefano
