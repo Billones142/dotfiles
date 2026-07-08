@@ -53,7 +53,7 @@ hl.monitor({
     position = "0x0",
     --position = auto
     scale = "1",
-    vrr = 1,
+    vrr = true,
     --bitdepth = 8
     --bitdepth = 10
     --cm = hdr
@@ -67,7 +67,7 @@ hl.monitor({
     scale = "1",
     bitdepth = 8,
     --cm = hdr,
-    vrr = 1,
+    vrr = true,
 })
 
 -- laptop-stefano
@@ -78,7 +78,7 @@ hl.monitor({
     mode = "1920x1080@60",
     scale = "1.2",
     bitdepth = 8,
-    vrr = 1,
+    vrr = false,
 })
 
 --monitorv2 { # HDMI laptop
@@ -183,6 +183,8 @@ hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow
 hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow" })
 
+hl.permission({ binary = "/usr/bin/sunshine", type = "screencopy", mode = "allow" })
+
 
 -- Layouts
 --workspace = 1, layout:master
@@ -285,23 +287,22 @@ hl.config({
         },
     },
     misc = {
-        --vfr = true
         vrr = true,
         render_unfocused_fps = 30,
 	disable_autoreload = false,
 	always_follow_on_dnd = true,
+	close_special_on_empty = false,
     },
     xwayland = {
         force_zero_scaling = true,
         use_nearest_neighbor = true,
     },
     ecosystem = {
-        --enforce_permissions = true
         enforce_permissions = false,
     },
     --- INPUT ---
     input = {
-        kb_layout = "latam",
+        kb_layout = "es",
         kb_variant = "",
         kb_model = "",
         kb_options = "",
@@ -317,9 +318,9 @@ hl.config({
         },
         sensitivity = 0,
         -- El retraso antes de empezar a repetir (en milisegundos)
-        repeat_delay = 200,
+        repeat_delay = 300,
         -- La velocidad de repetición (caracteres por segundo)
-        repeat_rate = 45,
+        repeat_rate = 60,
     },
     -- --- APARIENCIA ---
     general = {
@@ -334,10 +335,10 @@ hl.config({
         allow_tearing = true,
     },
     render = {
-        direct_scanout = false, -- A veces true causa artefactos en desktop
+        direct_scanout = true, -- A veces true causa artefactos en desktop
     },
     debug = {
-        damage_tracking = 1, -- 2 es el valor por defecto y más estable
+        damage_tracking = 2, -- 2 es el valor por defecto, en 2 limpia dinamicamente la region del los pixeles dejados por los programas, cambiar a 1 para que actualize todos los pixeles si no se limpia bien
         disable_logs = true,
     },
     -- Opciones experimentales para Nvidia
