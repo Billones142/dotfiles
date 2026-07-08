@@ -17,7 +17,7 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-games-properties",
     match = {
-        class = "^(steam)$",
+        class = "steam",
     },
     float = true,
     center = true,
@@ -27,7 +27,7 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-popups",
     match = {
-        class = "^(steam)$",
+        class = "steam",
         title = "^(Sign in to Steam|Friends List|Steam Settings|Create or select.*|Sign in to Steam|Special Offers)$",
     },
     float = true,
@@ -39,7 +39,7 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-menus-fix",
     match = {
-        class = "^(steam)$",
+        class = "steam",
         title = "^$",
     },
     stay_focused = true,
@@ -50,7 +50,7 @@ hl.window_rule({
 -- Al Workspace 5 junto con Steam  
 
 -- --- 3. NAVEGACIÓN Y WEB APPS ---  
-local braveClass= "^(brave-browser|brave-origin|Brave-origin-beta|Brave-origin-beta)$"
+local braveClass= "^([Bb]rave-browser|[Bb]rave-origin|[Bb]rave-origin-beta)$"
 
 hl.window_rule({
     name = "brave-browser",
@@ -88,17 +88,16 @@ hl.window_rule({
 hl.window_rule({
     name = "pavucontrol-size",
     match = {
-        class = "^(org.pulseaudio.pavucontrol)$",
+        class = "org.pulseaudio.pavucontrol",
     },
     size = "800 500",
 })
 
--- --- 5. COMPATIBILIDAD (XWayland Video Bridge) ---  
--- Necesario para compartir pantalla en Discord/Zoom  
+-- Reglas para esconder ventanas
 hl.window_rule({
     name = "xwaylandvideobridge",
     match = {
-        class = "^(xwaylandvideobridge)$",
+        class = "xwaylandvideobridge",
     },
     opacity = "0.0 override 0.0 override",
     workspace = "special:hidden silent",
@@ -113,7 +112,7 @@ hl.window_rule({
 hl.window_rule({
     name = "xembedsniproxy",
     match = {
-        class = "^(xembedsniproxy)$",
+        class = "xembedsniproxy",
 	float = true,
     },
     opacity = "0.0 override 0.0 override",
@@ -125,10 +124,11 @@ hl.window_rule({
     no_blur = true,
 })
 
+-- Reglas KDE-Dolphin
 hl.window_rule({
     name = "dolphin-main",
     match = {
-        class = "^(org.kde.dolphin)$",
+        class = "org.kde.dolphin",
         initial_title = "^(.* — Dolphin)$",
     },
     --float = true,
@@ -137,7 +137,7 @@ hl.window_rule({
 hl.window_rule({
     name = "dolphin-main-floating",
     match = {
-        class = "^(org.kde.dolphin)$",
+        class = "org.kde.dolphin",
         initial_title = "^(.* — Dolphin)$",
 	float = true,
     },
@@ -149,7 +149,7 @@ hl.window_rule({
 hl.window_rule({
     name = "dolphin-process-dialog",
     match = {
-        class = "^(org.kde.dolphin)$",
+        class = "org.kde.dolphin",
         initial_title = "^(Progress Dialog.*)$",
     },
     float = true,
@@ -159,7 +159,7 @@ hl.window_rule({
 hl.window_rule({
     name = "dolphin-properties",
     match = {
-        class = "^(org.kde.dolphin)$",
+        class = "org.kde.dolphin",
         initial_title = "^(Properties for.*)$",
     },
     float = true,
@@ -167,9 +167,22 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "dolphin-folder-already-exist",
+    match = {
+        class = "org.kde.dolphin",
+        initial_title = "Folder Already Exists — Dolphin",
+    },
+    float = true,
+    center = true,
+    -- TODO: hacer que este por encima de los otros
+})
+
+
+-- Reglas para portal de XDG
+hl.window_rule({
     name = "guardado-de-archivos-portal",
     match = {
-        class = "^(org.freedesktop.impl.portal.desktop.kde)$",
+        class = "org.freedesktop.impl.portal.desktop.kde",
     },
     float = true,
     center = true,
@@ -179,7 +192,7 @@ hl.window_rule({
 hl.window_rule({
     name = "Print",
     match = {
-        initial_title = "^(Print)$",
+        initial_title = "Print",
     },
     float = true,
 })
@@ -187,7 +200,7 @@ hl.window_rule({
 hl.window_rule({
     name = "Qalculate",
     match = {
-        class = "^(qalculate-gtk)",
+        class = "qalculate-gtk",
     },
     float = true,
     size = "782 539",
@@ -196,7 +209,7 @@ hl.window_rule({
 hl.window_rule({
     name = "Terminal",
     match = {
-        class = "^(Alacritty)",
+        class = "Alacritty",
     },
     float = false,
     size = "1167, 793",
@@ -205,7 +218,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracerOther",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTracer",
     },
     opacity = "1.0 override 1.0 override",
     stay_focused = false,
@@ -215,8 +228,8 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracerOther-2",
     match = {
-        class = "^(PacketTracer)",
-        title = "^(Error)",
+        class = "PacketTracer",
+        title = "Error",
     },
     opacity = "1.0 override 1.0 override",
     stay_focused = false,
@@ -229,7 +242,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTrace",
     },
     -- Fix drag and drop on XWayland
     no_initial_focus = true,
@@ -252,8 +265,8 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer2",
     match = {
-        class = "^(PacketTracer)",
-        title = "^(Cisco Packet Tracer)",
+        class = "PacketTracer",
+        title = "Cisco Packet Tracer",
     },
     keep_aspect_ratio = true,
     focus_on_activate = true,
@@ -262,8 +275,8 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer3",
     match = {
-        class = "^(PacketTracer)",
-        title = "^(Preference)",
+        class = "PacketTracer",
+        title = "Preference",
     },
     min_size = "486 628",
     --stayfocused = on
@@ -272,7 +285,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer4",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTracer",
         title = "^(.*outer.*)",
     },
     min_size = "486 628",
@@ -281,7 +294,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer5",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTracer",
         title = "^(.*witch.*)",
     },
     min_size = "486 628",
@@ -290,7 +303,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer5",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTracer",
         title = "^(.*PC.*)",
     },
     min_size = "772 700",
@@ -299,7 +312,7 @@ hl.window_rule({
 hl.window_rule({
     name = "PacketTracer6",
     match = {
-        class = "^(PacketTracer)",
+        class = "PacketTracer",
         title = "^(.*Save File.*)",
     },
     min_size = "807 655",
@@ -308,7 +321,7 @@ hl.window_rule({
 hl.window_rule({
     name = "Discord-Main",
     match = {
-        class = "^(discord)",
+        class = "discord",
     },
     opacity = "1.0 override 1.0 override",
 })
@@ -316,8 +329,8 @@ hl.window_rule({
 hl.window_rule({
     name = "Discord-PopUp",
     match = {
-        class = "^(discord)",
-        initial_title = "^(Discord Popout)",
+        class = "discor)",
+        initial_title = "Discord Popout",
     },
     opacity = "1.0 override 1.0 override",
     float = true,
@@ -340,7 +353,7 @@ hl.window_rule({
     name = "brave-browser-principal",
     match = {
         initial_class = braveClass,
-        initial_title = "^(Principal)$",
+        initial_title = "Principal",
     },
     --maximize = true
     no_blur = true,
@@ -364,7 +377,7 @@ hl.window_rule({
 hl.window_rule({
     name = "discord",
     match = {
-        class = "^(discord)$",
+        class = "discord",
     },
     workspace = "special:discord silent",
     float = false,
@@ -401,7 +414,7 @@ hl.window_rule({
 hl.window_rule({
     name = "lutris-others",
     match = {
-        class = "^(net.lutris.Lutris)$",
+        class = "net.lutris.Lutris",
     },
     float = true,
 })
@@ -409,8 +422,8 @@ hl.window_rule({
 hl.window_rule({
     name = "lutris-main",
     match = {
-        class = "^(net.lutris.Lutris)$",
-        initial_title = "^(Lutris)$",
+        class = "net.lutris.Lutris",
+        initial_title = "Lutris",
     },
     float = false,
 })
@@ -422,7 +435,6 @@ hl.window_rule({
     match = {
         class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe)$",
     },
-    --match:class = ^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe)$  
     render_unfocused = true,
     workspace = "6 silent",
 })
@@ -430,7 +442,7 @@ hl.window_rule({
 hl.window_rule({
     name = "running-games-2",
     match = {
-        xdg_tag = "^(proton-game)$",
+        xdg_tag = "proton-game",
     },
     render_unfocused = true,
     workspace = "6 silent",
@@ -470,7 +482,7 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-game-config",
     match = {
-        class = "^(steam)",
+        class = "steam",
     },
     workspace = "5 silent",
     float = true,
@@ -479,8 +491,8 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-game-config",
     match = {
-        class = "^(steam)$",
-        initial_title = "^(Steam Big Picture Mode)$",
+        class = "steam",
+        initial_title = "Steam Big Picture Mode",
     },
     workspace = "5",
     float = true,
@@ -491,8 +503,8 @@ hl.window_rule({
 hl.window_rule({
     name = "steam-main",
     match = {
-        class = "^(steam)$",
-        title = "^(Steam)$",
+        class = "steam",
+        title = "Steam",
     },
     workspace = "5 silent",
     float = false,
@@ -502,7 +514,7 @@ hl.window_rule({
 hl.window_rule({
     name = "opensnitch-main",
     match = {
-        class = "^(opensnitch_ui)$",
+        class = "opensnitch_ui",
         title = "^(OpenSnitch Network Statistics.*)$",
     },
     size = "782 539",
@@ -512,11 +524,21 @@ hl.window_rule({
 hl.window_rule({
     name = "opensnitch-popup",
     match = {
-        class = "^(opensnitch_ui)$",
-        title = "^(OpenSnitch.*)$",
+        class = "opensnitch_ui",
+        title = "^(OpenSnitch v.*)$",
     },
     float= true,
     pin = true,
+})
+
+-- Ark: archiving tool
+
+hl.window_rule({
+    name = "Ark-archiving",
+    match = {
+        class = "org.kde.ark",
+    },
+    float= true,
 })
 
 
