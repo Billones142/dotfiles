@@ -1,22 +1,46 @@
+local redragon_azure = {
+    layout = "latam",
+    model = "",
+    variant = "",
+    options = "",
+    rules = "",
+};
+
 -- Redragon azure usb
 hl.device({
-    name = "by-tech-gaming-keyboard-1",
-    kb_layout = "es",
+    name = "by-tech-gaming-keyboard",
+    kb_layout = redragon_azure.layout,
+    kb_model = redragon_azure.model,
+    kb_variant = redragon_azure.variant,
+    kb_options = redragon_azure.options,
+    kb_rules = redragon_azure.rules,
 })
 -- Redragon azure dongle
 hl.device({
     name = "compx-2.4g-wireless-receiver",
-    kb_layout = "es",
+    kb_layout = redragon_azure.layout,
+    kb_model = redragon_azure.model,
+    kb_variant = redragon_azure.variant,
+    kb_options = redragon_azure.options,
+    kb_rules = redragon_azure.rules,
 })
 -- Redragon azure BT 3.0
 hl.device({
     name = "bt-3.0kb-keyboard",
-    kb_layout = "es",
+    kb_layout = redragon_azure.layout,
+    kb_model = redragon_azure.model,
+    kb_variant = redragon_azure.variant,
+    kb_options = redragon_azure.options,
+    kb_rules = redragon_azure.rules,
 })
 -- Redragon azure BT 5.0
 hl.device({
     name = "bt-5.0kb-keyboard",
-    kb_layout = "es",
+    kb_layout = redragon_azure.layout,
+    kb_model = redragon_azure.model,
+    kb_variant = redragon_azure.variant,
+    kb_options = redragon_azure.options,
+    kb_rules = redragon_azure.rules,
 })
 
 hl.device({
@@ -60,5 +84,3 @@ hl.device({
     sensitivity = 0.3,
     scroll_factor = 0.5,
 })
-
-
