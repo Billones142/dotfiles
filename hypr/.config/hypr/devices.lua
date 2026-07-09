@@ -51,7 +51,8 @@ hl.device({
 -- laptop Dell Latitude 7430 
 hl.device({
     name = "at-translated-set-2-keyboard",
-    kb_layout = "us,latam",
+    kb_layout = "us",
+    kb_variant = "altgr-intl",
 })
 
 -- Sunshine keyboard
