@@ -10,32 +10,6 @@ sudo -v
 # hasta que el script principal termine.
 ( while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null & )
 
-function fix_yay() {
-    echo -e "${RED}⚠️  Detectado fallo en YAY. Iniciando protocolo de reparación...${RESET}"
-    
-    # 1. Asegurar herramientas de compilación (usando pacman, que es seguro)
-    sudo pacman -S --needed --noconfirm git base-devel
-    
-    # 2. Limpieza de versiones conflictivas previas
-    # Eliminamos yay, yay-git, o versiones debug para evitar conflictos de archivos
-    sudo pacman -Rns --noconfirm yay yay-git yay-bin yay-debug yay-git-debug 2>/dev/null || true
-    
-    # 3. Preparar entorno limpio en /tmp (RAM)
-    WORK_DIR=$(mktemp -d)
-    echo "🔧 Clonando yay en $WORK_DIR..."
-    git clone https://aur.archlinux.org/yay.git "$WORK_DIR/yay"
-    
-    # 4. Compilar e instalar
-    cd "$WORK_DIR/yay"
-    echo "🔨 Compilando yay..."
-    makepkg -si --noconfirm
-    
-    # 5. Limpieza
-    cd ~
-    rm -rf "$WORK_DIR"
-    echo -e "${GREEN}✅ YAY ha sido reconstruido exitosamente.${RESET}"
-}
-
 sudo pacman -Sy --noconfirm archlinux-keyring
 sudo pacman -Syu --noconfirm
 
@@ -44,9 +18,11 @@ git config --global core.pager 'moor'
 #TODO: habilitar colores en git
 
 # necesario
-sudo pacman -S --noconfirm \
+sudo pacman -S --needed --noconfirm \
     uwsm \
     alacritty \
+    #packagekit-qt6 \ # No recomendado al usar Discover
+    #archlinux-appstream-data \
     nmap \
     swaync \
     waybar \
@@ -67,7 +43,7 @@ sudo pacman -S --noconfirm \
     python-reportlab \
     python-pyqt5 \
     breeze-icons \
-    qt5ct \
+    #qt5ct \  # remplazado por qt5ct-kde para compatibilidad con kde
     #qt6ct \ # remplazado por qt6ct-kde para compatibilidad con kde
     gsfonts \
     cantarell-fonts \
@@ -128,11 +104,10 @@ sudo pacman -S --noconfirm \
 sudo tailscale set --operator=$USER
 tailscale configure systray --enable-startup systemd
 
-#TODO: configurar kwallet pam, sudo nvim /etc/pam.d/login
 
 # solo laptop
 sudo pacman -S --noconfirm \
-    swayosd
+    swayosd \
 
 xhost +local:root
 
@@ -165,27 +140,21 @@ sudo pacman -S --noconfirm \
     docker \
     blender \
 
-# Instalando yay si no esta instalado
-if ! yay --version > /dev/null 2>&1; then
-    # Si el comando falla (exit code != 0), ejecutamos la reparación
-    fix_yay
-else
-    echo "👌 Yay está operativo."
-fi
+# TODO: instalar o reparar paru
 
-
-# programas yay
-yay -Syu --noconfirm --answerclean All --answerdiff None \
+# programas AUR
+paru -Syu --noconfirm --answerclean All --answerdiff None \
     rofi-power-menu \
     blesh \
     sugar-candy \
     needrestart \
     qt6ct-kde \
+    qt5ct-kde \
     xwaylandvideobridge \
     bash-complete-alias \
 
 # otros
-yay -S --noconfirm --answerclean All --answerdiff None \
+paru -S --noconfirm --answerclean All --answerdiff None \
     brave-browser \
     brave-origin-bin \
     lazydocker \
@@ -199,18 +168,20 @@ yay -S --noconfirm --answerclean All --answerdiff None \
     bottles \
     qalculate-gtk \
     imhex \
+    sunshine-bin \
+    obs-vkcapture \
+    lib32-obs-vkcapture \
 
 if [ -d "$HOME/.cfg" ]; then
     echo "Repo bare existente en $HOME/dotfiles — no se clonara."
 else
     git clone https://github.com/Billones142/dotfiles $HOME/dotfiles
+    #TODO: Aplicar las configuraciones con stow
 fi
 
-flatpak install -y com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-player
-
-# firewall
-# TODO: agregar a kdeconnect como habilitado
-
+flatpak install -y \
+	com.orcaslicer.OrcaSlicer \
+	com.github.iwalton3.jellyfin-media-player \
 
 #TODO: 
 #/usr/lib/sddm/sddm.conf.d/default.conf
@@ -219,35 +190,50 @@ flatpak install -y com.orcaslicer.OrcaSlicer com.github.iwalton3.jellyfin-media-
 # echoMode: TextInput.Password
 # passwordMaskDelay: 0
 
-sudo systemctl daemon-reload
 
 # servicios del sistema
+sudo systemctl daemon-reload
 sudo systemctl enable --now \
-    firewalld
-    avahi-daemon
-    docker.socket
+    firewalld.service \
+    opensnitchd.service \
+    avahi-daemon \
+    docker.socket \
+
+sudo systemctl disable --now \
+    docker.service
 
 # servicios de usuario
 systemctl --user daemon-reload
-
 systemctl --user enable --now \
-    tailscale-systray \
-    hyprpolkitagent \
-    blueman-applet \
-    swaync \
-    hypridle \
-    hyprpaper \
-    waybar \
+    tailscale-systray.service \
+    hyprpolkitagent.service \
+    blueman-applet.service \
+    swaync.service.service \
+    hypridle.service \
+    hyprpaper.service \
+    waybar.service \
+    sunshine.service \
 
+# ------------- FIREWALL -------------
 #TODO: activar servicio de detecion de mdns
 # hosts: mymachines **mdns_minimal [NOTFOUND=return]** resolve [!UNAVAIL=return] files myhostname dns
 #sudo nvim /etc/nsswitch.conf
 sudo firewall-cmd --add-service=mdns --permanent
+sudo firewall-cmd --add-service=kdeconnect --permanent
 sudo firewall-cmd --reload
 
 
 # TODO: crear wallet de kwallet y habilitar servicio para activacion
+# /etc/pam.d/sddm: agregar 
+# -auth       optional    pam_kwallet5.so
+# session     optional    pam_kwallet5.so         auto_start
 
-sudo mkdir -p /media/$USER/truenas-share /media/$USER/truenas-stefano
-sudo chown -R $USER:$USER /media/stefano/
-chmod -R u=rwx,g=,o= /media/stefano/
+sudo mkdir -p \
+    /media/$USER/truenas-share \
+    /media/$USER/truenas-stefano \
+    /media/$USER/cloud/gdrive \
+
+sudo chown -R u=rwx,g=,o= $USER:$USER \
+    /media/$USER/
+
+echo "Recomendado reiniciar la terminal"

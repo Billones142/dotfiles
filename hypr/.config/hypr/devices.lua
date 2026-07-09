@@ -1,5 +1,5 @@
 local redragon_azure = {
-    layout = "latam",
+    layout = "latam,us",
     model = "",
     variant = "",
     options = "",
@@ -51,7 +51,7 @@ hl.device({
 -- laptop Dell Latitude 7430 
 hl.device({
     name = "at-translated-set-2-keyboard",
-    kb_layout = "us",
+    kb_layout = "us,latam",
 })
 
 -- Sunshine keyboard

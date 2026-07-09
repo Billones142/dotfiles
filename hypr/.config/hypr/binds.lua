@@ -2,8 +2,8 @@
 
 local mainMod = "SUPER"
 
--- TODO: Hacer que cambie la distribucion de teclado
---hl.bind(mainMod .. " + SHIFT + SPACE", )
+-- TODO: Hacer que cambie la distribucion de teclado, que de una notificacion de a que distro cambio
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_raw("hyprctl switchxkblayout all next"));
 
 -- Convertir la ventana actual en un Grupo (o añadirla a uno existente)
 hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
@@ -51,9 +51,9 @@ hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm app -- loginctl lock-se
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 -- forzar cierre de proceso de ventana: sigterm 9
 hl.bind(mainMod .. " + CONTROL + T", hl.dsp.window.signal({ signal = 9 }))
--- pausar proceso de ventana: sigcont 18
+-- reanudar proceso de ventana: sigcont 18
 hl.bind(mainMod .. " + CONTROL + C", hl.dsp.window.signal({ signal = 18 }))
--- reanudar proceso de ventana: sigstop 19
+-- pausar proceso de ventana: sigstop 19
 hl.bind(mainMod .. " + CONTROL + S", hl.dsp.window.signal({ signal = 19 }))
 
 
