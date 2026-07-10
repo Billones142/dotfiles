@@ -198,6 +198,7 @@ sudo systemctl enable --now \
     opensnitchd.service \
     avahi-daemon \
     docker.socket \
+    opensnitchd.service \
 
 sudo systemctl disable --now \
     docker.service
