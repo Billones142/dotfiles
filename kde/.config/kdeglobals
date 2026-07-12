@@ -108,7 +108,6 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [Colors:View]
-AlternateBackground=45,48,51
 BackgroundAlternate=29,31,34
 BackgroundNormal=20,22,24
 DecorationFocus=61,174,233
@@ -118,7 +117,7 @@ ForegroundInactive=161,169,177
 ForegroundLink=29,153,243
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
-ForegroundNormal=239,240,241
+ForegroundNormal=252,252,252
 ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
@@ -137,8 +136,8 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [General]
-ColorScheme=BreezeDark
-ColorSchemeHash=2c3f86428c11011a7c64ee1e7f47c274d498ff10
+BrowserApplication=brave-origin.desktop
+ColorSchemeHash=9d38eb71ded8ff549da26d57d7cbab9164da243a
 Name=Breeze Dark
 TerminalApplication=alacritty
 
@@ -168,6 +167,9 @@ Sort hidden files last=false
 Sort reversed=false
 Speedbar Width=144
 View Style=DetailTree
+
+[KShortcutsDialog Settings]
+Dialog Size=600,480
 
 [PreviewSettings]
 EnableRemoteFolderThumbnail=false
