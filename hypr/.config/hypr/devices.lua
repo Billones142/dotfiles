@@ -1,46 +1,24 @@
-local redragon_azure = {
-    layout = "latam,us",
-    model = "",
-    variant = "",
-    options = "",
-    rules = "",
-};
+local redragon_azure_kb_file = "~/.config/xkb/symbols/Redragon-Azure.xkb";
 
 -- Redragon azure usb
 hl.device({
     name = "by-tech-gaming-keyboard",
-    kb_layout = redragon_azure.layout,
-    kb_model = redragon_azure.model,
-    kb_variant = redragon_azure.variant,
-    kb_options = redragon_azure.options,
-    kb_rules = redragon_azure.rules,
+    kb_file = redragon_azure_kb_file,
 })
 -- Redragon azure dongle
 hl.device({
     name = "compx-2.4g-wireless-receiver",
-    kb_layout = redragon_azure.layout,
-    kb_model = redragon_azure.model,
-    kb_variant = redragon_azure.variant,
-    kb_options = redragon_azure.options,
-    kb_rules = redragon_azure.rules,
+    kb_file = redragon_azure_kb_file,
 })
 -- Redragon azure BT 3.0
 hl.device({
     name = "bt-3.0kb-keyboard",
-    kb_layout = redragon_azure.layout,
-    kb_model = redragon_azure.model,
-    kb_variant = redragon_azure.variant,
-    kb_options = redragon_azure.options,
-    kb_rules = redragon_azure.rules,
+    kb_file = redragon_azure_kb_file,
 })
 -- Redragon azure BT 5.0
 hl.device({
     name = "bt-5.0kb-keyboard",
-    kb_layout = redragon_azure.layout,
-    kb_model = redragon_azure.model,
-    kb_variant = redragon_azure.variant,
-    kb_options = redragon_azure.options,
-    kb_rules = redragon_azure.rules,
+    kb_file = redragon_azure_kb_file,
 })
 
 hl.device({
@@ -53,6 +31,7 @@ hl.device({
     name = "at-translated-set-2-keyboard",
     kb_layout = "us",
     kb_variant = "altgr-intl",
+    kb_file = "~/.config/xkb/symbols/Dell_Latitude_7430.xkb"
 })
 
 -- Sunshine keyboard
