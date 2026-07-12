@@ -179,6 +179,7 @@ PACKAGES_DESKTOP=(
     dolphin
     partitionmanager
     blender
+    gpu-screen-recorder
 )
 
 PACKAGES_JUEGOS=(
