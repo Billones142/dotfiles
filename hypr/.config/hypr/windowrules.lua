@@ -59,7 +59,7 @@ hl.window_rule({
     },
     no_blur = true,
     opacity = "1 override 1 override",
-    border_color = "rgb(d05d0e)",
+    --border_color = "rgb(d05d0e)",
 })
 
 -- --- 4. UTILIDADES FLOTANTES ---  
@@ -211,6 +211,7 @@ hl.window_rule({
     match = {
         class = "Alacritty",
     },
+    opacity = "override 1",
     float = false,
     size = "1167, 793",
 })
@@ -359,7 +360,8 @@ hl.window_rule({
     no_blur = true,
     workspace = "1",
     float = false,
-    border_color = "rgb(d05d0e)",
+    border_size = 0,
+    border_color = "rgb(000000)",
 })
 -- TODO: hacer que las ventanas con el mismo PID que brave se  puedan identificar
 

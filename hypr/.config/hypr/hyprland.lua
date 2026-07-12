@@ -324,22 +324,24 @@ hl.config({
     },
     -- --- APARIENCIA ---
     general = {
+	locale = "es_AR.UTF-8",
         gaps_in = 2,
         gaps_out = 5,
-        border_size = 0,
+        border_size = 2,
         col = {
-            active_border = "rgb(d05d0e)",
-            inactive_border = "rgb(181825)",
+            active_border = "rgb(000000)",
+            inactive_border = "rgb(3f3f3f)",
         },
         layout = "dwindle",
         allow_tearing = true,
+	resize_on_border = true,
     },
     render = {
         direct_scanout = true, -- A veces true causa artefactos en desktop
     },
     debug = {
         damage_tracking = 2, -- 2 es el valor por defecto, en 2 limpia dinamicamente la region del los pixeles dejados por los programas, cambiar a 1 para que actualize todos los pixeles si no se limpia bien
-        disable_logs = true,
+	disable_logs = true,
     },
     -- Opciones experimentales para Nvidia
     cursor = {
@@ -360,6 +362,7 @@ hl.config({
             enabled = true,
             size = 3,
             passes = 1,
+	    new_optimizations = true,
         },
     },
     -- --- ANIMACIONES ---
