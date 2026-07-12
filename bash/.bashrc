@@ -92,6 +92,7 @@ fi
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
 
 
+export PATH="$HOME/.scripts:$PATH"
 # pnpm
 export PNPM_HOME="/home/stefano/.local/share/pnpm"
 case ":$PATH:" in
