@@ -543,6 +543,26 @@ hl.window_rule({
     float= true,
 })
 
+-- KDE Connect Daemon (Evitar pantalla completa molesta)
+hl.window_rule({
+    name = "kdeconnect-daemon-fix",
+    match = {
+        class = "org.kde.kdeconnect.daemon",
+    },
+    float = true,
+    suppress_event = "fullscreen",
+    
+    size = {"monitor_w", "monitor_h"}, -- que ocupe todo el monitor
+    move = {"0", "0"}, -- arreglo para cuando queda mas abajo
+    pin = true, -- que siga al usuario
+
+    tag = "hyprglass_disabled",
+    no_initial_focus = true,
+    no_anim = true,
+    no_blur = true,
+})
+
+
 
 -- Reglas para el Video Peek (wl-mirror)
 -- TODO: manual review — top-level key 'windowrulev = float, title:^(hypr_video_peek)$' has no enclosing section
