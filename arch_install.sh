@@ -180,6 +180,7 @@ PACKAGES_DESKTOP=(
     partitionmanager
     blender
     gpu-screen-recorder
+    adobe-source-code-pro-fonts
 )
 
 PACKAGES_JUEGOS=(
