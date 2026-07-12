@@ -1,0 +1,41 @@
+#!/bin/bash
+# hyprconnect - KDE Connect wrapper for Hyprland session
+# Usage:
+#   hyprconnect list
+#   hyprconnect notify <device_id> "<message>"
+#   hyprconnect share <device_id> "<text>"
+
+CMD="$1"
+DEVICE_ID="$2"
+CONTENT="$3"
+
+if ! command -v kdeconnect-cli &> /dev/null; then
+    echo "Error: kdeconnect-cli is not installed." >&2
+    exit 1
+fi
+
+case "$CMD" in
+    list)
+        kdeconnect-cli -l
+        ;;
+    notify)
+        if [ -z "$DEVICE_ID" ] || [ -z "$CONTENT" ]; then
+            echo "Usage: hyprconnect notify <device_id> \"<message>\"" >&2
+            exit 1
+        fi
+        kdeconnect-cli -d "$DEVICE_ID" --ping-msg "$CONTENT"
+        echo "Notification sent to $DEVICE_ID."
+        ;;
+    share)
+        if [ -z "$DEVICE_ID" ] || [ -z "$CONTENT" ]; then
+            echo "Usage: hyprconnect share <device_id> \"<text>\"" >&2
+            exit 1
+        fi
+        kdeconnect-cli -d "$DEVICE_ID" --share-text "$CONTENT"
+        echo "Text shared with $DEVICE_ID."
+        ;;
+    *)
+        echo "Usage: hyprconnect {list|notify <device_id> \"<msg>\"|share <device_id> \"<txt>\"}" >&2
+        exit 1
+        ;;
+esac

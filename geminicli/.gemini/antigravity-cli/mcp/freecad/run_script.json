@@ -1,0 +1,1 @@
+{"name":"run_script","description":"Run an arbitrary Python script in FreeCAD context.\n\nArgs:\n    script: Python script to execute in FreeCAD\n\nReturns:\n    JSON string containing the execution result\n","parameters":{"properties":{"script":{"title":"Script","type":"string"}},"required":["script"],"title":"run_scriptArguments","type":"object"}}

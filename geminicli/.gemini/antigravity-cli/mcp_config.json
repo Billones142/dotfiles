@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "freecad": {
+      "command": "/home/stefano/.FreeCAD/Mod/freecad_mcp/venv/bin/freecad-mcp",
+      "args": []
+    }
+  }
+}

@@ -36,5 +36,5 @@ broaden when shared behavior, governance rules, or public workflows changed.
 
 ## Command Execution
 
-- When proposing or executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`.
+- When executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`. For the creation of scripts you should still use sudo.
 

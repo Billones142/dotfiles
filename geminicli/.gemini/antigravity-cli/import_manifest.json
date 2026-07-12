@@ -1,0 +1,14 @@
+{
+  "imports": [
+    {
+      "name": "caveman",
+      "source": "gemini-cli",
+      "importedAt": "2026-05-23T23:59:02Z",
+      "components": [
+        "skills",
+        "agents",
+        "commands"
+      ]
+    }
+  ]
+}

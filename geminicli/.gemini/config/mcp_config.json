@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "FreeCAD-MCP": {
+      "command": "/home/stefano/.FreeCAD/Mod/venv/bin/python",
+      "args": [
+        "/home/stefano/.FreeCAD/Mod/freecad_mcp/src/freecad_bridge.py"
+      ],
+      "env": {
+        "API_KEY": "your-api-key"
+      }
+    }
+  }
+}
