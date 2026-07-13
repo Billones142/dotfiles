@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "hypr-desktop-control": {
+      "command": "/home/stefano/.FreeCAD/Mod/freecad_mcp/venv/bin/python",
+      "args": [
+        "/home/stefano/.gemini/antigravity-cli/plugins/hypr-desktop-control/hypr_mcp.py"
+      ]
+    }
+  }
+}

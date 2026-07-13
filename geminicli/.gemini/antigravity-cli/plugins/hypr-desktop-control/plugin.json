@@ -1,0 +1,5 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "hypr-desktop-control",
+  "description": "Control active windows, workspaces, screenshot capture, media playback, and KDE Connect in Hyprland via MCP."
+}
