@@ -357,6 +357,7 @@ fi
 
 # servicios del sistema
 SYSTEM_SERVICES_ENABLE=(
+    udisks2
     firewalld.service
     opensnitchd.service
     avahi-daemon
@@ -513,5 +514,7 @@ if [ -d "$HOME/dotfiles" ]; then
         done
     )
 fi
+
+#TODO: instalar plugins de hyprland
 
 echo "Recomendado reiniciar la terminal"
