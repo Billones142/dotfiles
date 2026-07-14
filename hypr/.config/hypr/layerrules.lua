@@ -5,6 +5,7 @@ hl.layer_rule({
     match = {
         namespace = "rofi",
     },
+    blur = true,
     no_screen_share = streamer_mode
 })
 

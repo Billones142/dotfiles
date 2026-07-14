@@ -211,8 +211,10 @@ hl.window_rule({
     match = {
         class = "Alacritty",
     },
-    opacity = "override 1",
     float = false,
+    --opacity = "1 override 1 override 1 override",
+    tag = "+hyprglass_enabled",
+    --xray = true, -- rompe hyprglass
     size = "1167, 793",
 })
 
@@ -556,7 +558,7 @@ hl.window_rule({
     move = {"0", "0"}, -- arreglo para cuando queda mas abajo
     pin = true, -- que siga al usuario
 
-    tag = "hyprglass_disabled",
+    tag = "+hyprglass_disabled",
     no_initial_focus = true,
     no_anim = true,
     no_blur = true,

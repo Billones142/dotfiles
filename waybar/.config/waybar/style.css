@@ -1,8 +1,8 @@
 /* --- COLORES (Paleta Custom Dark Orange) --- */
 @define-color base   #1e1e2e;
-@define-color base_glass rgba(30, 30, 46, 0.30);
+@define-color base_glass rgba(220, 180, 180, 0.09);
 @define-color mantle #181825;
-@define-color mantle_glass rgba(24, 24, 37, 0.30);
+@define-color mantle_glass rgba(255, 255, 255, 0.10);
 @define-color crust  #11111b;
 @define-color border_glass rgba(255, 255, 255, 0.12);
 

@@ -22,8 +22,7 @@ end
 local systemdID = get_cmd_output("cat /etc/machine-id");
 
 
-local pcActual <const> = (function ()
-    for nombrePc, datos in pairs(pcs) do
+local pcActual <const> = (function () for nombrePc, datos in pairs(pcs) do
         if systemdID == datos.systemdID then
             hl.notification.create({ text="Configuracion: "..nombrePc, duration=5000});
             return nombrePc;
@@ -211,48 +210,7 @@ run_if_pc("laptop-stefano", function()
     hl.env("ELECTRON_OZONE_PLATFORM_HINT","auto");
 end)
 
-hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
-hl.animation({
-    leaf = "windows",
-    enabled = true,
-    speed = 7,
-    bezier = "myBezier",
-})
-hl.animation({
-    leaf = "windowsOut",
-    enabled = true,
-    speed = 7,
-    bezier = "default",
-    style = "popin 80%",
-})
-hl.animation({
-    leaf = "border",
-    enabled = true,
-    speed = 10,
-    bezier = "default",
-})
-hl.animation({
-    leaf = "borderangle",
-    enabled = true,
-    speed = 8,
-    bezier = "default",
-})
-hl.animation({
-    leaf = "fade",
-    enabled = true,
-    speed = 7,
-    bezier = "default",
-})
-hl.animation({
-    leaf = "workspaces",
-    enabled = true,
-    speed = 6,
-    bezier = "default",
-})
-hl.animation({
-    leaf = "layers",
-    enabled = false,
-})
+require("animations")
 
 require("devices")
 
@@ -330,7 +288,7 @@ hl.config({
         border_size = 2,
         col = {
             active_border = "rgb(000000)",
-            inactive_border = "rgb(3f3f3f)",
+            inactive_border = "rgb(4f4f4f)",
         },
         layout = "dwindle",
         allow_tearing = true,
@@ -340,7 +298,7 @@ hl.config({
         direct_scanout = true, -- A veces true causa artefactos en desktop
     },
     debug = {
-        damage_tracking = 2, -- 2 es el valor por defecto, en 2 limpia dinamicamente la region del los pixeles dejados por los programas, cambiar a 1 para que actualize todos los pixeles si no se limpia bien
+        damage_tracking = 1, -- 2 es el valor por defecto, en 2 limpia dinamicamente la region del los pixeles dejados por los programas, cambiar a 1 para que actualize todos los pixeles si no se limpia bien, en 2 hace que hyprglass no se actualize bien
 	disable_logs = true,
     },
     -- Opciones experimentales para Nvidia
@@ -362,12 +320,8 @@ hl.config({
             enabled = true,
             size = 3,
             passes = 1,
-	    new_optimizations = true,
+	    new_optimizations = true, -- hyprglass no aplica a las ventanas en un workspace normal no flotante -- hyprglass no aplica a las ventanas en un workspace normal no flotante
         },
-    },
-    -- --- ANIMACIONES ---
-    animations = {
-        enabled = false,
     },
     -- --- LAYOUTS ---
     dwindle = {

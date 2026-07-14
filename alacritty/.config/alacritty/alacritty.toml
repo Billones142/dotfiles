@@ -2,8 +2,8 @@
 shell = { program = "/bin/bash", args = ["-l"] }
 
 [window]
-opacity = 0.8
-blur = true
+opacity = 0
+blur = false
 dynamic_title = true
 
 [font]
@@ -52,4 +52,4 @@ yellow = "0xF1FA8C"
 # para transparencia
 foreground = "#ffffff"
 #background = "#0f1419"
-background = "#101010"
+background = "#000000"

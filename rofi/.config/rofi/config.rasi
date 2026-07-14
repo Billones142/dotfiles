@@ -1,8 +1,8 @@
 /* --- TEMA VISUAL: NARANJA WOFI STYLE --- */
 * {
     /* Paleta Naranja y Fondo Oscuro con Transparencia para Hyprglass */
-    background:     #11111bA0;  /* Fondo con transparencia (aprox 62%) */
-    background-alt: #1e1e2eA0;  /* Fondo items con transparencia */
+    background:     #00000008;  /* Totalmente transparente (la opacidad la maneja hyprglass) */
+    background-alt: #00000000;  /* Fondo items al 11% de opacidad */
     foreground:     #cdd6f4;  /* Texto blanco suave */
     
     /* EL PROTAGONISTA: NARANJA */
