@@ -1,0 +1,1 @@
+{"name":"get_desktop_state","description":"Get the current state of the Hyprland desktop environment.\n\nReturns:\n    JSON string containing information about workspaces, active workspace, clients, active window, and monitors.\n","parameters":{"properties":{},"title":"get_desktop_stateArguments","type":"object"}}
