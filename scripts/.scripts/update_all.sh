@@ -84,12 +84,16 @@ else
     sudo pacman -Syu --noconfirm
 fi
 
-# Recompilar plugins de Hyprland (hyprpm) después de actualizar el sistema
+# Reiniciar servicios obsoletos (needrestart) mientras la caché de sudo sigue activa
+sudo needrestart
+
+# Recompilar plugins de Hyprland (hyprpm) al final del todo.
+# Como hyprpm puede invalidar la caché de sudo, lo ejecutamos al final para no afectar otros comandos.
 echo -e "\n${BOLD}${YELLOW}Recompilando plugins de Hyprland...${RESET}"
 hyprpm update || true
 
 echo -e "\n${BOLD}${GREEN}✅ Sistema actualizado y limpio.${RESET}"
 notify-send --expire-time=7000 "Update Completo" "Arch Linux actualizado y verificado." 2>/dev/null || true
 
-sudo needrestart
+
 
