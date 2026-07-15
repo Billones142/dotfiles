@@ -1,4 +1,5 @@
 {
+  "allowNonWorkspaceAccess": false,
   "enableTelemetry": false,
   "model": "Gemini 3.5 Flash (High)",
   "notifications": true,
@@ -43,7 +44,19 @@
       "command(locale)",
       "command(tar)",
       "command(git rev-parse)",
-      "command(stat)"
+      "command(stat)",
+      "command(xargs)",
+      "command(git show)",
+      "command(pgrep)",
+      "command(uniq)",
+      "command(sort)",
+      "command(jq)",
+      "command(pwd)",
+      "command(git log)",
+      "command(fc-list)",
+      "command(fc-cache)",
+      "command(sort)",
+      "command(pgrep)"
     ]
   },
   "runningLightSpeed": "fast",
@@ -62,6 +75,8 @@
     "/home/stefano/.config/hypr",
     "/home/stefano/Documents/Moglia/winePrefixes/adobe",
     "/home/stefano/minerUPrueba",
-    "/home/stefano/dotfiles"
+    "/home/stefano/dotfiles",
+    "/home/stefano/hyprglass",
+    "/home/stefano/ventasVivo"
   ]
 }
