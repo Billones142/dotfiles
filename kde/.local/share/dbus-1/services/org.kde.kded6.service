@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.kde.kded6
+Exec=/usr/bin/kded6
+SystemdService=plasma-kded6.service
