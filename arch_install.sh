@@ -509,7 +509,12 @@ if [ -d "$HOME/dotfiles" ]; then
                 done
                 
                 # Ejecutar stow para crear los enlaces
-                stow --dir="$HOME/dotfiles" --target="$HOME" "$pkg"
+                # Usar --no-folding si el paquete contiene carpetas que terminan en .d (ej. systemd-user con .service.d)
+                stow_opts=""
+                if find "$pkg" -type d -name "*.d" 2>/dev/null | grep -q .; then
+                    stow_opts="--no-folding"
+                fi
+                stow $stow_opts --dir="$HOME/dotfiles" --target="$HOME" "$pkg"
             fi
         done
     )

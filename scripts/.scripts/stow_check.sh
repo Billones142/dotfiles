@@ -21,8 +21,14 @@ cd "$DOTFILES_DIR" || exit
 for dir in */; do
     package=${dir%/}
     
+    # Usar --no-folding si el paquete contiene carpetas que terminan en .d
+    stow_opts=""
+    if find "$package" -type d -name "*.d" 2>/dev/null | grep -q .; then
+        stow_opts="--no-folding"
+    fi
+
     # Ejecutamos simulación con doble verbose para el análisis
-    output=$(stow -nvv -d "$DOTFILES_DIR" -t "$DEST_DIR" "$package" 2>&1)
+    output=$(stow $stow_opts -nvv -d "$DOTFILES_DIR" -t "$DEST_DIR" "$package" 2>&1)
     
     # Contamos estados
     has_links=$(echo "$output" | grep -c "LINK")
@@ -55,8 +61,12 @@ if [ ${#PENDIENTES[@]} -ne 0 ]; then
     
     echo -e "\nComandos para aplicar (puedes ejecutarlos desde cualquier ruta):"
     for pkg in "${PENDIENTES[@]}"; do
+        stow_opts=""
+        if find "$pkg" -type d -name "*.d" 2>/dev/null | grep -q .; then
+            stow_opts="--no-folding "
+        fi
         # El comando incluye -d y -t para ser independiente del CWD 
-        echo "stow -d $DOTFILES_DIR -t $DEST_DIR $pkg"
+        echo "stow ${stow_opts}-d $DOTFILES_DIR -t $DEST_DIR $pkg"
     done
 else
     echo -e "\n✔ Todo está correctamente aplicado."

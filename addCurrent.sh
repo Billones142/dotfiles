@@ -76,6 +76,13 @@ fi
 
 # 3. Ejecutar GNU Stow
 cd "$DOTFILES_DIR"
-stow "$PACKAGE_NAME"
 
-echo "🔗 Enlace simbólico creado con éxito.""
+# Usar --no-folding si el paquete contiene carpetas que terminan en .d (ej. systemd-user con .service.d)
+STOW_OPTS=""
+if find "$PACKAGE_NAME" -type d -name "*.d" 2>/dev/null | grep -q .; then
+    STOW_OPTS="--no-folding"
+fi
+
+stow $STOW_OPTS "$PACKAGE_NAME"
+
+echo "🔗 Enlace simbólico creado con éxito."
