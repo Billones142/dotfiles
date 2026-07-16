@@ -437,7 +437,7 @@ hl.window_rule({
 hl.window_rule({
     name = "running-games-1",
     match = {
-        class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe)$",
+        class = "^(steam_app_.*|steam_proton|cs2|gamescope)$",
     },
     render_unfocused = true,
     workspace = "6 silent",
@@ -471,12 +471,32 @@ hl.window_rule({
     workspace = "",
 })
 
--- Launcher Epic
+-- Launcher Epic Games
 hl.window_rule({
     name = "EpicGamesLauncher",
     match = {
-        class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe)$",
+        class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe|steam_app_epicgameslauncher)$",
 	initial_title = "Epic Games Launcher",
+    },
+    float= true,
+    workspace = "5 silent",
+})
+
+hl.window_rule({
+    name = "EpicGamesLauncher-2",
+    match = {
+        class = "^(steam_app_epicgameslauncher)$",
+    },
+    float= true,
+    workspace = "5 silent",
+})
+
+-- Descargas Epic Games
+hl.window_rule({
+    name = "EpicGamesLauncher-downloads",
+    match = {
+        class = "^(steam_app_.*|steam_proton|cs2|gamescope|epicgameslauncher.exe|steam_app_epicgameslauncher)$",
+	initial_title = "Download Manager",
     },
     float= true,
     workspace = "5 silent",
