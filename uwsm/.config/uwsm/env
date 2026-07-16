@@ -39,3 +39,18 @@ export QT_QPA_PLATFORMTHEME=qt5ct:qt6ct
 # Sunshine headless
 export WLR_BACKENDS=drm,headless
 export WLR_LIBINPUT_NO_DEVICES=1
+
+export LANG="en_US.UTF-8"
+export LC_CTYPE="es_AR.UTF-8"
+export LC_NUMERIC="es_AR.UTF-8"
+export LC_TIME="es_AR.UTF-8"
+export LC_COLLATE="es_AR.UTF-8"
+export LC_MONETARY="es_AR.UTF-8"
+export LC_MESSAGES="es_AR.UTF-8"
+export LC_PAPER="es_AR.UTF-8"
+export LC_NAME="es_AR.UTF-8"
+export LC_ADDRESS="es_AR.UTF-8"
+export LC_TELEPHONE="es_AR.UTF-8"
+export LC_MEASUREMENT="es_AR.UTF-8"
+export LC_IDENTIFICATION="es_AR.UTF-8"
+
