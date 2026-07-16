@@ -76,7 +76,7 @@ if _hyprglass_enabled then
     hg.config({
         default_theme = "dark",
         default_preset = "clear",
-	ignore_window_alpha = true, -- Por si se aceptan mis cambios :)
+	--ignore_window_alpha = true, -- Por si se aceptan mis cambios :)
         --tint_color = 0x8899aa22,
         tint_color = 0x00000022,
 

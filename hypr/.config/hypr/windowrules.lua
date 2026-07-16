@@ -545,9 +545,9 @@ hl.window_rule({
     float= true,
 })
 
--- KDE Connect Daemon (Evitar pantalla completa molesta)
+-- KDE Connect Daemon
 hl.window_rule({
-    name = "kdeconnect-daemon-fix",
+    name = "kdeconnect-presentation-fix",
     match = {
         class = "org.kde.kdeconnect.daemon",
     },
@@ -563,6 +563,18 @@ hl.window_rule({
     no_anim = true,
     no_blur = true,
 })
+
+ -- Moonlight
+hl.window_rule({
+    name = "Moonlight-stream",
+    match = {
+        class = "com.moonlight_stream.Moonlight",
+	initial_title="^(.*- Moonlight)$",
+    },
+    fullscreen = true,
+    no_initial_focus = false,
+})
+
 
 
 
