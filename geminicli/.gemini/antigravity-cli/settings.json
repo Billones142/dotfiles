@@ -75,7 +75,6 @@
       "command(hyprctl binds)",
       "command(hyprctl decorations)"
       ]
-    }
   },
   "runningLightSpeed": "fast",
   "showFeedbackSurvey": false,
