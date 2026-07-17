@@ -40,17 +40,31 @@ export QT_QPA_PLATFORMTHEME=qt5ct:qt6ct
 export WLR_BACKENDS=drm,headless
 export WLR_LIBINPUT_NO_DEVICES=1
 
-export LANG="en_US.UTF-8"
-export LC_CTYPE="es_AR.UTF-8"
-export LC_NUMERIC="es_AR.UTF-8"
-export LC_TIME="es_AR.UTF-8"
-export LC_COLLATE="es_AR.UTF-8"
-export LC_MONETARY="es_AR.UTF-8"
-export LC_MESSAGES="es_AR.UTF-8"
-export LC_PAPER="es_AR.UTF-8"
-export LC_NAME="es_AR.UTF-8"
-export LC_ADDRESS="es_AR.UTF-8"
-export LC_TELEPHONE="es_AR.UTF-8"
-export LC_MEASUREMENT="es_AR.UTF-8"
-export LC_IDENTIFICATION="es_AR.UTF-8"
 
+# Idioma predeterminado del sistema (Fallback general si falta alguna variable LC_ abajo)
+export LANG="en_US.UTF-8"
+# Idioma de las alertas, errores de terminal y mensajes de las aplicaciones
+export LC_MESSAGES="en_US.UTF-8" 
+#export LC_MESSAGES="es_AR.UTF-8"
+# Clasificación de caracteres y codificación del texto (manejo de mayúsculas/minúsculas)
+export LC_CTYPE="es_AR.UTF-8"
+# Formato de números no monetarios (usa la coma para decimales y puntos para miles)
+export LC_NUMERIC="es_AR.UTF-8"
+# Formato de fecha y hora (días y meses en español, orden DD/MM/AAAA)
+export LC_TIME="es_AR.UTF-8"
+# Reglas de orden alfabético para listas, comandos de consola (ej. ls) y ordenamiento
+export LC_COLLATE="es_AR.UTF-8"
+# Formato de moneda regional (moneda local, símbolo de Peso Argentino $)
+export LC_MONETARY="es_AR.UTF-8"
+# Tamaño de papel estándar por defecto para documentos e impresión (A4 / Carta)
+export LC_PAPER="es_AR.UTF-8"
+# Reglas de formato y estructura para escribir nombres de personas
+export LC_NAME="es_AR.UTF-8"
+# Estructura y formato para escribir direcciones postales físicas
+export LC_ADDRESS="es_AR.UTF-8"
+# Estructura y prefijos internacionales para números telefónicos (+54)
+export LC_TELEPHONE="es_AR.UTF-8"
+# Sistema de medición del sistema (fuerza el uso del Sistema Métrico: metros, kg, °C)
+export LC_MEASUREMENT="es_AR.UTF-8"
+# Metadatos e información técnica que describen el documento de localización actual
+export LC_IDENTIFICATION="es_AR.UTF-8"
