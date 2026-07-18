@@ -605,6 +605,15 @@ hl.window_rule({
     no_initial_focus = false,
 })
 
+hl.window_rule({
+    name = "vkcube",
+    match = {
+	initial_title="vkcube",
+    },
+    no_initial_focus = true,
+    opacity = "1 override 1 override 1 override",
+    render_unfocused = true,
+})
 
 
 
