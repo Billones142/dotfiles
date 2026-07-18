@@ -211,6 +211,7 @@ AUR_DESKTOP=(
     qt6ct-kde
     qt5ct-kde
     xwaylandvideobridge
+    hypr-kdeconnect-fix-git
     brave-browser
     brave-origin-bin
     libqalculate
