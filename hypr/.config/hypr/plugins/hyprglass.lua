@@ -43,11 +43,11 @@ hg.preset("waybar_glass", {
 hg.preset("rofi_glass", {
     glass_opacity = 1,
     blur_strength = 0.2,
-    lens_distortion = 10,
+    lens_distortion = 30,
     refraction_strength = 0, -- causa distorsion circular extraña en el centro
     chromatic_aberration = 0,
     fresnel_strength = 0.1,
-    edge_thickness = 1.0,
+    edge_thickness = 10,
     dark = { brightness = 0.8, tint_color = "0x00000000" },
     light = { brightness = 1.3, tint_color = "0xed8e000d" },
 })
