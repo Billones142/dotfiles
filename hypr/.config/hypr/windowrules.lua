@@ -534,6 +534,16 @@ hl.window_rule({
     float = false,
 })
 
+hl.window_rule({
+    name = "steam-big-picture",
+    match = {
+        class = "steam",
+        title = "Steam Big Picture Mode",
+    },
+    workspace = "5",
+    fullscreen = true,
+})
+
 -- OpenSnitch
 hl.window_rule({
     name = "opensnitch-main",
