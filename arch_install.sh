@@ -188,6 +188,7 @@ PACKAGES_JUEGOS=(
     lib32-mangohud
     steam
     lutris
+    protonup-qt
 )
 
 PACKAGES_DEV=(
