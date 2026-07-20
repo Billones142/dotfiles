@@ -250,13 +250,15 @@ hl.config({
 	disable_autoreload = false,
 	always_follow_on_dnd = true,
 	close_special_on_empty = false,
+	disable_splash_rendering = true,
+	disable_hyprland_logo = true,
     },
     xwayland = {
         force_zero_scaling = true,
         use_nearest_neighbor = true,
     },
     ecosystem = {
-        enforce_permissions = false,
+        enforce_permissions = true,
     },
     --- INPUT ---
     input = {
