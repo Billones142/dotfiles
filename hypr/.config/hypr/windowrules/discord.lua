@@ -13,7 +13,7 @@ hl.window_rule({
 hl.window_rule({
     name = "Discord-PopUp",
     match = {
-        class = "discor)",
+        class = "discord",
         initial_title = "Discord Popout",
     },
     opacity = "1.0 override 1.0 override",
