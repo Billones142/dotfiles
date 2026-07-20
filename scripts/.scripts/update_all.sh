@@ -61,7 +61,7 @@ sudo pacman -S --needed --noconfirm git base-devel
 echo -e "\n${BOLD}${YELLOW}[2/3] Actualizando Flatpaks...${RESET}"
 flatpak update -y 
 
-# 3. Paru (Sistema + AUR) - Al final por si requiere interacción prolongada
+# 3. Paru (Sistema + AUR)
 echo -e "\n${BOLD}${YELLOW}[3/3] Iniciando actualización del Sistema y AUR...${RESET}"
 
 if [ -t 0 ]; then
@@ -70,13 +70,17 @@ if [ -t 0 ]; then
         fix_paru
     fi
 
+    # actualizar paquetes del sistema
+    sudo pacman -Syu --noconfirm
+
     # Notificación al usuario de que se requiere acción en la terminal
     echo -e "${BLUE}🔔 Se requiere interacción en la terminal para revisar y aceptar los cambios...${RESET}"
     notify-send --expire-time=15000 --urgency=normal "Actualización del Sistema" "Paru requiere tu intervención en la terminal para continuar." 2>/dev/null || true
     echo -e "\a" # Sonido de campana
 
+
     # Ejecutar paru interactivo (permite revisar diffs y aceptar de forma individual)
-    paru -Syu
+    paru -Syau
 else
     # Consola no interactiva: evitar actualizaciones del AUR por completo
     echo -e "${YELLOW}⚠️ Consola no interactiva detectada. Evitando actualizaciones del AUR.${RESET}"
