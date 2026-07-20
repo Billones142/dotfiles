@@ -161,6 +161,16 @@ hl.window_rule({
     float = true,
 })
 
+-- ventanas de menu flotantes de xWayland
+hl.window_rule({
+    name = "",
+    match = {
+        class = "",
+	initial_title = "",
+    },
+    opacity = "1 override 1 override 1 override",
+})
+
 -- Reglas para el Video Peek (wl-mirror)
 -- TODO: manual review — top-level key 'windowrulev = float, title:^(hypr_video_peek)$' has no enclosing section
 -- TODO: manual review — top-level key 'windowrulev = center, title:^(hypr_video_peek)$' has no enclosing section
