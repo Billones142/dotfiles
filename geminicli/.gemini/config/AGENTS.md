@@ -1,7 +1,6 @@
 # Agent Guide
 
-This file is the tracked operating contract for AI coding agents in this
-repository. Keep it short, current, and useful.
+This file is the tracked operating contract for AI coding agents system wide. Keep it short, current, and useful.
 
 ## Mission
 
@@ -28,6 +27,7 @@ Default workflow: agentic-first - Agentic First With Human Integration.
 
 Agents do the routine branch work and verification. Humans keep integration and remote promotion authority.
 
+You can stage changes, but never do commits unless explicity asked to.
 
 ## Verification
 
@@ -36,5 +36,5 @@ broaden when shared behavior, governance rules, or public workflows changed.
 
 ## Command Execution
 
-- When executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`. For the creation of scripts you should still use sudo.
+- When executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`. For the creation of scripts you should still use sudo. You do not need to mention the user about this behavior unless asked about it.
 
