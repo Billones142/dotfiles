@@ -1,0 +1,79 @@
+{
+    "apps": [
+        {
+            "auto-detach": true,
+            "detached": [
+                "/home/stefano/.scripts/sunshine_check_fisical_monitors.sh"
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Desktop",
+            "prep-cmd": [
+                {
+                    "do": "",
+                    "undo": "rm -f /tmp/monitor_notifier.lock && pkill -f sunshine_check_fisical_monitors.sh"
+                }
+            ],
+            "uuid": "F7B0E6F2-AD0A-1B00-9C95-64E5EFC83F9B",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "detached": [
+                "/home/stefano/.scripts/sunshine_check_fisical_monitors.sh"
+            ],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Desktop-AutoRes",
+            "output": "",
+            "prep-cmd": [
+                {
+                    "do": "/home/stefano/.scripts/sunshine_desk_activate.sh",
+                    "undo": "/home/stefano/.scripts/sunshine_desk_deactivate.sh"
+                },
+                {
+                    "do": "",
+                    "undo": "rm -f /tmp/monitor_notifier.lock && pkill -f sunshine_check_fisical_monitors.sh"
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Low Res Desktop",
+            "prep-cmd": [
+                {
+                    "do": "monitor=DP-3,1280x720@144,auto,1,bitdepth,8",
+                    "undo": "monitor=DP-3,1920x1080@144,auto,1,bitdepth,8"
+                }
+            ],
+            "uuid": "0C003BEF-AA7E-5804-2002-BA8AA0CAD1AC",
+            "wait-all": true
+        },
+        {
+            "detached": [
+                "setsid steam steam://open/bigpicture"
+            ],
+            "image-path": "steam.png",
+            "name": "Steam Big Picture",
+            "prep-cmd": [
+                {
+                    "do": "",
+                    "undo": "setsid steam steam://close/bigpicture"
+                }
+            ],
+            "uuid": "778C99F9-24B7-1326-1407-E025617A8B98"
+        }
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    },
+    "version": 2
+}
