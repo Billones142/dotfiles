@@ -3,7 +3,7 @@
         {
             "auto-detach": true,
             "detached": [
-                "/home/stefano/.scripts/sunshine_check_fisical_monitors.sh"
+                "sunshine_check_fisical_monitors.sh"
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
@@ -19,10 +19,10 @@
             "wait-all": true
         },
         {
-            "auto-detach": true,
+            "auto-detach": false,
             "cmd": [],
             "detached": [
-                "/home/stefano/.scripts/sunshine_check_fisical_monitors.sh"
+                "sunshine_check_fisical_monitors.sh"
             ],
             "elevated": false,
             "exclude-global-prep-cmd": false,
@@ -32,8 +32,8 @@
             "output": "",
             "prep-cmd": [
                 {
-                    "do": "/home/stefano/.scripts/sunshine_desk_activate.sh",
-                    "undo": "/home/stefano/.scripts/sunshine_desk_deactivate.sh"
+                    "do": "sunshine_desk_activate.sh",
+                    "undo": "sunshine_desk_deactivate.sh"
                 },
                 {
                     "do": "",
@@ -73,7 +73,7 @@
         }
     ],
     "env": {
-        "PATH": "$(PATH):$(HOME)/.local/bin"
+        "PATH": "$(XDG_CONFIG_HOME)/sunshine/scripts:$(PATH)"
     },
     "version": 2
 }
