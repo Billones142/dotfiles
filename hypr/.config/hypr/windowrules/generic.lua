@@ -169,6 +169,7 @@ hl.window_rule({
 	initial_title = "",
     },
     opacity = "1 override 1 override 1 override",
+    no_blur = true,
 })
 
 -- Reglas para el Video Peek (wl-mirror)
