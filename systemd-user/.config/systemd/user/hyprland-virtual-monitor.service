@@ -1,16 +1,14 @@
 [Unit]
-Description=Forzar monitor virtual en Hyprland (UWSM)
-# Esto vincula el servicio al ciclo de vida de tu sesión de Hyprland
+Description=Forzar monitor virtual en Hyprland
 PartOf=wayland-session@hyprland.desktop.target
 After=wayland-session@hyprland.desktop.target
 
 [Service]
 Type=oneshot
 ImportCredential=uwsm.*
-ExecStart=%h/.local/bin/headless_fix.sh
-# Necesitamos que el servicio herede el entorno de UWSM
-ExecStartPre=/usr/bin/bash -c 'hyprctl monitors | grep -o "HEADLESS-[0-9]\+" | xargs -I {} hyprctl output remove {} || true'
+ExecStart=hyprctl output create headless "virtual-fallback-display"
+# arreglo temporal hasta que resuelvan el problema que hace que el monitor use el virtual como fuente
+ExecStartPost=/bin/bash -c "sleep 3 && hyprctl eval 'hl.monitor({output = \"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"\"})' &&  hyprctl eval 'hl.monitor({output=\"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"virtual-fallback-display\"})'" >1 /dev/null
 
 [Install]
-# Este es el target genérico para cualquier sesión gráfica de usuario
 WantedBy=wayland-session@hyprland.desktop.target
