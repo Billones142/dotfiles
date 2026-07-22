@@ -151,8 +151,6 @@ hl.on("hyprland.start", function()
     -- Replay buffer de obs
     --uwsm_execute("obs --minimize-to-tray --startreplaybuffer --scene Replay")
     uwsm_execute("kdeconnect-indicator")
-    uwsm_execute("swayosd-server")
-    uwsm_execute("opensnitch-ui")
     --- PORTAPAPELES (CLIPBOARD) ---
     -- Iniciar servicios de copiado
     uwsm_execute("wl-paste --type text --watch cliphist store")
