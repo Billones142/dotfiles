@@ -1,0 +1,14 @@
+[Unit]
+Description=Antigravity Proxy Gateway for Zed and AI tools
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/stefano/antigravity-proxy
+ExecStart=/home/stefano/.bun/bin/bun run src/server.ts
+Restart=always
+RestartSec=5
+Environment=PATH=/home/stefano/.bun/bin:/home/stefano/.nvm/versions/node/v24.18.0/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target

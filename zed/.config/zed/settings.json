@@ -1,0 +1,151 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  /* Duplicated key auto-commented: "agent": {
+    "default_model": {
+      "provider": "Antigravity",
+      "model": "gemini-3.1-pro-low",
+      "enable_thinking": false
+    },
+    "favorite_models": [],
+    "play_sound_when_agent_done": "when_hidden",
+    "model_parameters": []
+  }, */
+  "cli_default_open_behavior": "existing_window",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false
+  },
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "relative_line_numbers": "enabled",
+  "gutter": {
+    "line_numbers": true
+  },
+  "minimap": {
+    "show": "auto"
+  },
+  "scrollbar": {
+    "axes": {
+      "vertical": false
+    }
+  },
+  "auto_indent_on_paste": true,
+  "hard_tabs": false,
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Ayu Dark"
+  },
+  "language_models": {
+    "openai": {
+      "api_url": "http://localhost:3000/v1",
+      "api_key": "sk-antigravity",
+      "available_models": [
+        {
+          "name": "gemini-3.1-pro-high",
+          "display_name": "Gemini 3.1 Pro High",
+          "max_tokens": 128000
+        },
+        {
+          "name": "gemini-3.1-pro-low",
+          "display_name": "Gemini 3.1 Pro Low",
+          "max_tokens": 128000
+        },
+        {
+          "name": "gemini-3-flash",
+          "display_name": "Gemini 3 Flash",
+          "max_tokens": 128000
+        },
+        {
+          "name": "claude-sonnet-4-6",
+          "display_name": "Claude Sonnet 4.6",
+          "max_tokens": 64000
+        },
+        {
+          "name": "claude-opus-4-6-thinking",
+          "display_name": "Claude Opus 4.6 Thinking",
+          "max_tokens": 64000
+        },
+        {
+          "name": "gemini-2.5-pro",
+          "display_name": "Gemini 2.5 Pro",
+          "max_tokens": 128000
+        },
+        {
+          "name": "gemini-2.5-flash",
+          "display_name": "Gemini 2.5 Flash",
+          "max_tokens": 128000
+        },
+        {
+          "name": "gpt-oss-120b-medium",
+          "display_name": "GPT OSS 120B Medium",
+          "max_tokens": 64000
+        }
+      ]
+    },
+    "openai_compatible": {
+      "Antigravity": {
+        "api_url": "http://localhost:3000/v1",
+        "api_key": "sk-antigravity",
+        "available_models": [
+          {
+            "name": "gemini-3.1-pro-high",
+            "display_name": "Gemini 3.1 Pro High",
+            "max_tokens": 128000
+          },
+          {
+            "name": "gemini-3.1-pro-low",
+            "display_name": "Gemini 3.1 Pro Low",
+            "max_tokens": 128000
+          },
+          {
+            "name": "gemini-3-flash",
+            "display_name": "Gemini 3 Flash",
+            "max_tokens": 128000
+          },
+          {
+            "name": "claude-sonnet-4-6",
+            "display_name": "Claude Sonnet 4.6",
+            "max_tokens": 64000
+          },
+          {
+            "name": "claude-opus-4-6-thinking",
+            "display_name": "Claude Opus 4.6 Thinking",
+            "max_tokens": 64000
+          },
+          {
+            "name": "gemini-2.5-pro",
+            "display_name": "Gemini 2.5 Pro",
+            "max_tokens": 128000
+          },
+          {
+            "name": "gemini-2.5-flash",
+            "display_name": "Gemini 2.5 Flash",
+            "max_tokens": 128000
+          },
+          {
+            "name": "gpt-oss-120b-medium",
+            "display_name": "GPT OSS 120B Medium",
+            "max_tokens": 64000
+          }
+        ]
+      }
+    }
+  },
+  "agent": {
+    "default_model": {
+      "provider": "Antigravity",
+      "model": "gemini-2.5-flash"
+    }
+  }
+}

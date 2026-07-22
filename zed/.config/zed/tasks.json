@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Antigravity Proxy: Iniciar Servidor",
+    "command": "systemctl --user start antigravity-proxy.service",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Antigravity Proxy: Reiniciar Servidor",
+    "command": "systemctl --user restart antigravity-proxy.service",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Antigravity Proxy: Ver Estado del Servidor",
+    "command": "systemctl --user status antigravity-proxy.service",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Antigravity Proxy: Ver Logs en Vivo",
+    "command": "journalctl --user -u antigravity-proxy -f",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Antigravity Proxy: Abrir Dashboard Web",
+    "command": "xdg-open http://localhost:3000",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
+]
