@@ -2,7 +2,7 @@
 shell = { program = "/bin/bash", args = ["-l"] }
 
 [window]
-opacity = 0
+opacity = 0.4
 blur = false
 dynamic_title = true
 

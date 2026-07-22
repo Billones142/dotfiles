@@ -27,7 +27,7 @@ hg.preset("clear", {
     glass_opacity = 1,
     blur_strength = 0,
     fresnel_strength = 0.1,      -- Brillo satinado en los bordes
-    dark = { brightness = 0.5, tint_color = "0x00000000" },
+    dark = { brightness = 1, tint_color = "0x00000000" },
     light = { brightness = 1.2, tint_color = "0x00000000" },
     lens_distortion = 2,
 })
