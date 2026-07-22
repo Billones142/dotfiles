@@ -1,0 +1,28 @@
+selected_tab: oc_page
+selected_gpu: 10DE:2204-3842:3982-0000:01:00.0
+plots_time_period: 60
+plots_per_row: 2
+stats_poll_interval_ms: 500
+gpus:
+  10DE:2204-3842:3982-0000:01:00.0:
+    plots:
+    - - !Temperature GPU
+      - !Temperature GPU Hotspot
+      - !Temperature VRAM
+    - - GpuClock
+      - VramClock
+    - - FanRpm
+      - FanPwm
+    - - PowerCurrent
+      - PowerCap
+  8086:3E92-1849:3E92-0000:00:02.0:
+    plots:
+    - []
+    - - GpuClock
+      - GpuTargetClock
+    - []
+    - []
+theme: automatic
+window_size:
+  width: 1910
+  height: 1041
