@@ -181,6 +181,7 @@ PACKAGES_DESKTOP=(
     blender
     gpu-screen-recorder
     adobe-source-code-pro-fonts
+    system-config-printer
 )
 
 PACKAGES_JUEGOS=(
