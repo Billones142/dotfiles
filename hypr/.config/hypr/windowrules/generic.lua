@@ -108,7 +108,7 @@ hl.window_rule({
     --opacity = "1 override 1 override 1 override",
     tag = "+hyprglass_enabled",
     --xray = true, -- rompe hyprglass
-    size = "1167, 793",
+    size = "1167 793",
 })
 
 hl.window_rule({
@@ -119,7 +119,7 @@ hl.window_rule({
     -- debe estar por encima de reglas que muevan las ventanas a otros workspaces
     -- por debajo de todas las demas
     float = true,
-    size = "80% 80%",
+    size = "monitor_w*0.8 monitor_h*0.8",
 })
 
 hl.window_rule({
