@@ -52,6 +52,10 @@ function fix_paru() {
 
 echo "${BOLD}${BLUE}=== Mantenimiento Automatizado de Arch ===${RESET}"
 
+# Punto de restauracion
+#sudo timeshift --delete --comments "update_all" #TODO: hacer que borre todos los otros o permitir dejar una cantidad especifica
+sudo timeshift --create --scripted --comments "update_all"
+
 # 1. Keyring y Dependencias Base (Vital)
 echo -e "\n${BOLD}${YELLOW}[1/3] Actualizando Llaves y Base-Devel...${RESET}"
 sudo pacman -Sy --noconfirm archlinux-keyring
