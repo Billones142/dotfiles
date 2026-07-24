@@ -144,7 +144,7 @@ hl.on("hyprland.start", function()
     --uwsm_execute("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
     -- inhibir el boton de inicio
-    uwsm_execute("systemd-inhibit --what=handle-power-key:handle-reboot-key:handle-lid-switch --who=\"Hyprland Session\" --why=\"Custom shutdown/lid handling\" --mode=block Hyprland")
+    uwsm_execute("systemd-inhibit --what=handle-power-key:handle-reboot-key:handle-lid-switch --who=\"Hyprland Session\" --why=\"Custom shutdown/lid handling\" --mode=block sleep infinity")
     
     --uwsm_execute("/home/stefano/proyectos/ProyectoAutoCambiadorPerfiles/clanker")
 
