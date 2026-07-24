@@ -8,7 +8,7 @@ Type=oneshot
 ImportCredential=uwsm.*
 ExecStart=hyprctl output create headless "virtual-fallback-display"
 # arreglo temporal hasta que resuelvan el problema que hace que el monitor use el virtual como fuente
-ExecStartPost=/bin/bash -c "sleep 3 && hyprctl eval 'hl.monitor({output = \"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"\"})' &&  hyprctl eval 'hl.monitor({output=\"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"virtual-fallback-display\"})'" >1 /dev/null
+ExecStartPost=/bin/bash -c "hyprctl eval 'hl.monitor({output = \"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"\"})' && sleep 3 &&  hyprctl eval 'hl.monitor({output=\"desc:Acer Technologies Acer KG241 P 0x92638149\",mirror=\"virtual-fallback-display\"})'" >1 /dev/null
 
 [Install]
 WantedBy=wayland-session@hyprland.desktop.target
