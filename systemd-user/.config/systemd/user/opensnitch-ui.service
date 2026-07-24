@@ -1,6 +1,8 @@
 [Unit]
 Description=OpenSnitch UI
-After=network.target
+After=network.target graphical-session.target
+BindsTo=graphical-session.target
+PartOf=graphical-session.target
 
 [Service]
 Type=simple
@@ -9,4 +11,4 @@ Restart=always
 RestartSec=5
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
