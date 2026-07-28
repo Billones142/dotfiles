@@ -184,7 +184,9 @@ hl.bind("switch:off:Lid Switch", hl.dsp.dpms({ action = "on" }), { locked = true
 
 -- Binds para programas
 -- OBS
-hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- iniciar replay buffer
+hl.bind("SUPER + F11", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- apagar replay buffer
+hl.bind("SUPER + F12", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- guardar replay buffer
 
 -------------------------------------------------------------------------------------------
 
