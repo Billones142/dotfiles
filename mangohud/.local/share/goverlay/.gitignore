@@ -27,4 +27,4 @@ fgmod/plugins/
 fgmod/setup_linux.sh
 fgmod/setup_windows.bat
 logs/
-
+*.dll
