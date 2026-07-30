@@ -187,6 +187,8 @@ PACKAGES_DESKTOP=(
 PACKAGES_JUEGOS=(
     mangohud
     lib32-mangohud
+    gamemode
+    lib32-gamemode
     steam
     lutris
     protonup-qt
