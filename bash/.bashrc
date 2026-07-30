@@ -15,7 +15,7 @@ alias modo_ps='sudo inputplumber device 0 profile load ~/ds4_mode.yaml && echo "
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias fixaudio='systemctl --user restart pipewire wireplumber'
+#alias hyprctl='hyprctl -j'
 alias nano='nvim'
 alias update='~/scripts/update_all.sh'
 alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
