@@ -12,8 +12,8 @@ hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 
 -- Navegar entre las ventanas del mismo grupo (Como en Sway)
 -- Si presionas Super + Flecha Derecha, pasas a la siguiente "pestaña"
-hl.bind(mainMod .. " + right", hl.dsp.group.next())
-hl.bind(mainMod .. " + left", hl.dsp.group.prev())
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.group.next())
+hl.bind(mainMod .. " + CTRL + H", hl.dsp.group.prev())
 
 -- Sacar una ventana del grupo (si quieres que vuelva a estar al lado)
 hl.bind(mainMod .. " + SHIFT + G", hl.dsp.window.move({ out_of_group = true }))
