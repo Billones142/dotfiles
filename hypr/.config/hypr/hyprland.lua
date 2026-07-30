@@ -194,8 +194,24 @@ hl.env("HYPRCURSOR_THEME", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 run_if_pc("GAMER", function()
-    hl.env("MANGOHUD_CONFIG","read_cfg,network=eno2,cpu_text=i7-8700k,gpu_text=3090,pci_dev=0000\\:01\\:00.0")
+    --hl.env("","")
+    --hl.env("MANGOHUD","1")
+    hl.env("MANGOHUD_CONFIG","read_cfg,network=eno2,cpu_text=i7-8700k,gpu_text=RTX-3090,pci_dev=0000\\:01\\:00.0")
+
+    hl.env("OBS_VKCAPTURE","1")
+
     hl.env("DXVK_FILTER_DEVICE_NAME","NVIDIA GeForce RTX 3090")
+
+    -- Proton
+    hl.env("PROTON_ENABLE_WAYLAND","1")
+    --hl.env("SDL_GAMECONTROLLER_IGNORE_DEVICES","054c:05c4") --DS4 BT
+    
+
+    -- Proton cachyOS
+    hl.env("PROTON_USE_WAYLAND","1")
+    hl.env("LOW_LATENCY_LAYER","1")
+    hl.env("DXVK_NVAPI_VKREFLEX","1")
+    hl.env("PROTON_DISCORD_BRIDGE","1")
 end)
 
 run_if_pc("laptop-stefano", function()
