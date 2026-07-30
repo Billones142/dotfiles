@@ -228,6 +228,7 @@ AUR_DESKTOP=(
     qalculate-gtk
     imhex
     sunshine-bin
+    obs-cmd-bin
 )
 
 AUR_JUEGOS=(
