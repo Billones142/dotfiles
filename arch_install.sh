@@ -392,16 +392,18 @@ if [ "$INSTALL_GUI" = true ]; then
     USER_SERVICES+=(
         tailscale-systray.service
         hyprpolkitagent.service
-        swaync.service.service
+        swaync.service
         hypridle.service
         hyprpaper.service
         waybar.service
+	    opensnitch-ui.service
+        swayosd-server
     )
     if [ "$DETECT_BLUETOOTH" = true ]; then
         USER_SERVICES+=(blueman-applet.service)
     fi
     if [ "$INSTALL_GAMES" = true ]; then
-        USER_SERVICES+=(sunshine.service)
+        USER_SERVICES+=(app-dev.lizardbyte.app.Sunshine.service)
     fi
 fi
 
