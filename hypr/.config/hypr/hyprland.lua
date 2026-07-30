@@ -232,6 +232,8 @@ require("binds")
 
 require("layerrules")
 
+require("workspacerules")
+
 require("windowrules")
 
 require("plugins")
@@ -336,7 +338,7 @@ hl.config({
             enabled = true,
             size = 3,
             passes = 1,
-	    new_optimizations = true, -- hyprglass no aplica a las ventanas en un workspace normal no flotante -- hyprglass no aplica a las ventanas en un workspace normal no flotante
+	    new_optimizations = true,
         },
     },
     -- --- LAYOUTS ---
