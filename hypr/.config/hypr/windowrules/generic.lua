@@ -119,7 +119,7 @@ hl.window_rule({
     -- debe estar por encima de reglas que muevan las ventanas a otros workspaces
     -- por debajo de todas las demas
     float = true,
-    size = "monitor_w*0.8 monitor_h*0.8",
+    max_size = "monitor_w*0.8 monitor_h*0.8",
 })
 
 hl.window_rule({
@@ -163,14 +163,36 @@ hl.window_rule({
 
 -- ventanas de menu flotantes de xWayland
 hl.window_rule({
-    name = "",
+    name = "xwayland-menus-flotantes",
     match = {
         class = "",
 	initial_title = "",
+	xwayland = true,
     },
     opacity = "1 override 1 override 1 override",
     no_blur = true,
 })
+
+-- Menus de dialogo de hyprland
+hl.window_rule({
+    name = "hyprland-dialog",
+    match = {
+        initial_class = "hyprland-dialog",
+    },
+    opacity = "1 override 1 override 1 override",
+    pin = true
+})
+
+
+
+
+hl.on("window.close", function(w)
+  hl.notification.create({ text = "Window closed: " .. tostring(w), timeout = 5000, icon = "ok" })
+end)
+
+hl.on("workspace.move_to_monitor", function(w, m)
+  hl.notification.create({ text = "moved: " .. w.name .. " to: " .. m.name, timeout = 5000, icon = "ok" })
+end)
 
 -- Reglas para el Video Peek (wl-mirror)
 -- TODO: manual review — top-level key 'windowrulev = float, title:^(hypr_video_peek)$' has no enclosing section

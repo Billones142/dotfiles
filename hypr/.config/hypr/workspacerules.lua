@@ -21,8 +21,8 @@ hl.workspace_rule({
 hl.workspace_rule({
 	workspace = "4",
 	--layout = "scrolling",
-	layout = "monocle",
-	animation = "fade",
+	--layout = "monocle",
+	--animation = "fade",
 })
 
 hl.workspace_rule({

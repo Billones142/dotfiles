@@ -23,6 +23,18 @@ hl.window_rule({
     center = true,
 })
 
+-- Notificaciones de trofeos
+hl.window_rule({
+    name = "steam-trophy",
+    match = {
+        class = "steam",
+        initial_title = "^(notificationtoasts_.*_desktop)$",
+    },
+    pin = true,
+    opacity = "1 override 1 override",
+})
+
+
 -- >> STEAM (Arreglo de Menús y Tooltips)  
 -- Fix crítico para menús que parpadean o aparecen vacíos  
 hl.window_rule({

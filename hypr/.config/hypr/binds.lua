@@ -69,7 +69,9 @@ hl.bind(mainMod .. " + CTRL + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 
 -- Foco y Movimiento
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + h", hl.dsp.layout("cyclenext"))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + l", hl.dsp.layout("cycleprev"))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 

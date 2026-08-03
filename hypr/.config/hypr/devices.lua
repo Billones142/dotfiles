@@ -41,9 +41,30 @@ hl.device({
 })
 
 hl.device({
+    name = "ds4linux-virtual-ds4-touchpad",
+    enabled = false,
+})
+
+hl.device({
     name = "wireless-controller-touchpad",
     enabled = false,
 })
+
+hl.device({
+    name = "sony-computer-entertainment-wireless-controller-touchpad",
+    enabled = false,
+})
+
+hl.device({
+    name = "sony-interactive-entertainment-dualsense-wireless-controller-touchpad",
+    enabled = false,
+})
+
+hl.device({
+    name = "inputplumber-mouse",
+    enabled = false,
+})
+
 
 hl.device({
     name = "qdtech-mpi5001",

@@ -14,8 +14,9 @@ hg.config({
 })
 
 -- Layer surfaces: each call whitelists the namespace and configures it
-hg.layer("waybar", { preset = "waybar_glass", mask_threshold = 0.079 })
-hg.layer("swaync", { preset = "clear", mask_threshold = 0.079 })
+hg.layer("waybar", { preset = "waybar_glass", mask_threshold = 0.065 })
+hg.layer("swaync", { preset = "clear", mask_threshold = 0.079 }) -- TODO: crear preset
+hg.layer("swayosd", { preset = "swayosd", mask_threshold = 0.079 }) -- TODO: crear preset
 --hg.layer("debug-panel", { exclude = true })
 hg.layer("rofi", { preset = "rofi_glass", mask_threshold = 0.031 })
 hg.layer("swaync-notification-window", { preset = "clear", mask_threshold = 0.031 })
@@ -28,7 +29,7 @@ hg.preset("clear", {
     blur_strength = 0,
     fresnel_strength = 0.1,      -- Brillo satinado en los bordes
     dark = { brightness = 1, tint_color = "0x00000000" },
-    light = { brightness = 1.2, tint_color = "0x00000000" },
+    light = { brightness = 1, tint_color = "0x00000000" },
     lens_distortion = 2,
 })
 
@@ -47,7 +48,7 @@ hg.preset("rofi_glass", {
     chromatic_aberration = 0,
     fresnel_strength = 0.1,
     edge_thickness = 10,
-    dark = { brightness = 0.8, tint_color = "0x00000000" },
+    dark = { brightness = 1, tint_color = "0x00000000" },
     light = { brightness = 1.3, tint_color = "0xed8e000d" },
 })
 

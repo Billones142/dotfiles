@@ -1,12 +1,21 @@
 -- -- LAYERRULES ---
 
 hl.layer_rule({
+    name = "fondo",
+    match = {
+        namespace = "hyprpaper",
+    },
+    no_screen_share = streamer_mode,
+})
+
+hl.layer_rule({
     name = "rofi",
     match = {
         namespace = "rofi",
     },
     blur = true,
-    no_screen_share = streamer_mode
+    no_screen_share = streamer_mode,
+    animation = "slide",
 })
 
 hl.layer_rule({

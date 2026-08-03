@@ -2,6 +2,8 @@
 -- 🪟 WINDOW RULES MODULE INITIALIZER
 -- =========================================================
 
+--TODO: aplicar variables para workspaces
+
 require("windowrules.generic")
 require("windowrules.brave")
 require("windowrules.webapps")

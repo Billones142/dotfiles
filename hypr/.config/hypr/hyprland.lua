@@ -52,16 +52,31 @@ hl.monitor({
     position = "0x0",
     --position = auto
     scale = "1",
-    vrr = true,
+    vrr = 1,
     --bitdepth = 8
     --bitdepth = 10
     --cm = hdr
+    --disabled = true
 })
+
+hl.monitor({
+    output = "Virtual-1",
+    mode = "1920x1080@60",
+    position = "0x0",
+    --position = auto
+    scale = "1",
+    vrr = 1,
+    --bitdepth = 8
+    --bitdepth = 10 cm = hdr
+    disabled = true
+})
+
 
 -- gamer
 hl.monitor({
     output = "desc:Acer Technologies Acer KG241 P 0x92638149",
     mirror = "virtual-fallback-display",
+    --mirror = "Virtual-1",
     mode = "1920x1080@144",
     scale = "1",
     bitdepth = 8,
@@ -72,7 +87,6 @@ hl.monitor({
 -- laptop-stefano
 hl.monitor({
     output = "desc:AU Optronics 0x4A90",
-    --mirror = "virtual-fallback-display",
     mirror = "virtual-fallback-display",
     mode = "1920x1080@60",
     scale = "1.2",
@@ -164,6 +178,12 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("touch $HOME/.config/hypr/monitors_presentation.lua")
 end)
 
+run_if_pc("GAMER", function()
+    hl.on("hyprland.start", function()
+        uwsm_execute("obs --minimize-to-tray --startreplaybuffer --scene Replay")
+    end)
+end)
+
 -- PLUGINS
 run_if_pc("GAMER", function()
     hyprcapture_enabled = true;
@@ -176,12 +196,12 @@ run_if_pc("laptop-stefano", function()
 end)
 
 -- --- PERMISOS ---
+hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
-hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow" })
 
-hl.permission({ binary = "/usr/bin/sunshine", type = "screencopy", mode = "allow" })
-
+hl.permission({ binary = "/home/[a-z0-9]{32}/.local/bin/hyprcapture-ui", type = "screencopy", mode = "allow" })
+--.local/bin/hyprcapture-ui
 
 -- Layouts
 --workspace = 1, layout:master
@@ -198,18 +218,36 @@ run_if_pc("GAMER", function()
     --hl.env("MANGOHUD","1")
     hl.env("MANGOHUD_CONFIG","read_cfg,network=eno2,cpu_text=i7-8700k,gpu_text=RTX-3090,pci_dev=0000\\:01\\:00.0")
 
+    hl.env("WINEUSEPORTALS","1")
+    hl.env("WINE_NTSYNC","1")
+
+    hl.env("__GLX_VENDOR_LIBRARY_NAME","nvidia")
+    hl.env("__NV_PRIME_RENDER_OFFLOAD","1")
+    hl.env("__GL_SHADER_DISK_CACHE","1")
+
     hl.env("OBS_VKCAPTURE","1")
 
     hl.env("DXVK_FILTER_DEVICE_NAME","NVIDIA GeForce RTX 3090")
+    hl.env("DXVK_HUD","compiler,opacity=0.2,scale=1")
+    hl.env("DXVK_ASYNC","1")
+    
+    hl.env("STAGING_SHARED_MEMORY","1")
+
+    -- VK3D
+    hl.env("VKD3D_CONFIG","no_upload_hlist,no_gs_copy")
+    hl.env("VKD3D_FEATURE_LEVEL","1")
+    hl.env("VKD3D_SHADER_CACHE","1")
 
     -- Proton
     hl.env("PROTON_ENABLE_WAYLAND","1")
+    hl.env("PROTON_VERB","run")
     --hl.env("SDL_GAMECONTROLLER_IGNORE_DEVICES","054c:05c4") --DS4 BT
     
 
     -- Proton cachyOS
     hl.env("PROTON_USE_WAYLAND","1")
-    hl.env("LOW_LATENCY_LAYER","1")
+    hl.env("PROTON_DXVK_LOWLATENCY","1")
+    hl.env("PROTON_VKD3D_LOWLATENCY","1")
     hl.env("DXVK_NVAPI_VKREFLEX","1")
     hl.env("PROTON_DISCORD_BRIDGE","1")
 end)

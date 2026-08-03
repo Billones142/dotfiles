@@ -75,6 +75,12 @@ hl.animation({
 })
 hl.animation({ -- afecta a rofi
     leaf = "fade",
+    enabled = true,
+    speed = 7,
+    bezier = "default",
+})
+hl.animation({ -- afecta a rofi
+    leaf = "fadeLayersIn",
     enabled = false,
     speed = 7,
     bezier = "default",
@@ -87,7 +93,7 @@ hl.animation({
 })
 hl.animation({
     leaf = "specialWorkspace",
-    enabled = false,
+    enabled = true,
     speed = 6,
     bezier = "default",
 })
