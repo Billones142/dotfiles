@@ -25,29 +25,27 @@
     "modules-right": [
 	"custom/notification",
         "tray",
+	"privacy",
         "pulseaudio",
         "network",
         "battery"
     ],
 
     // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
-    
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
         "format": "{name}",
         "persistent-workspaces": {
-            "*": 0 // Muestra siempre 5 escritorios vacíos
+            "*": 0
         }
     },
-
     "hyprland/window": {
         "format": "{}",
         "max-length": 50,
         "separate-outputs": true
     },
-
     "hyprland/submap": {
         "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
@@ -71,7 +69,46 @@
         "interval": 10, 
         "format": "RAM:{percentage}%" 
     },
-
+    "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+        {
+            "type": "audio-in", // Detecta captura de microfono
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "screenshare", // Detecta captura de pantalla
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "location", // Detecta ubicacion
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        }
+    ],
+    "ignore": [
+	    {
+                "type": "audio-in",
+		"name": "OBS"
+	    },
+	    {
+                "type": "audio-in",
+		"name": "Source_mic_escritorio_input"
+	    },
+	    {
+                "type": "audio-in",
+		"name": "Source_mic_obs_input"
+	    },
+	    {
+	        "type": "screenshare",
+                "name": "obs"
+	    }
+	]
+    },
     "tray": {
         "icon-size": 18,
         "spacing": 8
