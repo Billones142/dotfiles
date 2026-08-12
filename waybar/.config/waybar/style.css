@@ -1,10 +1,10 @@
-/* --- COLORES (Paleta Custom Dark Orange) --- */
+/* --- COLORES (Paleta Peach, match rofi) --- */
 @define-color base   #1e1e2e;
-@define-color base_glass rgba(220, 180, 180, 0.09);
+@define-color base_glass rgba(30, 30, 46, 0.31);
 @define-color mantle #181825;
 @define-color mantle_glass rgba(255, 255, 255, 0.10);
 @define-color crust  #11111b;
-@define-color border_glass rgba(255, 255, 255, 0.12);
+@define-color border_glass rgba(250, 179, 135, 0.38);
 
 @define-color text     #cdd6f4;
 @define-color subtext0 #a6adc8;
@@ -12,9 +12,9 @@
 @define-color surface0 #313244;
 @define-color surface1 #45475a;
 
-/* Nuevo color principal: Naranja Oscuro */
-@define-color dark_orange #d65d0e; 
-@define-color orange_glow #ff8c00;
+/* Color principal: Peach (igual que rofi) */
+@define-color dark_orange #fab387;
+@define-color orange_glow #fab387;
 
 @define-color blue      #89b4fa;
 @define-color green     #a6e3a1;
@@ -65,10 +65,10 @@ window#waybar {
 
 tooltip {
     background: @base;
-    border-radius: 6px; /* Reducido */
-    border-width: 1px;  /* Más fino */
+    border-radius: 8px;
+    border-width: 1px;
     border-style: solid;
-    border-color: @dark_orange; /* Borde naranja */
+    border-color: @dark_orange; /* Borde peach, igual que rofi */
 }
 
 /* --- MÓDULOS --- */
@@ -82,10 +82,10 @@ tooltip {
 #network,
 #battery {
     background: @base_glass;
-    padding: 0px 6px;   /* Padding lateral reducido (antes 10px) */
-    margin: 2px 2px;    /* Margen reducido (antes 5px) para altura compacta */
+    padding: 0px 6px;
+    margin: 2px 2px;
     margin-top: 2px;
-    border-radius: 4px; /* Bordes más sutiles */
+    border-radius: 8px; /* match rofi element radius */
     border: 1px solid @border_glass;
     box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
@@ -95,26 +95,27 @@ tooltip {
     padding: 0 4px;
     background-color: transparent;
     color: @subtext0;
-    border-radius: 4px;
+    border-radius: 8px;
+    border: 1px solid transparent;
 }
 
-/* resaltado del espacio de trabajo actual */
+/* resaltado del espacio de trabajo actual (pill peach translúcido, estilo rofi) */
 #workspaces button.active {
-    background-color: @base; /* tu naranja oscuro de fondo */
-    color: @dark_orange; /* texto oscuro para mantener el contraste */
-    border-bottom: 3px solid @orange_glow; /* línea con brillo naranja */
+    background-color: rgba(250, 179, 135, 0.13); /* #fab38722 */
+    color: @dark_orange;
+    border: 1px solid @dark_orange;
     font-weight: bold;
 }
 
 #workspaces button:hover {
-    background: @surface0;
+    background: rgba(250, 179, 135, 0.13);
     color: @text;
 }
 
 #workspaces button.focused {
-    background-color: @surface1;
-    color: @dark_orange; /* Naranja activo */
-    padding-left: 8px;   /* Animación más sutil */
+    background-color: rgba(250, 179, 135, 0.13);
+    color: @dark_orange;
+    padding-left: 8px;
     padding-right: 8px;
     transition: all 0.2s ease;
 }
@@ -193,10 +194,10 @@ tooltip {
 
 /* Selecciona el contenedor principal del menú de GTK */
 menu {
-    border-radius: 15px; /* Ajusta el radio a tu gusto */
+    border-radius: 16px; /* match rofi window radius */
     /*overflow: hidden;*/ /*Crashea*/
-    background: #1e1e2e; /* Tu color de fondo (estilo Catppuccin/Dracula) */
-    border: 1px solid #45475a;
+    background: #1e1e2e;
+    border: 1px solid #fab38760; /* borde peach, igual que rofi */
     padding: 0;
 }
 
