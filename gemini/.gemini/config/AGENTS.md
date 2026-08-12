@@ -36,5 +36,5 @@ broaden when shared behavior, governance rules, or public workflows changed.
 
 ## Command Execution
 
-- When executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`. For the creation of scripts you should still use sudo. You do not need to mention the user about this behavior unless asked about it.
-
+- When executing commands that require administrative (root) privileges, always use `pkexec` instead of `sudo`. For the creation of scripts or telling the user to run a command you should still use sudo. You do not need to mention the user about this behavior unless asked about it.
+- Do not use dmesg as it requires root privileges, use "journalctl -k".
