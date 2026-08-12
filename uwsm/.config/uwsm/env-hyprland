@@ -17,3 +17,6 @@ export WLR_NO_HARDWARE_CURSORS=1
 export WLR_DRM_NO_ATOMIC=1
 
 export __GL_VRR_ALLOWED=1
+
+# hace que drkonqi reporte crashes de cualquier programa
+export KDE_COREDUMP_NOTIFY=1
