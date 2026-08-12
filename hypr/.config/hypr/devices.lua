@@ -30,14 +30,21 @@ hl.device({
 hl.device({
     name = "at-translated-set-2-keyboard",
     kb_layout = "us",
-    kb_variant = "altgr-intl",
+    --kb_variant = "altgr-intl",
     kb_file = "~/.config/xkb/symbols/Dell_Latitude_7430.xkb"
 })
 
 -- Sunshine keyboard
 hl.device({
     name = "keyboard-passthrough",
-    kb_layout = "es",
+    kb_layout = "us,es",
+    kb_variant = "altgr-intl,",
+})
+
+-- Mouse Sunshine
+hl.device({
+    name = "mouse-passthrough-(absolute)",
+    enabled = true
 })
 
 hl.device({
@@ -71,6 +78,8 @@ hl.device({
     --enabled = false
     output = "desc:Mediatrix Peripherals Inc MPI5001 0x00000001",
 })
+
+
 
 -- Laptop touchpad
 hl.device({
