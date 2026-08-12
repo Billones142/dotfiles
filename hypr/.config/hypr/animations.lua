@@ -96,6 +96,7 @@ hl.animation({
     enabled = true,
     speed = 6,
     bezier = "default",
+    style = "slidefadevert"
 })
 hl.animation({
     leaf = "layers",

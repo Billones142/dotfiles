@@ -34,18 +34,14 @@ hl.workspace_rule({
 
 hl.workspace_rule({
 	workspace = "special:ytmusic",
-	--layout = "scrolling",
-	animation = "fade",
+	animation = "slidefade",
 	on_created_empty = "uwsm app -- WebApp-YoutubeMusicChromium5294.desktop",
-
 })
 
 hl.workspace_rule({
 	workspace = "special:whatsapp",
-	--layout = "scrolling",
 	animation = "fade",
 	on_created_empty = "uwsm app -- WebApp-WhatsappWeb1304.desktop",
-
 })
 
 hl.workspace_rule({
