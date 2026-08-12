@@ -282,11 +282,23 @@ if [ "$INSTALL_GUI" = true ]; then
     tailscale configure systray --enable-startup systemd
 fi
 
+# permisos para opensnitch
+sudo groupadd opensnitch-mgr
+sudo chown -R root:opensnitch-mgr /etc/opensnitchd/rules/
+sudo chmod -R 775 /etc/opensnitchd/rules/
+
 # Permisos y grupos
 sudo groupadd -f docker
 sudo groupadd -f input
 sudo gpasswd -a $USER input
 sudo gpasswd -a $USER docker
+
+sudo usermod -a -G video $USER
+sudo usermod -a -G opensnitch-mgr $USER
+
+# Habilitar el volcado de coredumps
+sudo sysctl -w kernel.core_pattern="|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h"
+echo 'kernel.core_pattern=|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h' | sudo tee /etc/sysctl.d/50-coredump.conf
 
 # Configuración gráfica básica
 if [ "$INSTALL_GUI" = true ]; then
@@ -396,8 +408,9 @@ if [ "$INSTALL_GUI" = true ]; then
         hypridle.service
         hyprpaper.service
         waybar.service
-	    opensnitch-ui.service
-        swayosd-server
+	opensnitch-ui.service
+        swayosd-server.service
+	drkonqi-coredump-launcher.socket # reporte de crashes
     )
     if [ "$DETECT_BLUETOOTH" = true ]; then
         USER_SERVICES+=(blueman-applet.service)
