@@ -38,7 +38,10 @@ hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm app -- loginctl lock-se
 -- cerrar ventana
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 -- forzar cierre de proceso de ventana: sigterm 9
-hl.bind(mainMod .. " + CONTROL + T", hl.dsp.window.signal({ signal = 9 }))
+hl.bind(mainMod .. " + CONTROL + T", function()
+    --TODO: agregar que notifique el PID que se forzo el cierre
+    hl.dsp.window.signal({ signal = 9 })
+end)
 -- reanudar proceso de ventana: sigcont 18
 hl.bind(mainMod .. " + CONTROL + C", hl.dsp.window.signal({ signal = 18 }))
 -- pausar proceso de ventana: sigstop 19
@@ -188,11 +191,20 @@ hl.bind("switch:off:Lid Switch", hl.dsp.dpms({ action = "on" }), { locked = true
 -- OBS
 local obsCMDCommandPrefix="obs-cmd --websocket \"obsws://localhost:4455/$(cat ~/.config/obs_password)\" "
 --hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- iniciar replay buffer
-hl.bind("SUPER + F10", hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay start")) -- iniciar replay buffer
+hl.bind("SUPER + F10", function() -- iniciar replay buffer
+    hl.notification.create({ text="OBS: iniciando replay buffer", duration=5000});
+    hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay start");
+end)
 --hl.bind("SUPER + F11", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- apagar replay buffer
-hl.bind("SUPER + F11", hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay stop")) -- apagar replay buffer
+hl.bind("SUPER + F11", function() -- apagar replay buffer
+    hl.notification.create({ text="OBS: deteniendo replay buffer", duration=5000});
+    hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay stop");
+end)
 --hl.bind("SUPER + F12", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" })) -- guardar replay buffer
-hl.bind("SUPER + F12", hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay save")) -- guardar replay buffer
+hl.bind("SUPER + F12", function() -- guardar replay buffer --TODO: agregar chequeo y avisar si el replay buffer esta desactivado
+    hl.notification.create({ text="OBS: guardando replay", duration=5000});
+    hl.dsp.exec_cmd(obsCMDCommandPrefix .. "replay save");
+end)
 
 -------------------------------------------------------------------------------------------
 
