@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer para activar la limpieza de cache tras el domingo
+
+[Timer]
+OnCalendar=Mon *-*-* 00:00:00
+Persistent=true
+Unit=clean-cache.service
+
+[Install]
+WantedBy=timers.target
