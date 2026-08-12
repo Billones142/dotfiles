@@ -27,6 +27,8 @@ hg.layer("swaync-control-center", { preset = "clear", mask_threshold = 0.031 })
 hg.preset("clear", {
     glass_opacity = 1,
     blur_strength = 0,
+    chromatic_aberration = 0,
+    contrast = 1,
     fresnel_strength = 0.1,      -- Brillo satinado en los bordes
     dark = { brightness = 1, tint_color = "0x00000000" },
     light = { brightness = 1, tint_color = "0x00000000" },
