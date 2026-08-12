@@ -34,6 +34,15 @@ hl.window_rule({
     opacity = "1 override 1 override",
 })
 
+hl.window_rule({
+    name = "steam-lauching",
+    match = {
+        class = "steam",
+        initial_title = "Launching...",
+    },
+    opacity = "1 override 1 override",
+    workspace = 6,
+})
 
 -- >> STEAM (Arreglo de Menús y Tooltips)  
 -- Fix crítico para menús que parpadean o aparecen vacíos  
@@ -77,6 +86,15 @@ hl.window_rule({
     },
     workspace = "5 silent",
     float = false,
+})
+
+hl.window_rule({
+    name = "steam-update",
+    match = {
+        class = "Steam",
+        title = "",
+    },
+    workspace = "5 silent",
 })
 
 hl.window_rule({

@@ -183,16 +183,25 @@ hl.window_rule({
     pin = true
 })
 
+-- Menus de dialogo de hyprland
+hl.window_rule({
+    name = "hyprland-polkit-agent",
+    match = {
+        initial_class = "hyprpolkitagent",
+    },
+    opacity = "1 override 1 override 1 override",
+    pin = true
+})
 
 
 
-hl.on("window.close", function(w)
-  hl.notification.create({ text = "Window closed: " .. tostring(w), timeout = 5000, icon = "ok" })
-end)
+--hl.on("window.close", function(w)
+--  hl.notification.create({ text = "Window closed: " .. tostring(w), timeout = 5000, icon = "ok" })
+--end)
 
-hl.on("workspace.move_to_monitor", function(w, m)
-  hl.notification.create({ text = "moved: " .. w.name .. " to: " .. m.name, timeout = 5000, icon = "ok" })
-end)
+--hl.on("workspace.move_to_monitor", function(w, m)
+--  hl.notification.create({ text = "moved: " .. w.name .. " to: " .. m.name, timeout = 5000, icon = "ok" })
+--end)
 
 -- Reglas para el Video Peek (wl-mirror)
 -- TODO: manual review — top-level key 'windowrulev = float, title:^(hypr_video_peek)$' has no enclosing section

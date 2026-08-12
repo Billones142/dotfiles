@@ -1,6 +1,8 @@
 -- =========================================================
--- 🎮 JUEGOS Y LANZADORES
--- =========================================================
+-- 🎮 JUEGOS Y LANZADORES =========================================================
+
+local game_titles = "^(.*  |No Man's Sky|Just Cause 3|STAR WARS Jedi: Fallen Order™)$";
+local launchers_titles = "^()$";
 
 hl.window_rule({
     name = "lutris-others",
@@ -28,6 +30,22 @@ hl.window_rule({
 	xwayland = true,
     },
     tag = "+running_game",
+})
+
+-- Proton Experimental
+hl.window_rule({
+    -- es el explorador "explorer.exe"
+    name = "running-games-proton-experimental-xwayland",
+    match = {
+        initial_class = "^(steam_app_.*|steam_proton)$",
+	initial_title = game_titles,
+	xwayland = true,
+    },
+    tag = "+running_game",
+    --move = "1428 5",
+    --no_initial_focus = true,
+    --no_focus = true,
+    --pin = true
 })
 
 
@@ -72,12 +90,13 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "SystrayWine",
+    name = "running-games-minecraft",
     match = {
-        class = "^(steam_app_.*|steam_proton)$",
-        initial_title = "",
+        class = "^(Minecraft .*)$",
     },
+    tag = "+running_game",
 })
+
 
 -- Launcher Epic Games
 hl.window_rule({
@@ -111,8 +130,8 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "EpicGamesLauncher-JediFallenOrder", match = { class = "^(steam_app_epicgameslauncher)$",
-        initial_title = "STAR WARS Jedi: Fallen Order™",
+    name = "EpicGamesLauncher-Game", match = { class = "^(steam_app_epicgameslauncher)$",
+        initial_title = game_titles,
     },
     tag = "+running_game",
 })
@@ -149,16 +168,18 @@ hl.window_rule({
     workspace = "5 silent",
 })
 
-hl.window_rule({
+hl.window_rule({ -- Para system tray u otros
     -- es el explorador "explorer.exe"
-    name = "proton-system-tray",
+    name = "proton-others",
     match = {
 	float = true,
-        initial_class = "^(steam_app_.*)$",
+        initial_class = "^(steam_app_.*|steam_proton)$",
         initial_title = "",
     },
     tag = "-running_game",
-    max_size = "60 350",
+    workspace = 5,
+    no_initial_focus = true,
+    --max_size = "60 350",
     --move = "1428 5",
     --no_initial_focus = true,
     --no_focus = true,
@@ -168,10 +189,13 @@ hl.window_rule({
 hl.window_rule({
     name = "running-games",
     match = {
-        tag = "running_game", --,^(?!game_laucher).*
+        tag = "running_game",
     },
     render_unfocused = true,
     workspace = "6",
-    --no_initial_focus = true,
+    no_initial_focus = true,
+    --idle_inhibit = "focus",
     --stay_focused = true,
 })
+
+-- TODO: identificar programas con el tag de running_game y ver si el comando tiene "explorer.exe" para ver si es el systemtray
