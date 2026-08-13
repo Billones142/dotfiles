@@ -2,6 +2,7 @@
     "output" : ["virtual-fallback-display", "DP-3", "eDP-1"],
     "layer": "top",
     "position": "top",
+    //"position": "bottom",
     "mod": "dock",
     "exclusive": true,
     "passthrough": false,
@@ -26,11 +27,11 @@
 	"custom/notification",
         "tray",
 	"privacy",
-        "pulseaudio",
+        //"pulseaudio",
+	"cffi/audio_sinks",
         "network",
         "battery"
     ],
-
     // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -156,6 +157,17 @@
             "default": ["", "", ""]
         }
     },
+   "cffi/audio_sinks": {
+       "module_path": ".config/waybar/cffi/wb_cffi_audio_sinks.so",
+       "max_sinks": 3,
+       "sinks": [
+	   {"label": "Auricular", "name": "alsa_output.usb-Sony_Interactive_Entertainment_Wireless_Stereo_Headset-00.analog-stereo"},
+           {"label": "Escritorio", "name": "sink_escritorio"},
+           {"label": "Llamadas", "name": "sink_llamadas"},
+           {"label": "Juegos", "name": "sink_juegos"},
+           {"label": "Monitor", "name": "alsa_output.pci-0000_01_00.1.hdmi-stereo"}
+       ]
+   },
     "network": {
         "format-wifi": "󰖩 {signalStrength}%",
         "format-ethernet": "󰈀 Wired",
