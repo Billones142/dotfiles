@@ -65,8 +65,15 @@ typedef struct {
     GtkLayerShellEdge bar_edge;  // which screen edge the bar (and popup) anchor to
     int popup_margin;            // extra gap below the bar; -1 = auto (flush, no gap)
     guint hide_timeout_id;       // pending auto-close timer, 0 if none scheduled
-    guint update_timeout_id;     // periodic bar-label refresh, 0 if none scheduled
+    guint update_timeout_id;     // periodic fallback refresh, 0 if none scheduled
     gint64 popup_shown_at;        // g_get_monotonic_time() at last show, for focus-out grace period
+    // `pactl subscribe` child process: pushes an event whenever any other
+    // program changes a sink's volume/mute, so the UI reacts immediately
+    // instead of waiting for the fallback poll.
+    GSubprocess *pactl_sub;
+    GDataInputStream *pactl_stream;
+    GCancellable *pactl_cancel;
+    guint event_refresh_id;      // debounce timer for those events, 0 if none pending
 } ModuleData;
 
 #define POPUP_FOCUS_OUT_GRACE_US (500 * 1000)  // ignore focus-out this soon after showing
@@ -568,8 +575,10 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer use
     return TRUE;
 }
 
-static gboolean on_periodic_update(gpointer user_data) {
-    ModuleData *m = (ModuleData *)user_data;
+// Re-reads presence, the bar label, and (if open) every popup row. Cheap
+// enough for a 5s tick but not for one call per pactl event, hence the
+// debounce in on_pactl_event_line().
+static void refresh_everything(ModuleData *m) {
     // Picks up hotplug both ways: a sink appearing makes its row (and the bar
     // widget) come back, a sink vanishing hides them. sync_scales() already
     // refreshes presence itself, so only do it here when the popup is closed.
@@ -579,7 +588,77 @@ static gboolean on_periodic_update(gpointer user_data) {
         refresh_sink_presence(m);
     }
     update_bar_label(m);
+}
+
+static gboolean on_periodic_update(gpointer user_data) {
+    refresh_everything((ModuleData *)user_data);
     return G_SOURCE_CONTINUE;
+}
+
+static gboolean on_pactl_event_debounced(gpointer user_data) {
+    ModuleData *m = (ModuleData *)user_data;
+    m->event_refresh_id = 0;
+    refresh_everything(m);
+    return G_SOURCE_REMOVE;
+}
+
+static void start_pactl_event_read(ModuleData *m);
+
+// One line per event from `pactl subscribe`, e.g.
+//   Event 'change' on sink #42
+// Matched on " on sink #" specifically: " on sink-input #" is a per-stream
+// event (every app's own volume slider) which doesn't change our sinks, and
+// filtering it out avoids a refresh storm during playback. Server events are
+// included because the default-sink change arrives that way.
+//
+// pactl emits these in bursts (one volume change can produce several), so the
+// actual refresh is debounced rather than run per line.
+static void on_pactl_event_line(GObject *source, GAsyncResult *res, gpointer user_data) {
+    ModuleData *m = (ModuleData *)user_data;
+    GError *err = NULL;
+    char *line =
+        g_data_input_stream_read_line_finish(G_DATA_INPUT_STREAM(source), res, NULL, &err);
+    if (!line) {
+        // EOF (pactl died) or cancelled at deinit. Either way stop reading —
+        // the periodic poll below stays as the fallback path.
+        if (err) {
+            if (!g_error_matches(err, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                g_warning("wb_cffi_audio_sinks: pactl subscribe read failed: %s", err->message);
+            }
+            g_error_free(err);
+        }
+        return;
+    }
+    if (strstr(line, " on sink #") || strstr(line, " on server")) {
+        if (m->event_refresh_id == 0) {
+            m->event_refresh_id = g_timeout_add(150, on_pactl_event_debounced, m);
+        }
+    }
+    g_free(line);
+    start_pactl_event_read(m);
+}
+
+static void start_pactl_event_read(ModuleData *m) {
+    g_data_input_stream_read_line_async(m->pactl_stream, G_PRIORITY_DEFAULT, m->pactl_cancel,
+                                         on_pactl_event_line, m);
+}
+
+// Non-fatal on failure: without the subscription the module still works, just
+// with the periodic poll's latency.
+static void start_pactl_subscribe(ModuleData *m) {
+    GError *err = NULL;
+    m->pactl_sub = g_subprocess_new(
+        G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE, &err, "pactl",
+        "subscribe", NULL);
+    if (!m->pactl_sub) {
+        g_warning("wb_cffi_audio_sinks: could not start `pactl subscribe`: %s",
+                   err ? err->message : "unknown error");
+        if (err) g_error_free(err);
+        return;
+    }
+    m->pactl_cancel = g_cancellable_new();
+    m->pactl_stream = g_data_input_stream_new(g_subprocess_get_stdout_pipe(m->pactl_sub));
+    start_pactl_event_read(m);
 }
 
 // Shared CSS provider for our own widgets. Kept at file scope so both
@@ -703,7 +782,10 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
 
     gtk_widget_add_events(m->event_box, GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK);
     g_signal_connect(m->event_box, "scroll-event", G_CALLBACK(on_scroll), m);
-    m->update_timeout_id = g_timeout_add_seconds(2, on_periodic_update, m);
+    // Fallback only: external volume/mute changes normally arrive instantly
+    // through start_pactl_subscribe() at the end of init. This catches
+    // anything the subscription misses (or everything, if it failed to start).
+    m->update_timeout_id = g_timeout_add_seconds(5, on_periodic_update, m);
 
     // Own top-level layer-shell surface instead of GtkPopover — see the
     // comment above on_button_press for why.
@@ -868,6 +950,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
     gtk_widget_set_no_show_all(m->event_box, TRUE);
     refresh_sink_presence(m);
     update_bar_label(m);
+    start_pactl_subscribe(m);
 
     return m;
 }
@@ -876,6 +959,18 @@ void wbcffi_deinit(void *instance) {
     ModuleData *m = (ModuleData *)instance;
     if (m->hide_timeout_id) g_source_remove(m->hide_timeout_id);
     if (m->update_timeout_id) g_source_remove(m->update_timeout_id);
+    if (m->event_refresh_id) g_source_remove(m->event_refresh_id);
+    // Cancel before killing pactl so the pending async read finishes as
+    // CANCELLED instead of touching a half-freed ModuleData.
+    if (m->pactl_cancel) {
+        g_cancellable_cancel(m->pactl_cancel);
+        g_object_unref(m->pactl_cancel);
+    }
+    if (m->pactl_stream) g_object_unref(m->pactl_stream);
+    if (m->pactl_sub) {
+        g_subprocess_force_exit(m->pactl_sub);
+        g_object_unref(m->pactl_sub);
+    }
     for (int i = 0; i < m->num_sinks; i++) {
         g_free(m->sink_names[i]);
         g_free(m->sink_labels[i]);
