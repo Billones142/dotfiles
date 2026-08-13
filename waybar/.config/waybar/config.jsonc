@@ -26,11 +26,11 @@
     "modules-right": [
 	"custom/notification",
         "tray",
-	"privacy",
         //"pulseaudio",
 	"cffi/audio_sinks",
         "network",
-        "battery"
+        "battery",
+	"privacy"
     ],
     // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
     "hyprland/workspaces": {
@@ -91,18 +91,18 @@
             "tooltip-icon-size": 24
         }
     ],
-    "ignore": [
+    "ignore": [ // para ver inputs de audio: pactl list sources
 	    {
                 "type": "audio-in",
 		"name": "OBS"
 	    },
 	    {
                 "type": "audio-in",
-		"name": "Source_mic_escritorio_input"
+		"name": "source_mic_escritorio_input"
 	    },
 	    {
                 "type": "audio-in",
-		"name": "Source_mic_obs_input"
+		"name": "source_mic_obs_input"
 	    },
 	    {
 	        "type": "screenshare",
