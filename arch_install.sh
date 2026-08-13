@@ -54,6 +54,7 @@ PACKAGES_BASE=(
     unarchiver
     unrar
     docker
+    kernel-modules-hook
 )
 
 # --- Detección de Hardware ---
@@ -375,6 +376,7 @@ fi
 
 # servicios del sistema
 SYSTEM_SERVICES_ENABLE=(
+    linux-modules-cleanup.service
     udisks2
     firewalld.service
     opensnitchd.service
@@ -402,6 +404,7 @@ systemctl --user daemon-reload
 USER_SERVICES=()
 if [ "$INSTALL_GUI" = true ]; then
     USER_SERVICES+=(
+	clean-cache.timer
         tailscale-systray.service
         hyprpolkitagent.service
         swaync.service
