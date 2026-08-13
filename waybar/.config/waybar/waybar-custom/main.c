@@ -54,6 +54,8 @@ typedef struct {
     GtkWidget *popup_window;  // manual layer-shell surface, replaces GtkPopover
     int num_sinks;              // all configured sinks (up to MAX_SINKS_HARD_CAP) — all get loaded
     int max_visible_sinks;      // config: "max_sinks" — rows visible before the popup scrolls
+    GtkWidget **rows;           // [num_sinks] — popup row box, hidden when the sink is absent
+    int primary_idx;            // sink the bar widget represents: first present one, -1 if none
     GtkWidget **scales;         // [num_sinks]
     GtkWidget **mute_buttons;   // [num_sinks]
     GtkWidget **volume_entries; // [num_sinks] — editable volume text next to each slider
@@ -96,7 +98,8 @@ static char *unquote_json_string(const char *raw) {
 static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entries,
                           size_t config_entries_len) {
     m->bar_edge = GTK_LAYER_SHELL_EDGE_TOP;
-    m->popup_margin = -1;  // sentinel: auto, computed from the bar's real height
+    m->popup_margin = -1;  // sentinel: auto (flush against the bar)
+    m->primary_idx = 0;    // provisional until refresh_sink_presence() runs
     m->max_visible_sinks = DEFAULT_MAX_VISIBLE_SINKS;
     const char *sinks_raw = NULL;
 
@@ -145,6 +148,7 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
     m->num_sinks = MAX(1, (int)MIN(array_len, (guint)MAX_SINKS_HARD_CAP));
     m->sink_names = g_new0(char *, m->num_sinks);
     m->sink_labels = g_new0(char *, m->num_sinks);
+    m->rows = g_new0(GtkWidget *, m->num_sinks);
     m->scales = g_new0(GtkWidget *, m->num_sinks);
     m->mute_buttons = g_new0(GtkWidget *, m->num_sinks);
     m->volume_entries = g_new0(GtkWidget *, m->num_sinks);
@@ -240,14 +244,63 @@ static void toggle_sink_mute(const char *sink) {
     }
 }
 
-// The bar widget always represents sinks[0] (the first configured sink) —
-// its volume/mute state drive the bar's label and scroll-to-adjust. The
-// right-click popup shows/controls all num_sinks sinks.
+// Set of sink names PipeWire/PulseAudio currently knows about. One `pactl`
+// call for all sinks rather than a per-sink probe, since this runs on every
+// periodic tick. Caller owns the returned table (NULL if pactl failed, which
+// callers treat as "presence unknown" and leave everything as-is rather than
+// hiding the whole module on a transient error).
+static GHashTable *query_present_sinks(void) {
+    FILE *fp = popen("pactl list short sinks 2>/dev/null", "r");
+    if (!fp) return NULL;
+    GHashTable *present = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+    char line[1024];
+    while (fgets(line, sizeof(line), fp)) {
+        // Format: "<index>\t<name>\t<driver>\t<sample spec>\t<state>"
+        char *first_tab = strchr(line, '\t');
+        if (!first_tab) continue;
+        char *name = first_tab + 1;
+        char *end = strchr(name, '\t');
+        if (!end) end = strchr(name, '\n');
+        if (!end) continue;
+        g_hash_table_add(present, g_strndup(name, (gsize)(end - name)));
+    }
+    pclose(fp);
+    return present;
+}
+
+// Hides the popup rows of configured sinks that don't currently exist on the
+// system (unplugged headset, a virtual sink whose script hasn't run yet), and
+// hides the bar widget entirely when none of them exist. Also re-picks
+// primary_idx — the sink the bar widget itself represents — as the first
+// present one, so the bar doesn't keep showing a device that's gone.
+//
+// Kept separate from update_bar_label() on purpose: this costs a pactl call,
+// and update_bar_label() runs on every slider drag event.
+static void refresh_sink_presence(ModuleData *m) {
+    GHashTable *present = query_present_sinks();
+    if (!present) return;
+
+    m->primary_idx = -1;
+    for (int i = 0; i < m->num_sinks; i++) {
+        gboolean exists = g_hash_table_contains(present, m->sink_names[i]);
+        if (m->rows[i]) gtk_widget_set_visible(m->rows[i], exists);
+        if (exists && m->primary_idx < 0) m->primary_idx = i;
+    }
+    gtk_widget_set_visible(m->event_box, m->primary_idx >= 0);
+
+    g_hash_table_destroy(present);
+}
+
+// The bar widget represents primary_idx (the first configured sink that
+// actually exists) — its volume/mute state drive the bar's label and
+// scroll-to-adjust. The right-click popup shows/controls every present sink.
 static void update_bar_label(ModuleData *m) {
-    int vol = get_sink_volume(m->sink_names[0]);
-    gboolean muted = get_sink_mute(m->sink_names[0]);
+    if (m->primary_idx < 0) return;  // nothing present; widget is hidden anyway
+    const char *name = m->sink_names[m->primary_idx];
+    int vol = get_sink_volume(name);
+    gboolean muted = get_sink_mute(name);
     char *text = g_strdup_printf("%s %s %d%%", muted ? "\U0001F507" : "\U0001F50A",
-                                  m->sink_labels[0], vol);
+                                  m->sink_labels[m->primary_idx], vol);
     gtk_label_set_text(GTK_LABEL(m->label), text);
     g_free(text);
 }
@@ -265,7 +318,7 @@ static void on_scale_changed(GtkRange *range, gpointer user_data) {
     int vol = (int)gtk_range_get_value(range);
     set_sink_volume(sud->m->sink_names[sud->idx], vol);
     set_volume_entry_text(sud->m->volume_entries[sud->idx], vol);
-    if (sud->idx == 0) update_bar_label(sud->m);
+    if (sud->idx == sud->m->primary_idx) update_bar_label(sud->m);
 }
 
 // Double-click on a slider jumps it straight to 100%. Connected (not
@@ -335,7 +388,11 @@ static gboolean on_scale_scroll(GtkWidget *widget, GdkEventScroll *event, gpoint
 }
 
 static void sync_scales(ModuleData *m) {
+    refresh_sink_presence(m);
     for (int i = 0; i < m->num_sinks; i++) {
+        // Absent sinks have their row hidden; querying them would just spawn
+        // pactl calls that fail.
+        if (m->rows[i] && !gtk_widget_get_visible(m->rows[i])) continue;
         int vol = get_sink_volume(m->sink_names[i]);
         g_signal_handler_block(m->scales[i], m->handler_ids[i]);
         gtk_range_set_value(GTK_RANGE(m->scales[i]), vol);
@@ -466,7 +523,8 @@ static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpoint
         }
         return TRUE;
     } else if (event->button == GDK_BUTTON_PRIMARY) {
-        toggle_sink_mute(m->sink_names[0]);
+        if (m->primary_idx < 0) return TRUE;
+        toggle_sink_mute(m->sink_names[m->primary_idx]);
         update_bar_label(m);
         return TRUE;
     }
@@ -479,10 +537,10 @@ static void on_row_mute_clicked(GtkButton *button, gpointer user_data) {
     toggle_sink_mute(sud->m->sink_names[sud->idx]);
     gboolean muted = get_sink_mute(sud->m->sink_names[sud->idx]);
     gtk_button_set_label(button, muted ? "\U0001F507" : "\U0001F50A");
-    if (sud->idx == 0) update_bar_label(sud->m);
+    if (sud->idx == sud->m->primary_idx) update_bar_label(sud->m);
 }
 
-// sinks[0]'s volume, scrollable directly from the bar without opening the
+// The primary sink's volume, scrollable directly from the bar without opening the
 // popup. GDK_SCROLL_UP/DOWN cover discrete wheel steps; GDK_SCROLL_SMOOTH
 // covers touchpad/precision scrolling (delta_y sign matches wheel semantics:
 // negative = up/away = louder). Capped at 100%, unlike the popup's sliders —
@@ -490,7 +548,8 @@ static void on_row_mute_clicked(GtkButton *button, gpointer user_data) {
 static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer user_data) {
     (void)widget;
     ModuleData *m = (ModuleData *)user_data;
-    int vol = get_sink_volume(m->sink_names[0]);
+    if (m->primary_idx < 0) return TRUE;
+    int vol = get_sink_volume(m->sink_names[m->primary_idx]);
     if (event->direction == GDK_SCROLL_UP) {
         vol += SCROLL_VOLUME_STEP;
     } else if (event->direction == GDK_SCROLL_DOWN) {
@@ -503,7 +562,7 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer use
         return TRUE;
     }
     vol = CLAMP(vol, 0, 100);
-    set_sink_volume(m->sink_names[0], vol);
+    set_sink_volume(m->sink_names[m->primary_idx], vol);
     update_bar_label(m);
     if (gtk_widget_get_visible(m->popup_window)) sync_scales(m);
     return TRUE;
@@ -511,8 +570,15 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event, gpointer use
 
 static gboolean on_periodic_update(gpointer user_data) {
     ModuleData *m = (ModuleData *)user_data;
+    // Picks up hotplug both ways: a sink appearing makes its row (and the bar
+    // widget) come back, a sink vanishing hides them. sync_scales() already
+    // refreshes presence itself, so only do it here when the popup is closed.
+    if (gtk_widget_get_visible(m->popup_window)) {
+        sync_scales(m);
+    } else {
+        refresh_sink_presence(m);
+    }
     update_bar_label(m);
-    if (gtk_widget_get_visible(m->popup_window)) sync_scales(m);
     return G_SOURCE_CONTINUE;
 }
 
@@ -741,6 +807,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         gtk_box_pack_start(GTK_BOX(row), vol_entry, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(row), mute_btn, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(box), row, FALSE, FALSE, 0);
+        m->rows[i] = row;
 
         g_message("wb_cffi_audio_sinks: sink %d label=\"%s\" name=\"%s\"", i,
                   m->sink_labels[i], m->sink_names[i]);
@@ -759,6 +826,15 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
     // size negotiation — the popup_window itself isn't shown, so nothing
     // becomes visible on screen yet.
     gtk_widget_show_all(box);
+    // Row height below is measured with *all* rows shown, so the popup keeps a
+    // stable size instead of growing/shrinking as devices come and go. From
+    // here on the rows opt out of show_all so refresh_sink_presence() stays the
+    // only thing deciding which of them are visible — otherwise the
+    // gtk_widget_show_all(popup_window) on each right-click would un-hide rows
+    // for absent sinks.
+    for (int i = 0; i < m->num_sinks; i++) {
+        gtk_widget_set_no_show_all(m->rows[i], TRUE);
+    }
     int box_natural_height = 0;
     gtk_widget_get_preferred_height(box, NULL, &box_natural_height);
     int row_height = (box_natural_height - (m->num_sinks - 1) * ROW_SPACING) / m->num_sinks;
@@ -787,6 +863,11 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
     g_signal_connect(m->event_box, "button-press-event", G_CALLBACK(on_button_press), m);
 
     gtk_widget_show_all(m->event_box);
+    // Same reason as the rows above: waybar shows its module widgets, which
+    // would override the hide when no configured sink exists.
+    gtk_widget_set_no_show_all(m->event_box, TRUE);
+    refresh_sink_presence(m);
+    update_bar_label(m);
 
     return m;
 }
@@ -801,6 +882,7 @@ void wbcffi_deinit(void *instance) {
     }
     g_free(m->sink_names);
     g_free(m->sink_labels);
+    g_free(m->rows);
     g_free(m->scales);
     g_free(m->mute_buttons);
     g_free(m->volume_entries);
