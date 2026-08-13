@@ -22,10 +22,9 @@
 //
 // Find your real sink names with: pactl list sinks short
 //
-// Build:
+// Build and install:
 //   meson setup build
-//   meson compile -C build
-//   cp build/libwb_cffi_audio_sinks.so ~/.config/waybar/cffi/wb_cffi_audio_sinks.so
+//   meson compile -C build install-cffi
 
 #include "waybar_cffi_module.h"
 #include <gtk/gtk.h>
@@ -41,7 +40,7 @@ const size_t wbcffi_version = 2;
 #define DEFAULT_MAX_VISIBLE_SINKS 8  // "max_sinks" config default, if unset
 #define MAX_SINKS_HARD_CAP 32         // absolute ceiling on configured sinks, sanity bound
 #define POPUP_ABS_MAX_HEIGHT 600      // outer safety clamp on popup height regardless of config
-#define POPUP_WIDTH 320               // must stay >= box border*2 + label + spacing + scale + mute button
+#define POPUP_WIDTH 360               // must stay >= box border*2 + label + spacing + scale + entry + mute button
 #define POPUP_BORDER 10                // border-width on the popup's outer (non-scrolling) frame
 #define ROW_SPACING 8                   // vertical spacing between sink rows
 #define POPUP_HIDE_DELAY_MS 400       // grace period before auto-closing on mouse-away
@@ -57,14 +56,18 @@ typedef struct {
     int max_visible_sinks;      // config: "max_sinks" — rows visible before the popup scrolls
     GtkWidget **scales;         // [num_sinks]
     GtkWidget **mute_buttons;   // [num_sinks]
+    GtkWidget **volume_entries; // [num_sinks] — editable volume text next to each slider
     gulong *handler_ids;        // [num_sinks]
     char **sink_names;          // [num_sinks]
     char **sink_labels;         // [num_sinks]
     GtkLayerShellEdge bar_edge;  // which screen edge the bar (and popup) anchor to
-    int popup_margin;            // gap between that edge and the popup, ~bar height
+    int popup_margin;            // extra gap below the bar; -1 = auto (flush, no gap)
     guint hide_timeout_id;       // pending auto-close timer, 0 if none scheduled
     guint update_timeout_id;     // periodic bar-label refresh, 0 if none scheduled
+    gint64 popup_shown_at;        // g_get_monotonic_time() at last show, for focus-out grace period
 } ModuleData;
+
+#define POPUP_FOCUS_OUT_GRACE_US (500 * 1000)  // ignore focus-out this soon after showing
 
 // Scale/button signal handlers only get one user_data pointer, so bundle the
 // module + which of the sinks this particular row controls.
@@ -144,6 +147,7 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
     m->sink_labels = g_new0(char *, m->num_sinks);
     m->scales = g_new0(GtkWidget *, m->num_sinks);
     m->mute_buttons = g_new0(GtkWidget *, m->num_sinks);
+    m->volume_entries = g_new0(GtkWidget *, m->num_sinks);
     m->handler_ids = g_new0(gulong, m->num_sinks);
 
     if (arr) {
@@ -248,11 +252,60 @@ static void update_bar_label(ModuleData *m) {
     g_free(text);
 }
 
+// Keeps the per-row editable volume entry in sync whenever the slider moves
+// (drag, scroll, double-click-to-100, or a periodic/sync_scales refresh).
+static void set_volume_entry_text(GtkWidget *entry, int vol) {
+    char buf[8];
+    snprintf(buf, sizeof(buf), "%d", vol);
+    gtk_entry_set_text(GTK_ENTRY(entry), buf);
+}
+
 static void on_scale_changed(GtkRange *range, gpointer user_data) {
     SinkRowUserData *sud = (SinkRowUserData *)user_data;
     int vol = (int)gtk_range_get_value(range);
     set_sink_volume(sud->m->sink_names[sud->idx], vol);
+    set_volume_entry_text(sud->m->volume_entries[sud->idx], vol);
     if (sud->idx == 0) update_bar_label(sud->m);
+}
+
+// Double-click on a slider jumps it straight to 100%. Connected (not
+// "_after") so this runs before GtkScale's own default handler; returning
+// TRUE on the second click of the pair stops that default handler from also
+// treating it as a second jump-to-click-position.
+static gboolean on_scale_button_press(GtkWidget *widget, GdkEventButton *event,
+                                       gpointer user_data) {
+    (void)user_data;
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1) {
+        gtk_range_set_value(GTK_RANGE(widget), 100);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+// Entry lets the user type an exact volume. Enter (activate) or losing focus
+// both commit the typed value; invalid/out-of-range text just reverts to the
+// slider's current value instead of erroring.
+static void commit_volume_entry(GtkWidget *entry, SinkRowUserData *sud) {
+    const char *text = gtk_entry_get_text(GTK_ENTRY(entry));
+    char *end = NULL;
+    long val = strtol(text, &end, 10);
+    if (end == text) {
+        set_volume_entry_text(entry, (int)gtk_range_get_value(GTK_RANGE(sud->m->scales[sud->idx])));
+        return;
+    }
+    val = CLAMP(val, 0, SLIDER_MAX_VOLUME);
+    gtk_range_set_value(GTK_RANGE(sud->m->scales[sud->idx]), (double)val);
+}
+
+static void on_volume_entry_activate(GtkEntry *entry, gpointer user_data) {
+    commit_volume_entry(GTK_WIDGET(entry), (SinkRowUserData *)user_data);
+}
+
+static gboolean on_volume_entry_focus_out(GtkWidget *entry, GdkEventFocus *event,
+                                           gpointer user_data) {
+    (void)event;
+    commit_volume_entry(entry, (SinkRowUserData *)user_data);
+    return FALSE;
 }
 
 // Row sliders allow scrolling directly (unlike the plain 0-100% bar-icon
@@ -283,9 +336,11 @@ static gboolean on_scale_scroll(GtkWidget *widget, GdkEventScroll *event, gpoint
 
 static void sync_scales(ModuleData *m) {
     for (int i = 0; i < m->num_sinks; i++) {
+        int vol = get_sink_volume(m->sink_names[i]);
         g_signal_handler_block(m->scales[i], m->handler_ids[i]);
-        gtk_range_set_value(GTK_RANGE(m->scales[i]), get_sink_volume(m->sink_names[i]));
+        gtk_range_set_value(GTK_RANGE(m->scales[i]), vol);
         g_signal_handler_unblock(m->scales[i], m->handler_ids[i]);
+        set_volume_entry_text(m->volume_entries[i], vol);
         gtk_button_set_label(GTK_BUTTON(m->mute_buttons[i]),
                               get_sink_mute(m->sink_names[i]) ? "\U0001F507" : "\U0001F50A");
     }
@@ -325,26 +380,37 @@ static void position_popup(ModuleData *m) {
     gtk_layer_set_anchor(GTK_WINDOW(m->popup_window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
     gtk_layer_set_margin(GTK_WINDOW(m->popup_window), GTK_LAYER_SHELL_EDGE_LEFT, x);
 
-    // popup_margin == -1 (no explicit "popup_margin" in config): use the
-    // bar's real measured height instead of a guessed constant, so the popup
-    // hugs the bar edge-to-edge regardless of the bar's configured height/
-    // monitor scale factor. Measured from event_box (the icon row itself),
-    // not the toplevel window, since the toplevel can include extra
-    // style.css padding/margins the icon row doesn't have.
+    // The popup never calls gtk_layer_set_exclusive_zone(), so it keeps the
+    // default zone of 0, which means "respect everyone else's exclusive zone":
+    // the compositor already places this surface *below* waybar's own reserved
+    // strip. So the margin off the anchored edge must be 0 for the popup to
+    // touch the bar — any bar-height value here gets added on top of the
+    // offset the compositor already applied, which is what kept pushing the
+    // popup a full bar height too far down. "popup_margin" in the config is
+    // therefore an extra gap beyond the bar, not the bar height itself.
     int margin = m->popup_margin;
     if (margin < 0) {
-        margin = gtk_widget_get_allocated_height(m->event_box) + 2;
+        margin = 0;
     }
     gtk_layer_set_margin(GTK_WINDOW(m->popup_window), m->bar_edge, margin);
 }
 
-// Close the popup only after the pointer has both entered it and then left
-// again, with a short grace period — not on any focus change. A plain
-// focus-out-event (tried first) closed the popup the instant it mapped,
-// because Hyprland's focus-follows-mouse immediately handed keyboard focus
-// back to whatever was still under the cursor while it was still travelling
-// from the module toward the (now correctly positioned, but not yet reached)
-// popup.
+// Two independent ways the popup auto-closes:
+//
+// 1. Pointer leaves it (on_popup_leave/on_popup_enter): a short grace-period
+//    timer, not an instant close, so travelling from the module toward the
+//    popup doesn't trip it. Doesn't fire on a *keyboard*-driven focus change
+//    that leaves the mouse resting inside/near the popup, though — for that:
+//
+// 2. focus-out-event (on_popup_focus_out): fires when another window takes
+//    keyboard focus, whether the user got there by mouse or a compositor
+//    keybind. Needs its own grace period for a different reason: with
+//    keyboard-mode ON_DEMAND, Hyprland grants the popup keyboard focus the
+//    instant it maps, and — because of focus-follows-mouse — immediately
+//    hands it back to whatever the pointer was still resting over while it
+//    was travelling from the module toward the (correctly positioned, but
+//    not yet reached) popup. Without the grace period that spurious first
+//    loss closed the popup before the user's mouse could ever reach it.
 static gboolean on_hide_timeout(gpointer user_data) {
     ModuleData *m = (ModuleData *)user_data;
     gtk_widget_hide(m->popup_window);
@@ -377,6 +443,15 @@ static gboolean on_popup_enter(GtkWidget *widget, GdkEventCrossing *event, gpoin
     return FALSE;
 }
 
+static gboolean on_popup_focus_out(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
+    (void)widget;
+    (void)event;
+    ModuleData *m = (ModuleData *)user_data;
+    if (g_get_monotonic_time() - m->popup_shown_at < POPUP_FOCUS_OUT_GRACE_US) return FALSE;
+    gtk_widget_hide(m->popup_window);
+    return FALSE;
+}
+
 static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
     (void)widget;
     ModuleData *m = (ModuleData *)user_data;
@@ -386,6 +461,7 @@ static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpoint
         } else {
             sync_scales(m);
             position_popup(m);
+            m->popup_shown_at = g_get_monotonic_time();
             gtk_widget_show_all(m->popup_window);
         }
         return TRUE;
@@ -445,6 +521,28 @@ static gboolean on_periodic_update(gpointer user_data) {
 // attaches it to each widget) can see it.
 static GtkCssProvider *g_forced_style_provider = NULL;
 
+// CSS classes this module exposes (all inside the right-click popup — the
+// bar widget itself uses waybar's normal #cffi-audio_sinks / .module
+// selectors in the user's own style.css, no forced style there):
+//
+//   .wb-audio-sinks-box          popup's outer GtkScrolledWindow: dark
+//                                 background, rounded corners, fixed frame
+//                                 (does not scroll/clip with the row list).
+//   label.wb-audio-sinks-label   per-row sink name text.
+//   scale.wb-audio-sinks-scale   the volume slider itself:
+//                                   trough      unfilled track
+//                                   highlight   filled (current-volume) track
+//                                   slider      the drag handle
+//   entry.wb-audio-sinks-entry   per-row editable volume number field.
+//   button.wb-audio-sinks-mute-btn  per-row mute toggle button.
+//
+// These rules are loaded via GtkCssProvider at
+// GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 10 (see style_widget() below),
+// deliberately higher than a normal ~/.config/waybar/style.css
+// (PRIORITY_APPLICATION) so the popup stays visible/legible regardless of
+// what broad selectors exist in the user's global stylesheet. Because of
+// that priority, style.css rules targeting these classes will normally lose
+// — to customize colors/sizes, edit the `css` string below directly instead.
 static void apply_forced_style(void) {
     if (g_forced_style_provider) return;  // only need to load it once, globally
 
@@ -476,6 +574,26 @@ static void apply_forced_style(void) {
         "  min-width: 14px;"
         "  border-radius: 7px;"
         "  background-color: #f5e0dc;"
+        "}\n"
+        // GDK_WINDOW_TYPE_HINT_TOOLTIP (set on popup_window below) skips
+        // GTK's shadow-margin *reservation*, but the active GTK theme can
+        // still paint a CSD shadow/margin via the "decoration" CSS node on
+        // undecorated toplevels regardless of type hint — that leftover
+        // paint was the remaining visible gap. Zeroed directly here, scoped
+        // to this window's own class so it can't affect any other toplevel.
+        "window.wb-audio-sinks-popup, window.wb-audio-sinks-popup decoration {"
+        "  box-shadow: none;"
+        "  margin: 0;"
+        "  border: none;"
+        "  border-radius: 0;"
+        "}\n"
+        "entry.wb-audio-sinks-entry {"
+        "  min-height: 0;"
+        "  padding: 0 4px;"
+        "  background-color: rgba(255, 255, 255, 0.08);"
+        "  color: #cdd6f4;"
+        "  border: none;"
+        "  caret-color: #cdd6f4;"
         "}\n"
         "button.wb-audio-sinks-mute-btn {"
         "  padding: 0 4px;"
@@ -536,6 +654,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
     // besides this internal GTK CSS decision, so it has no effect on
     // interactivity (the sliders still work — see keyboard-mode below).
     gtk_window_set_type_hint(GTK_WINDOW(m->popup_window), GDK_WINDOW_TYPE_HINT_TOOLTIP);
+    style_widget(m->popup_window, "wb-audio-sinks-popup");
     gtk_layer_init_for_window(GTK_WINDOW(m->popup_window));
     gtk_layer_set_layer(GTK_WINDOW(m->popup_window), GTK_LAYER_SHELL_LAYER_OVERLAY);
     // Anchored to the same screen edge as the bar itself (config: "bar_position",
@@ -543,17 +662,17 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
     // position_popup() since the module's x offset and the bar's real height
     // are only known once everything is realized.
     gtk_layer_set_anchor(GTK_WINDOW(m->popup_window), m->bar_edge, TRUE);
-    // NONE, not ON_DEMAND: sliders are mouse-only, and ON_DEMAND's keyboard
-    // grab was actively harmful here — with Hyprland's focus-follows-mouse,
-    // grabbing focus on map immediately lost it again as the pointer moved
-    // from the bar toward the still-distant popup, closing it before the
-    // user's mouse could ever reach it (a focus-out-event handler is what
-    // triggered that close; both are removed together).
+    // ON_DEMAND: needed so a keyboard-driven window switch (e.g. a Hyprland
+    // keybind, mouse never moving) can be detected via focus-out-event and
+    // close the popup — see the comment above on_popup_focus_out for the
+    // grace period this requires to avoid an instant spurious close.
     gtk_layer_set_keyboard_mode(GTK_WINDOW(m->popup_window),
-                                 GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
-    gtk_widget_add_events(m->popup_window, GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK);
+                                 GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
+    gtk_widget_add_events(m->popup_window,
+                           GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_FOCUS_CHANGE_MASK);
     g_signal_connect(m->popup_window, "enter-notify-event", G_CALLBACK(on_popup_enter), m);
     g_signal_connect(m->popup_window, "leave-notify-event", G_CALLBACK(on_popup_leave), m);
+    g_signal_connect(m->popup_window, "focus-out-event", G_CALLBACK(on_popup_focus_out), m);
 
     // Rows live in a plain, unstyled box — the dark background/border-radius
     // goes on the enclosing GtkScrolledWindow below instead (see its
@@ -571,14 +690,21 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         gtk_label_set_xalign(GTK_LABEL(lbl), 0.0);
         style_widget(lbl, "wb-audio-sinks-label");
 
+        // draw_value off: the built-in number readout is part of the GtkScale
+        // widget itself, so scroll events over it would count as scrolling
+        // the slider. Replaced below with a separate editable GtkEntry, which
+        // isn't wired to on_scale_scroll — scrolling over it instead bubbles
+        // up to the popup's GtkScrolledWindow and pages the sink list.
         GtkWidget *scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0,
                                                      SLIDER_MAX_VOLUME, 1);
+        gtk_scale_set_draw_value(GTK_SCALE(scale), FALSE);
         gtk_widget_set_size_request(scale, 150, -1);
-        gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_RIGHT);
         gtk_range_set_value(GTK_RANGE(scale), get_sink_volume(m->sink_names[i]));
         style_widget(scale, "wb-audio-sinks-scale");
-        gtk_widget_add_events(scale, GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK);
+        gtk_widget_add_events(scale, GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK |
+                                          GDK_BUTTON_PRESS_MASK);
         g_signal_connect(scale, "scroll-event", G_CALLBACK(on_scale_scroll), NULL);
+        g_signal_connect(scale, "button-press-event", G_CALLBACK(on_scale_button_press), NULL);
 
         m->scales[i] = scale;
 
@@ -588,6 +714,16 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         g_object_set_data_full(G_OBJECT(scale), "scale-user-data", sud, g_free);
         m->handler_ids[i] = g_signal_connect(scale, "value-changed",
                                               G_CALLBACK(on_scale_changed), sud);
+
+        GtkWidget *vol_entry = gtk_entry_new();
+        gtk_entry_set_width_chars(GTK_ENTRY(vol_entry), 4);
+        gtk_entry_set_alignment(GTK_ENTRY(vol_entry), 1.0);
+        set_volume_entry_text(vol_entry, get_sink_volume(m->sink_names[i]));
+        style_widget(vol_entry, "wb-audio-sinks-entry");
+        g_signal_connect(vol_entry, "activate", G_CALLBACK(on_volume_entry_activate), sud);
+        g_signal_connect(vol_entry, "focus-out-event",
+                          G_CALLBACK(on_volume_entry_focus_out), sud);
+        m->volume_entries[i] = vol_entry;
 
         GtkWidget *mute_btn = gtk_button_new_with_label(
             get_sink_mute(m->sink_names[i]) ? "\U0001F507" : "\U0001F50A");
@@ -602,6 +738,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
 
         gtk_box_pack_start(GTK_BOX(row), lbl, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(row), scale, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(row), vol_entry, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(row), mute_btn, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(box), row, FALSE, FALSE, 0);
 
@@ -666,6 +803,7 @@ void wbcffi_deinit(void *instance) {
     g_free(m->sink_labels);
     g_free(m->scales);
     g_free(m->mute_buttons);
+    g_free(m->volume_entries);
     g_free(m->handler_ids);
     g_free(m);
 }
