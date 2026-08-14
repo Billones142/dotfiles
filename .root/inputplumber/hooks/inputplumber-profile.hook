@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = inputplumber
+
+[Action]
+Description = Persisting custom default profile for InputPlumber...
+When = PostTransaction
+Exec = /usr/bin/cp /etc/inputplumber/profiles/ds4_mode.yaml /usr/share/inputplumber/profiles/default.yaml

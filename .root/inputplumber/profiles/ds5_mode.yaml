@@ -1,0 +1,9 @@
+# perfil para inputplumber, colocar en /etc/inputplumber/profiles/
+version: 1
+kind: DeviceProfile
+name: DS5Passthrough
+target_devices:
+  - ds5
+
+# Mapping vacío = Copia 1:1 (Botón X es Botón X)
+mapping: []

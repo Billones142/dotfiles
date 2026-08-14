@@ -1,0 +1,5 @@
+# Ocultar el mando físico DualShock 4 (tanto por USB como por Bluetooth) de las aplicaciones de usuario (como Steam o el Navegador)
+# Esto evita el problema de la doble entrada, permitiendo que solo el daemon de InputPlumber (que corre como root) acceda al mando real.
+
+SUBSYSTEM=="hidraw", KERNELS=="000[356]:054c:*", MODE="0600", TAG-="uaccess"
+SUBSYSTEM=="input", KERNELS=="000[356]:054c:*", MODE="0600", TAG-="uaccess"

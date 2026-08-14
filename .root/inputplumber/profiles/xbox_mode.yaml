@@ -1,0 +1,71 @@
+version: 1
+kind: DeviceProfile
+name: Xbox360Corrected
+target_devices:
+  - xb360
+
+mapping:
+  # --- BOTONES PRINCIPALES ---
+  # Cross (X) -> A
+  - name: CrossToA
+    source_event: { gamepad: { button: South } }
+    target_events: [{ gamepad: { button: South } }] 
+  
+  # Circle (O) -> B
+  - name: CircleToB
+    source_event: { gamepad: { button: East } }
+    target_events: [{ gamepad: { button: East } }] 
+
+  # Square (Cuadrado) -> X
+  - name: SquareToX
+    source_event: { gamepad: { button: West } }
+    target_events: [{ gamepad: { button: West } }] 
+
+  # Triangle (Triángulo) -> Y
+  - name: TriangleToY
+    source_event: { gamepad: { button: North } }
+    target_events: [{ gamepad: { button: North } }] 
+
+  # --- GATILLOS Y HOMBROS ---
+  # Los botones L1/R1 son digitales, usan sintaxis simple
+  - name: L1ToLB
+    source_event: { gamepad: { button: LeftBumper } }
+    target_events: [{ gamepad: { button: LeftBumper } }]
+  - name: R1ToRB
+    source_event: { gamepad: { button: RightBumper } }
+    target_events: [{ gamepad: { button: RightBumper } }]
+    
+  # CORRECCIÓN: Los Triggers son gatillos analógicos, requieren estructura { trigger: { name: ... } }
+  - name: L2ToLT
+    source_event: { gamepad: { trigger: { name: LeftTrigger } } }
+    target_events: [{ gamepad: { trigger: { name: LeftTrigger } } }]
+  - name: R2ToRT
+    source_event: { gamepad: { trigger: { name: RightTrigger } } }
+    target_events: [{ gamepad: { trigger: { name: RightTrigger } } }]
+
+  # --- MENÚS ---
+  - name: ShareToBack
+    source_event: { gamepad: { button: Select } }
+    target_events: [{ gamepad: { button: Select } }]
+  - name: OptionsToStart
+    source_event: { gamepad: { button: Start } }
+    target_events: [{ gamepad: { button: Start } }]
+  - name: PSToGuide
+    source_event: { gamepad: { button: Guide } }
+    target_events: [{ gamepad: { button: Guide } }]
+
+  # --- JOYSTICKS ---
+  - name: LeftStick
+    source_event: { gamepad: { axis: { name: LeftStick } } }
+    target_events: [{ gamepad: { axis: { name: LeftStick } } }]
+  - name: RightStick
+    source_event: { gamepad: { axis: { name: RightStick } } }
+    target_events: [{ gamepad: { axis: { name: RightStick } } }]
+    
+  # Clics de los sticks (L3/R3 son botones)
+  - name: L3
+    source_event: { gamepad: { button: LeftStick } }
+    target_events: [{ gamepad: { button: LeftStick } }]
+  - name: R3
+    source_event: { gamepad: { button: RightStick } }
+    target_events: [{ gamepad: { button: RightStick } }]

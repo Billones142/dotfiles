@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/composite_device_v1.json
+version: 1
+kind: CompositeDevice
+name: Sony Interactive Entertainment Wireless Controller
+maximum_sources: 4
+matches: []
+
+source_devices:
+  - group: gamepad
+    udev:
+      attributes:
+        - name: name
+          value: "Wireless Controller"
+        - name: id/vendor
+          value: "054c"
+        - name: id/product
+          value: "{09cc,05c4}"
+      properties:
+        - name: ID_INPUT_JOYSTICK
+          value: "1"
+      sys_name: "event*"
+      subsystem: input
+    capability_map_id: swap_west_north
+
+  - group: gamepad
+    udev:
+      attributes:
+        - name: name
+          value: "Wireless Controller Touchpad"
+        - name: id/vendor
+          value: "054c"
+        - name: id/product
+          value: "{09cc,05c4}"
+      properties:
+        - name: ID_INPUT_TOUCHPAD
+          value: "1"
+      sys_name: "event*"
+      subsystem: input
+    capability_map_id: ds4_touchpad
+    events:
+      exclude:
+        - "*"
+      include:
+        - "Gamepad:LeftTouchpadPress"
+        - "Gamepad:LeftTouchpadTouch"
+
+  - group: gamepad
+    udev:
+      attributes:
+        - name: name
+          value: "Wireless Controller Motion Sensors"
+        - name: id/vendor
+          value: "054c"
+        - name: id/product
+          value: "{09cc,05c4}"
+      sys_name: "event*"
+      subsystem: input
+    capability_map_id: imu_generic
+
+  # Block the hidraw device to prevent SDL usage of the device
+  - group: gamepad
+    blocked: true
+    udev:
+      attributes:
+        - name: idVendor
+          value: "054c"
+        - name: idProduct
+          value: "{09cc,05c4}"
+      subsystem: hidraw
+
+options:
+  auto_manage: true
+
+target_devices:
+  - ds5
+  - mouse
+  - keyboard

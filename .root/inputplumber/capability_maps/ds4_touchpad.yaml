@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/capability_map_v1.json
+version: 1
+kind: CapabilityMap
+name: DS4 Touchpad Map
+id: ds4_touchpad
+mapping:
+  - name: Touchpad Press
+    source_events:
+      - evdev:
+          event_type: KEY
+          event_code: BTN_LEFT
+          value_type: button
+    target_event:
+      gamepad:
+        button: LeftTouchpadPress
+
+  - name: Touchpad Touch
+    source_events:
+      - evdev:
+          event_type: KEY
+          event_code: BTN_TOUCH
+          value_type: button
+    target_event:
+      gamepad:
+        button: LeftTouchpadTouch
