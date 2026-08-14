@@ -20,16 +20,16 @@
         "hyprland/window"
     ],
     "modules-center": [
-        "clock",
-	"mpris"
+        "clock"
     ],
     "modules-right": [
-	"custom/notification",
+	"mpris",
         "tray",
         //"pulseaudio",
 	"cffi/audio_sinks",
         "network",
         "battery",
+	"custom/notification",
 	"privacy"
     ],
     // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
