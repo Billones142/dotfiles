@@ -21,7 +21,7 @@ echo "Esperando 5 segundos..."
 sleep 5
 
 echo "Reiniciando sunshine..."
-systemctl --user restart sunshine.service
+systemctl --user restart app-dev.lizardbyte.app.Sunshine.service
 
 # 4. Restaurar el archivo original (deja las líneas vacías otra vez)
 sudo mv /etc/sddm.conf.bak /etc/sddm.conf
