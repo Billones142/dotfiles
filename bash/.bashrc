@@ -22,6 +22,9 @@ alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
 alias rsync='rsync --progress'
 alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566'
 
+alias clearclear='/usr/bin/clear'
+alias clear='echo "Casi, pero mejor CTRL + L"'
+
 # autocompletado para alias
 complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
