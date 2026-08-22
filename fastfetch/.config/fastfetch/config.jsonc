@@ -26,6 +26,7 @@
     {
       "type": "disk",
       "key": "Disk",
+      "format": "{size-used}/{size-total}({size-percentage}) {mountpoint}",
       "hideFS": [
         "fuse.sshfs",
         "fuse",
@@ -34,6 +35,7 @@
         "cifs"
       ],
       "hideFolders": [
+	"/boot",
         "/media/stefano/truenas-share",
         "/media/stefano/truenas-stefano"
       ]
