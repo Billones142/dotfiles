@@ -30,6 +30,8 @@ if [[ "$response_gui" =~ ^[SsYy]$ ]]; then
     fi
 fi
 
+# TODO: agregar instalacion de snapper
+
 # --- Definición de Paquetes ---
 
 PACKAGES_BASE=(
@@ -198,8 +200,9 @@ PACKAGES_JUEGOS=(
 PACKAGES_DEV=(
     clang
     rust-analyzer
-    gopls
-    uv
+    gopls # GoLang code server
+    ruff # Python linter
+    uv # Python version manager
 )
 
 
