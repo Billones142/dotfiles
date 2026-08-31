@@ -385,6 +385,7 @@ SYSTEM_SERVICES_ENABLE=(
     opensnitchd.service
     avahi-daemon
     docker.socket
+    swayosd-libinput-backend.service #TODO: only if GUI is installed
 )
 
 if [ "$DETECT_BLUETOOTH" = true ]; then
