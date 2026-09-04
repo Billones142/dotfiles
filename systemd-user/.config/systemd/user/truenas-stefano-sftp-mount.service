@@ -3,6 +3,7 @@ Description=TrueNAS stefano SFTP Mount
 After=network-online.target
 Wants=network-online.target
 Conflicts=truenas-share-smb-mount.service
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple
@@ -11,14 +12,24 @@ ExecStart=/bin/bash -c 'if [ -f %h/.scripts/check_truenas.sh ] && %h/.scripts/ch
     else REMOTE="truenas_tailscale_sftp"; fi; \
     /usr/bin/rclone mount $$REMOTE://mnt/Datos/private/stefano /media/stefano/truenas-stefano \
   --password-command "cat $HOME/.config/rclone/pass.txt" \
-  --vfs-cache-mode writes \
+  --vfs-cache-mode full \
   --vfs-cache-max-size 5G \
+  --dir-cache-time 1h \
+  --poll-interval 0 \
+  --vfs-fast-fingerprint \
+  --buffer-size 32M \
+  --vfs-read-ahead 128M \
+  --contimeout 8s \
+  --timeout 15s \
+  --low-level-retries 3 \
   --dir-perms 0700 \
   --file-perms 0600'
 
-ExecStop=/usr/bin/fusermount -u /media/stefano/truenas-stefano
+ExecStop=/usr/bin/fusermount -uz /media/stefano/truenas-stefano
 Restart=on-failure
-RestartSec=10
+RestartSec=5
+RestartSteps=5
+RestartMaxDelaySec=2min
 
 [Install]
 WantedBy=default.target
