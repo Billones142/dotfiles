@@ -29,8 +29,7 @@ else
             systemctl suspend-then-hibernate &
             ;;
         "$OPC_SWITCH")
-            # Comando estándar para volver al gestor de entrada (GDM/SDDM)
-            dm-tool switch-to-greeter || loginctl lock-session &
+            loginctl lock-session ; busctl call org.freedesktop.DisplayManager /org/freedesktop/DisplayManager/Seat0 org.freedesktop.DisplayManager.Seat SwitchToGreeter
             ;;
     esac
     exit 0
