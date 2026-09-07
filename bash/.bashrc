@@ -9,9 +9,6 @@ source /usr/share/bash-complete-alias/complete_alias
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias modo_xbox='sudo inputplumber device 0 profile load ~/xbox_mode.yaml && echo "🎮 Modo Xbox Activado"'
-alias modo_ps='sudo inputplumber device 0 profile load ~/ds4_mode.yaml && echo "🎮 Modo PlayStation Activado"'
-
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -25,6 +22,7 @@ alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoin
 alias clearclear='/usr/bin/clear'
 alias clear='echo "Casi, pero mejor CTRL + L"'
 
+complete -C /usr/bin/terraform terraform
 # autocompletado para alias
 complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
@@ -103,7 +101,20 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
-#
+
 export PATH="/home/stefano/.local/share/gem/ruby/3.4.0/bin:$PATH"
 
-complete -C /usr/bin/terraform terraform
+explorer() {
+    local fm="${FILEMANAGER:-xdg-open}"
+    local path="${1:-.}"
+
+    # Soporte para expandir tilde si se pasa entre comillas
+    path="${path/#\~/$HOME}"
+
+    if [ -d "$path" ]; then
+        nohup "$fm" "$path" > /dev/null 2>&1 &
+    else
+        echo "Error: '$path' no es un directorio válido"
+        return 1
+    fi
+}
