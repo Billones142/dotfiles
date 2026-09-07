@@ -10,7 +10,7 @@ if ip neighbor show "$IP_LOCAL" | grep -qi "$MAC_CONOCIDA"; then
     
     # 2. Verificación de Capa 7 (SSH Fingerprint)
     # Si la MAC coincide, confirmamos la identidad criptográfica
-    if ssh-keyscan -t ed25519 "$IP_LOCAL" 2>/dev/null | ssh-keygen -lf - | grep -q "$FINGERPRINT"; then
+    if ssh-keyscan -T 3 -t ed25519 "$IP_LOCAL" 2>/dev/null | ssh-keygen -lf - | grep -q "$FINGERPRINT"; then
         echo "truenas_local"
         exit 0
     fi
