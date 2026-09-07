@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+"""Adaptive backlight daemon: maps ambient light (iio-sensor-proxy) to screen brightness."""
+
+import json
+import math
+import signal
+import subprocess
+import sys
+import time
+
+BACKLIGHT_DEVICE = "intel_backlight"
+
+# Brightness bounds and the lux reference point that maps to 100%.
+MIN_PCT = 1
+MAX_PCT = 100
+MAX_LUX = 1000
+
+POLL_INTERVAL_SEC = 2
+EMA_ALPHA = 0.3        # smoothing factor for lux readings; lower = smoother/slower
+STEP_THRESHOLD_PCT = 3  # ignore target changes smaller than this, to avoid flicker
+
+# If the actual brightness diverges from what we last set, assume the user
+# adjusted it manually (e.g. via keyboard/swayosd) and back off for a while
+# instead of immediately overriding their choice.
+OVERRIDE_THRESHOLD_PCT = 5
+OVERRIDE_COOLDOWN_SEC = 30
+
+SENSOR_BUS_ARGS = [
+    "busctl", "--system", "--json=short",
+]
+
+running = True
+
+
+def handle_signal(signum, frame):
+    global running
+    running = False
+
+
+def claim_light():
+    subprocess.run(
+        SENSOR_BUS_ARGS + [
+            "call", "net.hadess.SensorProxy", "/net/hadess/SensorProxy",
+            "net.hadess.SensorProxy", "ClaimLight",
+        ],
+        check=True, capture_output=True,
+    )
+
+
+def release_light():
+    subprocess.run(
+        SENSOR_BUS_ARGS + [
+            "call", "net.hadess.SensorProxy", "/net/hadess/SensorProxy",
+            "net.hadess.SensorProxy", "ReleaseLight",
+        ],
+        capture_output=True,
+    )
+
+
+def read_lux():
+    result = subprocess.run(
+        SENSOR_BUS_ARGS + [
+            "get-property", "net.hadess.SensorProxy", "/net/hadess/SensorProxy",
+            "net.hadess.SensorProxy", "LightLevel",
+        ],
+        check=True, capture_output=True, text=True,
+    )
+    return float(json.loads(result.stdout)["data"])
+
+
+def read_current_pct():
+    result = subprocess.run(
+        ["brightnessctl", "-m"], check=True, capture_output=True, text=True,
+    )
+    # format: device,class,current,percentage,max
+    return int(result.stdout.strip().split(",")[3].rstrip("%"))
+
+
+def set_pct(pct):
+    subprocess.run(
+        #["brightnessctl", "set", f"{pct}%"]
+        ["swayosd-client", "--brightness", f"{pct}"]
+        , check=True, capture_output=True,
+    )
+
+
+def lux_to_pct(lux):
+    ratio = math.log10(lux + 1) / math.log10(MAX_LUX + 1)
+    ratio = max(0.0, min(1.0, ratio))
+    return MIN_PCT + (MAX_PCT - MIN_PCT) * ratio
+
+
+def main():
+    signal.signal(signal.SIGTERM, handle_signal)
+    signal.signal(signal.SIGINT, handle_signal)
+
+    try:
+        claim_light()
+    except subprocess.CalledProcessError as exc:
+        print(f"failed to claim light sensor: {exc.stderr.decode().strip()}", file=sys.stderr)
+        sys.exit(1)
+
+    smoothed_lux = None
+    last_set_pct = None
+    override_until = 0.0
+
+    try:
+        while running:
+            time.sleep(POLL_INTERVAL_SEC)
+            try:
+                lux = read_lux()
+            except (subprocess.CalledProcessError, ValueError, KeyError) as exc:
+                print(f"lux read failed: {exc}", file=sys.stderr)
+                continue
+
+            smoothed_lux = lux if smoothed_lux is None else (
+                EMA_ALPHA * lux + (1 - EMA_ALPHA) * smoothed_lux
+            )
+            target_pct = round(lux_to_pct(smoothed_lux))
+
+            try:
+                current_pct = read_current_pct()
+            except (subprocess.CalledProcessError, ValueError, IndexError) as exc:
+                print(f"brightness read failed: {exc}", file=sys.stderr)
+                continue
+
+            now = time.monotonic()
+            if last_set_pct is not None and abs(current_pct - last_set_pct) > OVERRIDE_THRESHOLD_PCT:
+                override_until = now + OVERRIDE_COOLDOWN_SEC
+                last_set_pct = current_pct
+
+            if now < override_until:
+                continue
+
+            if last_set_pct is None or abs(target_pct - current_pct) >= STEP_THRESHOLD_PCT:
+                try:
+                    set_pct(target_pct)
+                    last_set_pct = target_pct
+                    print(f"lux={lux:.1f} (smoothed={smoothed_lux:.1f}) -> {target_pct}%")
+                except subprocess.CalledProcessError as exc:
+                    print(f"brightness set failed: {exc.stderr.decode().strip()}", file=sys.stderr)
+    finally:
+        release_light()
+
+
+if __name__ == "__main__":
+    main()

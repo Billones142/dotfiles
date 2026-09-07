@@ -1,0 +1,14 @@
+[Unit]
+Description=Adaptive backlight brightness based on ambient light sensor
+PartOf=wayland-session@hyprland.desktop.target
+After=wayland-session@hyprland.desktop.target
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/.local/bin/adaptive-backlight.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=wayland-session@hyprland.desktop.target
