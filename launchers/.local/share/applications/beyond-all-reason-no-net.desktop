@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Beyond All Reason - No network
+Exec=mangohud "/home/stefano/.local/state/Beyond All Reason/engine/recoil_2026.07.03/spring" --write-dir "/home/stefano/.local/state/Beyond All Reason" --isolation --menu rapid://byar-chobby:test
+
+Terminal=false
+Type=Application
+Icon=beyond-all-reason
+StartupWMClass=Beyond-All-Reason
+X-AppImage-Version=1.2988.0
+Comment=Electron-based SpringRTS Launcher app
+Categories=Game;
+Keywords=BAR;
