@@ -23,6 +23,18 @@ hl.window_rule({
     center = true,
 })
 
+hl.window_rule({
+    name = "steam-update-popup",
+    match = {
+        class = "",
+        title = "Steam",
+    },
+    float = true,
+    center = true,
+    workspace = 5,
+    no_initial_focus = true,
+})
+
 -- Notificaciones de trofeos
 hl.window_rule({
     name = "steam-trophy",
