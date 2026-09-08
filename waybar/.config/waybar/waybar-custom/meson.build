@@ -3,11 +3,14 @@ project('wb_cffi_audio_sinks', 'c')
 gtk_dep = dependency('gtk+-3.0')
 json_glib_dep = dependency('json-glib-1.0')
 layer_shell_dep = dependency('gtk-layer-shell-0')
+# log10() in the level-meter code; a no-op on glibc >= 2.34 but keeps the
+# build working on toolchains where libm is still separate.
+m_dep = meson.get_compiler('c').find_library('m', required: false)
 
 lib = shared_library(
     'wb_cffi_audio_sinks',
     'main.c',
-    dependencies: [gtk_dep, json_glib_dep, layer_shell_dep],
+    dependencies: [gtk_dep, json_glib_dep, layer_shell_dep, m_dep],
     name_prefix: '',
     install: false,
 )

@@ -1,24 +1,35 @@
 // wb_cffi_audio_sinks: a Waybar CFFI module.
 //
-// Left click on the bar widget: toggle mute on sinks[0].
-// Scroll on the bar widget: adjust sinks[0]'s volume (0-100%).
+// The bar widget represents one sink, chosen by label via "bar_sink" (falls
+// back to the first configured sink that currently exists).
+// Left click on the bar widget: toggle its mute.
+// Scroll on the bar widget: adjust its volume (0-100%).
 // Right click: opens a real layer-shell popup window with one live slider
 // per configured sink (up to "max_sinks", default 8), each wired directly to
 // `pactl set-sink-volume`/`set-sink-mute`. Sliders go up to 150% and can be
 // scrolled directly; scrolling the popup background (not a slider) scrolls
-// the list if there are more sinks than fit on screen.
+// the list if there are more sinks than fit on screen. Under each slider a
+// thin bar shows that sink's live output level, captured from its monitor
+// source with `parec` while the popup is open (needs pulseaudio-utils; the
+// bar just stays flat if parec isn't installed).
 //
 // Sinks are configured entirely from the waybar JSON config, e.g.:
 //
 //   "cffi/audio_sinks": {
 //       "module_path": ".config/waybar/cffi/wb_cffi_audio_sinks.so",
 //       "max_sinks": 8,
+//       "bar_sink": "Headphones",
 //       "sinks": [
 //           {"label": "Speakers", "name": "alsa_output.pci-0000_00_1f.3.analog-stereo"},
 //           {"label": "Headphones", "name": "alsa_output.usb-Generic_USB_Audio-00.analog-stereo"},
 //           {"label": "HDMI", "name": "alsa_output.pci-0000_01_00.1.hdmi-stereo"}
 //       ]
 //   }
+//
+// Labels double as the module's identifier for a sink, so they must be unique:
+// entries repeating an earlier label are dropped (first one wins) without
+// erroring out. Sinks that don't exist on the system are hidden, and the whole
+// bar widget disappears when none of them do.
 //
 // Find your real sink names with: pactl list sinks short
 //
@@ -31,6 +42,7 @@
 #include <gtk-layer-shell/gtk-layer-shell.h>
 #include <json-glib/json-glib.h>
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,6 +59,17 @@ const size_t wbcffi_version = 2;
 #define SCROLL_VOLUME_STEP 5
 #define SLIDER_MAX_VOLUME 150  // sliders (only) allow boosting past 100%, "up to 11"
 
+// Live level meter (the thin bar under each slider), fed by one `parec`
+// process per visible sink reading that sink's monitor source.
+#define METER_RATE 22050          // sample rate asked of parec; plenty for a peak meter
+#define METER_CHUNK_BYTES 1024    // 512 s16 mono samples ~= 23ms per UI update
+#define METER_FLOOR_DB (-60.0)     // amplitude mapped to 0.0 on the meter
+#define METER_DECAY 0.80           // per-chunk fall factor, so the bar drops smoothly
+#define SCALE_HEIGHT 10            // slider height; must fit the 7px handle + trough
+#define ROW_HEIGHT 28              // row height: scale + spacing + meter bar
+
+typedef struct SinkMeter SinkMeter;
+
 typedef struct {
     wbcffi_module *obj;
     GtkWidget *event_box;
@@ -55,8 +78,11 @@ typedef struct {
     int num_sinks;              // all configured sinks (up to MAX_SINKS_HARD_CAP) — all get loaded
     int max_visible_sinks;      // config: "max_sinks" — rows visible before the popup scrolls
     GtkWidget **rows;           // [num_sinks] — popup row box, hidden when the sink is absent
-    int primary_idx;            // sink the bar widget represents: first present one, -1 if none
+    char *bar_sink_label;       // config: "bar_sink" — label of the sink the bar shows; NULL = first
+    int primary_idx;            // resolved index of that sink, -1 if none present
     GtkWidget **scales;         // [num_sinks]
+    GtkWidget **meter_bars;     // [num_sinks] — GtkLevelBar showing live output level
+    SinkMeter *meters;          // [num_sinks] — parec capture backing those bars
     GtkWidget **mute_buttons;   // [num_sinks]
     GtkWidget **volume_entries; // [num_sinks] — editable volume text next to each slider
     gulong *handler_ids;        // [num_sinks]
@@ -75,6 +101,18 @@ typedef struct {
     GCancellable *pactl_cancel;
     guint event_refresh_id;      // debounce timer for those events, 0 if none pending
 } ModuleData;
+
+// One live capture of a sink's monitor source, driving that row's level bar.
+// See the "Live level meters" section further down for how it is fed.
+struct SinkMeter {
+    ModuleData *m;
+    int idx;
+    GSubprocess *proc;       // `parec` reading <sink>.monitor, NULL while stopped
+    GInputStream *stream;    // owned by proc, not unreffed here
+    GCancellable *cancel;
+    unsigned char buf[METER_CHUNK_BYTES];
+    double level;             // 0.0-1.0, what the level bar currently shows
+};
 
 #define POPUP_FOCUS_OUT_GRACE_US (500 * 1000)  // ignore focus-out this soon after showing
 
@@ -106,6 +144,7 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
                           size_t config_entries_len) {
     m->bar_edge = GTK_LAYER_SHELL_EDGE_TOP;
     m->popup_margin = -1;  // sentinel: auto (flush against the bar)
+    m->bar_sink_label = NULL;
     m->primary_idx = 0;    // provisional until refresh_sink_presence() runs
     m->max_visible_sinks = DEFAULT_MAX_VISIBLE_SINKS;
     const char *sinks_raw = NULL;
@@ -126,6 +165,8 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
             g_free(pos);
         } else if (strcmp(config_entries[i].key, "popup_margin") == 0) {
             m->popup_margin = atoi(config_entries[i].value);
+        } else if (strcmp(config_entries[i].key, "bar_sink") == 0) {
+            m->bar_sink_label = unquote_json_string(config_entries[i].value);
         }
     }
 
@@ -157,6 +198,8 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
     m->sink_labels = g_new0(char *, m->num_sinks);
     m->rows = g_new0(GtkWidget *, m->num_sinks);
     m->scales = g_new0(GtkWidget *, m->num_sinks);
+    m->meter_bars = g_new0(GtkWidget *, m->num_sinks);
+    m->meters = g_new0(SinkMeter, m->num_sinks);
     m->mute_buttons = g_new0(GtkWidget *, m->num_sinks);
     m->volume_entries = g_new0(GtkWidget *, m->num_sinks);
     m->handler_ids = g_new0(gulong, m->num_sinks);
@@ -187,6 +230,33 @@ static void parse_config(ModuleData *m, const wbcffi_config_entry *config_entrie
             m->sink_labels[s] = g_strdup_printf("Sink %d", s + 1);
         }
     }
+
+    // Labels are the module's identifier for a sink ("bar_sink" selects one by
+    // label), so they have to be unique. A duplicate is dropped rather than
+    // treated as a fatal config error: the first entry with that label wins,
+    // the rest are compacted out of the arrays and never get a row. Silent
+    // from the user's side — the journal note is for debugging only.
+    int kept = 0;
+    GHashTable *seen_labels = g_hash_table_new(g_str_hash, g_str_equal);
+    for (int s = 0; s < m->num_sinks; s++) {
+        if (g_hash_table_contains(seen_labels, m->sink_labels[s])) {
+            g_message("wb_cffi_audio_sinks: dropping sinks[%d] (\"%s\"): duplicate label \"%s\"",
+                       s, m->sink_names[s], m->sink_labels[s]);
+            g_free(m->sink_names[s]);
+            g_free(m->sink_labels[s]);
+            continue;
+        }
+        g_hash_table_add(seen_labels, m->sink_labels[s]);
+        m->sink_names[kept] = m->sink_names[s];
+        m->sink_labels[kept] = m->sink_labels[s];
+        kept++;
+    }
+    g_hash_table_destroy(seen_labels);
+    for (int s = kept; s < m->num_sinks; s++) {
+        m->sink_names[s] = NULL;
+        m->sink_labels[s] = NULL;
+    }
+    m->num_sinks = kept;
 }
 // ---------------------------------------------------------------------------
 
@@ -275,6 +345,127 @@ static GHashTable *query_present_sinks(void) {
     return present;
 }
 
+// ---- Live level meters ----------------------------------------------------
+// Each visible popup row gets a thin bar under its slider showing what the
+// sink is actually playing right now. PulseAudio/PipeWire exposes that as the
+// sink's monitor source ("<sink name>.monitor"), so one `parec` per row reads
+// raw mono s16 from it and we take the peak of every chunk.
+//
+// Capture only runs while the popup is open (see meters_sync): the popup is
+// the only place the meters are visible, and an idle `parec` per sink would
+// keep every device's monitor stream alive for nothing.
+
+static void meter_start_read(SinkMeter *meter);
+
+// Peak of one chunk, mapped from linear amplitude onto a dB scale so quiet
+// music still moves the bar (linear amplitude spends most of its time near
+// zero and looks dead). Falls are smoothed by METER_DECAY; rises are
+// instant, which is what makes it read as a level meter rather than a graph.
+static void meter_push_samples(SinkMeter *meter, const unsigned char *data, gsize len) {
+    gint16 peak = 0;
+    for (gsize i = 0; i + 1 < len; i += 2) {
+        gint16 sample = (gint16)((guint16)data[i] | ((guint16)data[i + 1] << 8));
+        int magnitude = sample < 0 ? -(int)sample : (int)sample;
+        if (magnitude > peak) peak = (gint16)MIN(magnitude, 32767);
+    }
+
+    double amplitude = (double)peak / 32768.0;
+    double level = 0.0;
+    if (amplitude > 0.0) {
+        double db = 20.0 * log10(amplitude);
+        level = CLAMP(1.0 - db / METER_FLOOR_DB, 0.0, 1.0);
+    }
+
+    double decayed = meter->level * METER_DECAY;
+    meter->level = MAX(level, decayed);
+    gtk_level_bar_set_value(GTK_LEVEL_BAR(meter->m->meter_bars[meter->idx]), meter->level);
+}
+
+static void meter_on_read(GObject *source, GAsyncResult *res, gpointer user_data) {
+    SinkMeter *meter = (SinkMeter *)user_data;
+    GError *err = NULL;
+    gssize n = g_input_stream_read_finish(G_INPUT_STREAM(source), res, &err);
+    if (n <= 0) {
+        // EOF (parec exited, e.g. the sink went away) or cancelled by
+        // meter_stop(). Either way stop reading; meters_sync() restarts the
+        // capture if the row is still supposed to be metered.
+        if (err) {
+            if (!g_error_matches(err, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                g_warning("wb_cffi_audio_sinks: meter read failed for \"%s\": %s",
+                           meter->m->sink_names[meter->idx], err->message);
+            }
+            g_error_free(err);
+        }
+        return;
+    }
+    meter_push_samples(meter, meter->buf, (gsize)n);
+    meter_start_read(meter);
+}
+
+static void meter_start_read(SinkMeter *meter) {
+    g_input_stream_read_async(meter->stream, meter->buf, sizeof(meter->buf), G_PRIORITY_DEFAULT,
+                               meter->cancel, meter_on_read, meter);
+}
+
+// Non-fatal on failure (no parec installed, sink with no monitor source): the
+// row just keeps a flat meter, everything else in it still works.
+static void meter_start(SinkMeter *meter) {
+    if (meter->proc) return;
+    const char *sink = meter->m->sink_names[meter->idx];
+    if (!sink || !sink[0]) return;
+
+    char *monitor = g_strdup_printf("%s.monitor", sink);
+    char rate[16];
+    snprintf(rate, sizeof(rate), "--rate=%d", METER_RATE);
+    GError *err = NULL;
+    meter->proc = g_subprocess_new(
+        G_SUBPROCESS_FLAGS_STDOUT_PIPE | G_SUBPROCESS_FLAGS_STDERR_SILENCE, &err, "parec",
+        "--device", monitor, "--format=s16le", rate, "--channels=1", "--latency-msec=30",
+        "--raw", NULL);
+    g_free(monitor);
+    if (!meter->proc) {
+        g_warning("wb_cffi_audio_sinks: could not start `parec` for \"%s\": %s", sink,
+                   err ? err->message : "unknown error");
+        if (err) g_error_free(err);
+        return;
+    }
+    meter->cancel = g_cancellable_new();
+    meter->stream = g_subprocess_get_stdout_pipe(meter->proc);
+    meter_start_read(meter);
+}
+
+static void meter_stop(SinkMeter *meter) {
+    if (!meter->proc) return;
+    // Cancel first so the pending read completes as CANCELLED rather than
+    // racing the process teardown.
+    g_cancellable_cancel(meter->cancel);
+    g_clear_object(&meter->cancel);
+    g_subprocess_force_exit(meter->proc);
+    g_clear_object(&meter->proc);
+    meter->stream = NULL;
+    meter->level = 0.0;
+    // NULL during teardown (see wbcffi_deinit), where the widgets are gone.
+    if (meter->m->meter_bars[meter->idx]) {
+        gtk_level_bar_set_value(GTK_LEVEL_BAR(meter->m->meter_bars[meter->idx]), 0.0);
+    }
+}
+
+// Starts capture for every row the user can currently see and stops it for
+// the rest. Idempotent, so it can just be called after anything that changes
+// popup visibility or sink presence.
+static void meters_sync(ModuleData *m) {
+    gboolean popup_open = gtk_widget_get_visible(m->popup_window);
+    for (int i = 0; i < m->num_sinks; i++) {
+        gboolean want = popup_open && m->rows[i] && gtk_widget_get_visible(m->rows[i]);
+        if (want) {
+            meter_start(&m->meters[i]);
+        } else {
+            meter_stop(&m->meters[i]);
+        }
+    }
+}
+// ---------------------------------------------------------------------------
+
 // Hides the popup rows of configured sinks that don't currently exist on the
 // system (unplugged headset, a virtual sink whose script hasn't run yet), and
 // hides the bar widget entirely when none of them exist. Also re-picks
@@ -288,11 +479,21 @@ static void refresh_sink_presence(ModuleData *m) {
     if (!present) return;
 
     m->primary_idx = -1;
+    int first_present = -1;
     for (int i = 0; i < m->num_sinks; i++) {
         gboolean exists = g_hash_table_contains(present, m->sink_names[i]);
         if (m->rows[i]) gtk_widget_set_visible(m->rows[i], exists);
-        if (exists && m->primary_idx < 0) m->primary_idx = i;
+        if (!exists) continue;
+        if (first_present < 0) first_present = i;
+        // "bar_sink" names the sink by label (labels are deduped in
+        // parse_config, so at most one can match).
+        if (m->bar_sink_label && strcmp(m->sink_labels[i], m->bar_sink_label) == 0) {
+            m->primary_idx = i;
+        }
     }
+    // No "bar_sink" configured, or the one named isn't currently present:
+    // fall back to the first present sink so the bar still shows something.
+    if (m->primary_idx < 0) m->primary_idx = first_present;
     gtk_widget_set_visible(m->event_box, m->primary_idx >= 0);
 
     g_hash_table_destroy(present);
@@ -478,6 +679,7 @@ static void position_popup(ModuleData *m) {
 static gboolean on_hide_timeout(gpointer user_data) {
     ModuleData *m = (ModuleData *)user_data;
     gtk_widget_hide(m->popup_window);
+    meters_sync(m);
     m->hide_timeout_id = 0;
     return G_SOURCE_REMOVE;
 }
@@ -513,6 +715,7 @@ static gboolean on_popup_focus_out(GtkWidget *widget, GdkEventFocus *event, gpoi
     ModuleData *m = (ModuleData *)user_data;
     if (g_get_monotonic_time() - m->popup_shown_at < POPUP_FOCUS_OUT_GRACE_US) return FALSE;
     gtk_widget_hide(m->popup_window);
+    meters_sync(m);
     return FALSE;
 }
 
@@ -528,6 +731,7 @@ static gboolean on_button_press(GtkWidget *widget, GdkEventButton *event, gpoint
             m->popup_shown_at = g_get_monotonic_time();
             gtk_widget_show_all(m->popup_window);
         }
+        meters_sync(m);
         return TRUE;
     } else if (event->button == GDK_BUTTON_PRIMARY) {
         if (m->primary_idx < 0) return TRUE;
@@ -588,6 +792,9 @@ static void refresh_everything(ModuleData *m) {
         refresh_sink_presence(m);
     }
     update_bar_label(m);
+    // Presence may have changed which rows are visible, so the set of sinks
+    // that should be metered changes with it.
+    meters_sync(m);
 }
 
 static gboolean on_periodic_update(gpointer user_data) {
@@ -682,10 +889,11 @@ static GtkCssProvider *g_forced_style_provider = NULL;
 //   button.wb-audio-sinks-mute-btn  per-row mute toggle button.
 //
 // These rules are loaded via GtkCssProvider at
-// GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 10 (see style_widget() below),
-// deliberately higher than a normal ~/.config/waybar/style.css
-// (PRIORITY_APPLICATION) so the popup stays visible/legible regardless of
-// what broad selectors exist in the user's global stylesheet. Because of
+// GTK_STYLE_PROVIDER_PRIORITY_USER + 10 (see style_widget() below).
+// Waybar installs ~/.config/waybar/style.css at PRIORITY_USER (800), and a
+// typical waybar stylesheet opens with a `* { min-height: 0; border: none; }`
+// reset — at any lower priority that reset wins over the rules here and
+// collapses the slider trough/handle to an invisible hairline. Because of
 // that priority, style.css rules targeting these classes will normally lose
 // — to customize colors/sizes, edit the `css` string below directly instead.
 static void apply_forced_style(void) {
@@ -705,19 +913,19 @@ static void apply_forced_style(void) {
         "  color: #cdd6f4;"
         "}\n"
         "scale.wb-audio-sinks-scale trough {"
-        "  min-height: 8px;"
-        "  border-radius: 4px;"
+        "  min-height: 4px;"
+        "  border-radius: 2px;"
         "  background-color: rgba(255, 255, 255, 0.15);"
         "}\n"
         "scale.wb-audio-sinks-scale highlight {"
-        "  min-height: 8px;"
-        "  border-radius: 4px;"
+        "  min-height: 4px;"
+        "  border-radius: 2px;"
         "  background-color: #89b4fa;"
         "}\n"
         "scale.wb-audio-sinks-scale slider {"
-        "  min-height: 14px;"
-        "  min-width: 14px;"
-        "  border-radius: 7px;"
+        "  min-height: 7px;"
+        "  min-width: 7px;"
+        "  border-radius: 4px;"
         "  background-color: #f5e0dc;"
         "}\n"
         // GDK_WINDOW_TYPE_HINT_TOOLTIP (set on popup_window below) skips
@@ -731,6 +939,25 @@ static void apply_forced_style(void) {
         "  margin: 0;"
         "  border: none;"
         "  border-radius: 0;"
+        "}\n"
+        // Level meter under each slider. GtkLevelBar's CSS nodes are
+        // levelbar > trough > block.filled / block.empty; the min-height goes
+        // on the blocks (the trough only sizes itself around them).
+        "levelbar.wb-audio-sinks-meter trough {"
+        "  padding: 0;"
+        "  border: none;"
+        "  background-color: transparent;"
+        "}\n"
+        "levelbar.wb-audio-sinks-meter block {"
+        "  min-height: 3px;"
+        "  border: none;"
+        "  border-radius: 2px;"
+        "}\n"
+        "levelbar.wb-audio-sinks-meter block.filled {"
+        "  background-color: #a6e3a1;"
+        "}\n"
+        "levelbar.wb-audio-sinks-meter block.empty {"
+        "  background-color: rgba(255, 255, 255, 0.10);"
         "}\n"
         "entry.wb-audio-sinks-entry {"
         "  min-height: 0;"
@@ -762,7 +989,7 @@ static void style_widget(GtkWidget *widget, const char *klass) {
     gtk_style_context_add_class(gtk_widget_get_style_context(widget), klass);
     gtk_style_context_add_provider(gtk_widget_get_style_context(widget),
                                     GTK_STYLE_PROVIDER(g_forced_style_provider),
-                                    GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 10);
+                                    GTK_STYLE_PROVIDER_PRIORITY_USER + 10);
 }
 
 void *wbcffi_init(const wbcffi_init_info *init_info,
@@ -831,7 +1058,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
 
     for (int i = 0; i < m->num_sinks; i++) {
         GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
-        gtk_widget_set_size_request(row, 200, 30);
+        gtk_widget_set_size_request(row, 200, ROW_HEIGHT);
 
         GtkWidget *lbl = gtk_label_new(m->sink_labels[i]);
         gtk_widget_set_size_request(lbl, 90, -1);
@@ -846,7 +1073,9 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         GtkWidget *scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0,
                                                      SLIDER_MAX_VOLUME, 1);
         gtk_scale_set_draw_value(GTK_SCALE(scale), FALSE);
-        gtk_widget_set_size_request(scale, 150, -1);
+        // Explicit height: stacked above the level bar the scale otherwise
+        // gets squeezed down to a hairline trough with no visible handle.
+        gtk_widget_set_size_request(scale, 150, SCALE_HEIGHT);
         gtk_range_set_value(GTK_RANGE(scale), get_sink_volume(m->sink_names[i]));
         style_widget(scale, "wb-audio-sinks-scale");
         gtk_widget_add_events(scale, GDK_SCROLL_MASK | GDK_SMOOTH_SCROLL_MASK |
@@ -855,6 +1084,22 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         g_signal_connect(scale, "button-press-event", G_CALLBACK(on_scale_button_press), NULL);
 
         m->scales[i] = scale;
+
+        // Live output level, drawn as a thin bar directly under the slider so
+        // it reads as part of the same volume control. Value range is the
+        // normalized 0.0-1.0 the meter code produces, not a volume percentage.
+        GtkWidget *meter_bar = gtk_level_bar_new_for_interval(0.0, 1.0);
+        gtk_level_bar_set_mode(GTK_LEVEL_BAR(meter_bar), GTK_LEVEL_BAR_MODE_CONTINUOUS);
+        gtk_level_bar_set_value(GTK_LEVEL_BAR(meter_bar), 0.0);
+        gtk_widget_set_valign(meter_bar, GTK_ALIGN_CENTER);
+        style_widget(meter_bar, "wb-audio-sinks-meter");
+        m->meter_bars[i] = meter_bar;
+        m->meters[i].m = m;
+        m->meters[i].idx = i;
+
+        GtkWidget *slider_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+        gtk_box_pack_start(GTK_BOX(slider_box), scale, FALSE, FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(slider_box), meter_bar, FALSE, FALSE, 0);
 
         SinkRowUserData *sud = g_new(SinkRowUserData, 1);
         sud->m = m;
@@ -885,7 +1130,7 @@ void *wbcffi_init(const wbcffi_init_info *init_info,
         m->mute_buttons[i] = mute_btn;
 
         gtk_box_pack_start(GTK_BOX(row), lbl, FALSE, FALSE, 0);
-        gtk_box_pack_start(GTK_BOX(row), scale, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(row), slider_box, TRUE, TRUE, 0);
         gtk_box_pack_start(GTK_BOX(row), vol_entry, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(row), mute_btn, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(box), row, FALSE, FALSE, 0);
@@ -972,11 +1217,18 @@ void wbcffi_deinit(void *instance) {
         g_object_unref(m->pactl_sub);
     }
     for (int i = 0; i < m->num_sinks; i++) {
+        // Drop the widget pointer first: waybar may already have destroyed the
+        // popup's widget tree by now, so meter_stop() must not touch it.
+        m->meter_bars[i] = NULL;
+        meter_stop(&m->meters[i]);
         g_free(m->sink_names[i]);
         g_free(m->sink_labels[i]);
     }
+    g_free(m->meters);
+    g_free(m->meter_bars);
     g_free(m->sink_names);
     g_free(m->sink_labels);
+    g_free(m->bar_sink_label);
     g_free(m->rows);
     g_free(m->scales);
     g_free(m->mute_buttons);

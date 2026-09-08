@@ -160,11 +160,12 @@
    "cffi/audio_sinks": {
        "module_path": ".config/waybar/cffi/wb_cffi_audio_sinks.so",
        "max_sinks": 3,
+       "bar_sink": "Auricular",
        "sinks": [
-	   {"label": "Auricular", "name": "alsa_output.usb-Sony_Interactive_Entertainment_Wireless_Stereo_Headset-00.analog-stereo"},
            {"label": "Escritorio", "name": "sink_escritorio"},
            {"label": "Llamadas", "name": "sink_llamadas"},
            {"label": "Juegos", "name": "sink_juegos"},
+	   {"label": "Auricular", "name": "alsa_output.usb-Sony_Interactive_Entertainment_Wireless_Stereo_Headset-00.analog-stereo"},
            {"label": "Monitor", "name": "alsa_output.pci-0000_01_00.1.hdmi-stereo"}
        ]
    },
