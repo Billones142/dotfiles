@@ -205,8 +205,9 @@ if [ -t 0 ]; then
         fix_paru
     fi
 
-    # actualizar paquetes del sistema
-    sudo pacman -Syu --noconfirm
+    # No se hace 'pacman -Syu --noconfirm' aquí: --noconfirm responde el default (N)
+    # a los prompts de conflicto entre paquetes y aborta el script. 'paru -Syau'
+    # ya actualiza los repos oficiales y permite resolver esos conflictos a mano.
 
     # Notificación al usuario de que se requiere acción en la terminal
     echo -e "${BLUE}🔔 Se requiere interacción en la terminal para revisar y aceptar los cambios...${RESET}"
@@ -220,7 +221,12 @@ else
     # Consola no interactiva: evitar actualizaciones del AUR por completo
     echo -e "${YELLOW}⚠️ Consola no interactiva detectada. Evitando actualizaciones del AUR.${RESET}"
     echo -e "Ejecutando actualización únicamente de los repositorios oficiales..."
-    sudo pacman -Syu --noconfirm
+    # Un conflicto de paquetes requiere decidir qué se desinstala: no se resuelve
+    # automáticamente. Se aborta con un mensaje accionable en vez de morir por 'set -e'.
+    if ! sudo pacman -Syu --noconfirm; then
+        echo -e "${RED}❌ Falló la actualización (posible conflicto de paquetes). Ejecutar 'sudo pacman -Syu' en una terminal interactiva para resolverlo.${RESET}" >&2
+        exit 1
+    fi
 fi
 
 # Reiniciar servicios obsoletos (needrestart) mientras la caché de sudo sigue activa
