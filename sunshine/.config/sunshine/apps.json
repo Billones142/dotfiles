@@ -11,8 +11,8 @@
             "name": "Desktop",
             "prep-cmd": [
                 {
-                    "do": "",
-                    "undo": "rm -f /tmp/monitor_notifier.lock && pkill -f sunshine_check_fisical_monitors.sh"
+                    "do": "echo \"\"",
+                    "undo": "sunshine_notifier_stop.sh"
                 }
             ],
             "uuid": "F7B0E6F2-AD0A-1B00-9C95-64E5EFC83F9B",
@@ -37,7 +37,7 @@
                 },
                 {
                     "do": "",
-                    "undo": "rm -f /tmp/monitor_notifier.lock && pkill -f sunshine_check_fisical_monitors.sh"
+                    "undo": "sunshine_notifier_stop.sh"
                 }
             ],
             "wait-all": true

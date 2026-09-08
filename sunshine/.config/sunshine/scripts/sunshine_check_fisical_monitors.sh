@@ -1,55 +1,81 @@
 #!/bin/bash
+#
+# Notifica en el escritorio cuando se conecta o desconecta un monitor fisico,
+# escuchando el socket de eventos de Hyprland. Los outputs virtuales/headless
+# se ignoran porque los crea el propio flujo de Sunshine.
+#
+# Instancia unica via flock: el kernel libera el lock cuando el proceso muere,
+# asi que un huerfano no deja un lock obsoleto. El esquema anterior guardaba un
+# PID en el archivo y lo validaba con `ps -p`, pero si el archivo quedaba vacio
+# la comprobacion no fallaba y cada arranque acumulaba otra copia.
 
-# 1. Asegurar instancia única usando un Lockfile
+set -u
+
 LOCKFILE="/tmp/monitor_notifier.lock"
+PIDFILE="/tmp/monitor_notifier.pid"
+FIFO=""
+SOCAT_PID=""
 
-# Si el lockfile existe y el PID dentro sigue activo, salir
-if [ -f "$LOCKFILE" ]; then
-    PID=$(cat "$LOCKFILE")
-    if ps -p "$PID" > /dev/null; then
-        echo "El script ya está corriendo con PID $PID"
-        exit 1
-    fi
+exec 9>"$LOCKFILE" || { echo "No se pudo abrir $LOCKFILE" >&2; exit 1; }
+if ! flock -n 9; then
+    echo "El notificador de monitores ya esta corriendo" >&2
+    exit 0
 fi
 
-# Guardar el PID actual en el lockfile
-echo $$ > "$LOCKFILE"
+command -v socat >/dev/null 2>&1 || { echo "Falta socat" >&2; exit 1; }
 
-# Función de limpieza al salir
+if [ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+    echo "HYPRLAND_INSTANCE_SIGNATURE no definida: no hay sesion Hyprland" >&2
+    exit 1
+fi
+
+HYPR_SOCKET="${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
+[ -S "$HYPR_SOCKET" ] || { echo "Socket de eventos no encontrado: $HYPR_SOCKET" >&2; exit 1; }
+
+# socat corre en segundo plano y vuelca a un FIFO, en vez de por una tuberia.
+# Asi el bucle de lectura se queda en el shell principal (no en un subshell) y
+# su PID queda accesible para poder matarlo en la limpieza.
 cleanup() {
-    rm -f "$LOCKFILE"
-    exit 0
+    [ -n "$SOCAT_PID" ] && kill "$SOCAT_PID" 2>/dev/null
+    [ -n "$FIFO" ] && rm -f "$FIFO"
+    rm -f "$PIDFILE"
 }
-trap cleanup SIGINT SIGTERM EXIT
+trap cleanup EXIT
+trap 'exit 0' INT TERM
 
-# Ruta al socket de eventos de Hyprland
-HYPR_SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+FIFO=$(mktemp -u "/tmp/monitor_notifier.XXXXXXXX.fifo")
+mkfifo "$FIFO" || { echo "No se pudo crear el FIFO $FIFO" >&2; exit 1; }
 
-# Función para procesar los eventos
+echo $$ > "$PIDFILE"
+
+# Descarta los outputs que no corresponden a hardware real.
+es_monitor_fisico() {
+    case "$1" in
+        *HEADLESS*|virtual-fallback-display) return 1 ;;
+        *) return 0 ;;
+    esac
+}
+
+# Los eventos llegan como: monitoradded>>NOMBRE
 process_event() {
-    # El evento monitoradded viene en formato: monitoradded>>NAME
-    if [[ $1 == monitoradded* ]]; then
-        monitor_name=$(echo "$1" | cut -d'>' -f3)
-        
-        # Si el nombre NO contiene HEADLESS
-        if [[ ! "$monitor_name" =~ "HEADLESS" ]]; then
-            notify-send "Monitor Físico Detectado" "Se ha conectado: $monitor_name" --expire-time=0 --icon=display
-            # Aquí podrías añadir lógica extra para Sunshine si lo deseas
-        fi
-    fi
+    local event="$1" nombre titulo
 
-    if [[ $1 == monitorremoved* ]]; then
-        monitor_name=$(echo "$1" | cut -d'>' -f3)
-        
-        # Si el nombre NO contiene HEADLESS
-        if [[ ! "$monitor_name" =~ "HEADLESS" ]]; then
-            notify-send "Monitor Físico Desconectado" "Se ha desconectado: $monitor_name" --expire-time=0 --icon=display
-            # Aquí podrías añadir lógica extra para Sunshine si lo deseas
-        fi
-    fi
+    case "$event" in
+        monitoradded*)   titulo="Monitor Fisico Detectado" ;;
+        monitorremoved*) titulo="Monitor Fisico Desconectado" ;;
+        *) return ;;
+    esac
+
+    nombre="${event#*>>}"
+    [ -n "$nombre" ] || return
+    es_monitor_fisico "$nombre" || return
+
+    notify-send "$titulo" "$nombre" --expire-time=0 --icon=display
 }
 
-# Escuchar el socket de forma continua
-socat -U - "UNIX-CONNECT:$HYPR_SOCKET" | while read -r line; do
+socat -U - "UNIX-CONNECT:$HYPR_SOCKET" > "$FIFO" &
+SOCAT_PID=$!
+
+while read -r line; do
     process_event "$line"
-done
+done < "$FIFO"
