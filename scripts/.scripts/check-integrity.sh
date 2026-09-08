@@ -161,7 +161,7 @@ if [ -s "$temp_broken" ]; then
     while read -r line; do
         [ -z "$line" ] && continue
         
-        local pkg=""
+        pkg=""
         
         # El formato de pacman es "nombre-paquete: X total files, Y missing/altered files"
         # El formato de paccheck es simplemente "nombre-paquete"
