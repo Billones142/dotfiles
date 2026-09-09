@@ -31,6 +31,7 @@ hl.window_rule({
     workspace = 5,
     float = true,
     center = true,
+    no_initial_focus = true,
 })
 
 hl.window_rule({
