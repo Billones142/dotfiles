@@ -22,6 +22,16 @@ hl.window_rule({
     float = true,
     center = true,
 })
+hl.window_rule({
+    name = "steam-sign-in",
+    match = {
+        class = "steam",
+        title = "Sign in to Steam",
+    },
+    workspace = 5,
+    float = true,
+    center = true,
+})
 
 hl.window_rule({
     name = "steam-update-popup",
