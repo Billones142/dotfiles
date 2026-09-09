@@ -78,7 +78,7 @@ hl.window_rule({
         class = "org.freedesktop.impl.portal.desktop.kde",
     },
     float = true,
-    center = true,
+    --center = true,
     size = "monitor_w*0.84 monitor_h*0.84",
 })
 
@@ -193,7 +193,17 @@ hl.window_rule({
     pin = true
 })
 
-
+hl.window_rule({
+    name = "webex",
+    match = {
+        initial_class = "webex",
+    },
+    no_blur = true,
+    border_size = 0,
+    tag = "+hyprglass_disabled",
+    opacity = "1 override 1 override 1 override",
+    center = false
+})
 
 --hl.on("window.close", function(w)
 --  hl.notification.create({ text = "Window closed: " .. tostring(w), timeout = 5000, icon = "ok" })
