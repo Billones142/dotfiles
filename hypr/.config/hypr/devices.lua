@@ -3,6 +3,12 @@ local redragon_azure_kb_file = "~/.config/xkb/symbols/Redragon-Azure.xkb";
 -- Redragon azure usb
 hl.device({
     name = "by-tech-gaming-keyboard",
+    --kb_layout = "latam",
+    kb_file = redragon_azure_kb_file,
+})
+hl.device({
+    name = "by-tech-gaming-keyboard-1",
+    --kb_layout = "latam",
     kb_file = redragon_azure_kb_file,
 })
 -- Redragon azure dongle
@@ -47,23 +53,21 @@ hl.device({
     enabled = true
 })
 
-hl.device({
-    name = "ds4linux-virtual-ds4-touchpad",
-    enabled = false,
-})
-
+-- Dualshock 4 Bluetooth
 hl.device({
     name = "wireless-controller-touchpad",
     enabled = false,
 })
 
+-- Dualshock 4 USB (Cualquier nombre)
 hl.device({
-    name = "sony-computer-entertainment-wireless-controller-touchpad",
+    name = "sony-computer-entertainment-*-touchpad",
     enabled = false,
 })
 
+-- Dualsense USB (Cualquier nombre)
 hl.device({
-    name = "sony-interactive-entertainment-dualsense-wireless-controller-touchpad",
+    name = "*-touchpad",
     enabled = false,
 })
 
@@ -71,7 +75,6 @@ hl.device({
     name = "inputplumber-mouse",
     enabled = false,
 })
-
 
 hl.device({
     name = "qdtech-mpi5001",
