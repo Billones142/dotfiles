@@ -1,0 +1,242 @@
+{
+    "output" : ["virtual-fallback-display", "DP-3", "eDP-1"],
+    "layer": "top",
+    "position": "top",
+    //"position": "bottom",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 26,
+    "spacing": 2,
+
+    // --- ORDEN DE LOS MÓDULOS ---
+    "modules-left": [
+	"cpu",
+	"temperature",
+	"memory",
+        "hyprland/workspaces",
+        "hyprland/submap",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+	"mpris",
+        "tray",
+        //"pulseaudio",
+	"cffi/audio_sinks",
+        "network",
+        "battery",
+	"custom/notification",
+	"privacy"
+    ],
+    // --- CONFIGURACIÓN DE MÓDULOS ESPECÍFICOS DE HYPRLAND ---
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{name}",
+        "persistent-workspaces": {
+            "*": 0
+        }
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true
+    },
+    "hyprland/submap": {
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
+    },
+
+    // --- RESTO DE TU CONFIGURACIÓN (MANTENIDA IGUAL) ---
+
+    "cpu": { 
+      "interval": 5, 
+      "format": "CPU:{usage}%" 
+    },
+    "temperature": {
+      "interval": 5,
+      "format": "{temperatureC}°C",
+      "thermal-zone": 2,
+      "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
+      "critical-threshold": 80,
+      "format-critical": "{temperatureC}°C "
+    },
+    "memory": { 
+        "interval": 10, 
+        "format": "RAM:{percentage}%" 
+    },
+    "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+        {
+            "type": "audio-in", // Detecta captura de microfono
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "screenshare", // Detecta captura de pantalla
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "location", // Detecta ubicacion
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        }
+    ],
+    "ignore": [ // para ver inputs de audio: pactl list sources
+	    {
+                "type": "audio-in",
+		"name": "OBS"
+	    },
+	    {
+                "type": "audio-in",
+		"name": "source_mic_escritorio_input"
+	    },
+	    {
+                "type": "audio-in",
+		"name": "source_mic_obs_input"
+	    },
+	    {
+	        "type": "screenshare",
+                "name": "obs"
+	    }
+	]
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    },
+    "clock": {
+      "interval": 1,
+      "timezone": "America/Argentina/Buenos_Aires",
+      "locale": "es_AR.UTF-8",
+      "format": " {0:%H:%M:%S} {0:%a} {0:%d}/{0:%m} {0:%b}",
+      "format-alt": " {0:%A}, {0:%B} {0:%d}, {0:%Y} ({0:%R})",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+          "mode": "year",
+          "mode-mon-col": 3,
+          "weeks-pos": "right",
+          "on-scroll": 1,
+          "on-click-right": "mode",
+          "format": {
+              "months": "<span color='#ffead3'><b>{}</b></span>",
+              "days": "<span color='#ecc6d9'><b>{}</b></span>",
+              "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+              "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+              "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+          }
+      },
+      "actions": {
+          "on-click-right": "mode",
+          "on-click-forward": "tz_up",
+          "on-click-backward": "tz_down",
+          "on-scroll-up": "shift_up",
+          "on-scroll-down": "shift_down"
+      }
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        "on-click": "pavucontrol",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+   "cffi/audio_sinks": {
+       "module_path": ".config/waybar/cffi/wb_cffi_audio_sinks.so",
+       "max_sinks": 3,
+       "bar_sink": "Auricular",
+       "sinks": [
+           {"label": "Escritorio", "name": "sink_escritorio"},
+           {"label": "Llamadas", "name": "sink_llamadas"},
+           {"label": "Juegos", "name": "sink_juegos"},
+	   {"label": "Auricular", "name": "alsa_output.usb-Sony_Interactive_Entertainment_Wireless_Stereo_Headset-00.analog-stereo"},
+           {"label": "Monitor", "name": "alsa_output.pci-0000_01_00.1.hdmi-stereo"}
+       ]
+   },
+    "network": {
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-ethernet": "󰈀 Wired",
+        "tooltip-format": "{ifname} via {gwaddr} 󰈀",
+        "format-linked": "{ifname} (No IP) 󰈀",
+        "format-disconnected": " Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-left": "nm-connection-editor",
+        "on-click-right": "nm-connection-editor"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+	"on-click-right": "pkexec tlp fullcharge",
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "custom/dnd": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "makoctl mode | grep -q 'dnd' && echo '' || echo ''",
+        "on-click": "makoctl mode -t dnd",
+        "tooltip": false
+    },
+    "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+},
+    "mpris": {
+        "format": "{player_icon} {artist} - {title}",
+        "format-paused": "{status_icon} <i>{artist} - {title}</i>",
+        "player-icons": {
+            "default": "▶",
+            "spotify": "",
+            "brave": "",
+            "firefox": "",
+            "chrome": "",
+            "vlc": "󰕼"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 45,
+        "interval": 1,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    }
+}
