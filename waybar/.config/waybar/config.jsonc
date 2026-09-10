@@ -185,6 +185,7 @@
             "warning": 30,
             "critical": 15
         },
+	"on-click-right": "pkexec tlp fullcharge",
         "format": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
