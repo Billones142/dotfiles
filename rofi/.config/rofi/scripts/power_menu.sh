@@ -25,7 +25,7 @@ else
         "$OPC_REBOOT")
 	    (hyprshutdown_command "Rebooting..." "systemctl reboot")
             ;;
-        "$OPC_SODTREBOOT")
+        "$OPC_SOFTREBOOT")
 	    (hyprshutdown_command "Rebooting..." "systemctl soft-reboot")
             ;;
         "$OPC_LOGOUT")
