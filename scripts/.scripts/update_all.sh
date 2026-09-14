@@ -133,7 +133,7 @@ function fix_paru() {
 # --- SNAPSHOTS DE RESTAURACION ---
 SNAPPER_CONFIG="root"
 SNAPSHOT_DESC="update_all"
-MAX_SNAPSHOTS=3
+MAX_SNAPSHOTS=2
 
 # Devuelve los numeros de snapshot de este script, del mas viejo al mas nuevo.
 function list_own_snapshots() {
@@ -183,21 +183,37 @@ echo "${BOLD}${BLUE}=== Mantenimiento Automatizado de Arch ===${RESET}"
 
 # Punto de restauracion (snapper). Solo gestiona snapshots propios de este script,
 # identificados por su descripcion; los de snap-pac quedan intactos.
-echo -e "\n${BOLD}${YELLOW}[0/3] Creando punto de restauración...${RESET}"
+echo -e "\n${BOLD}${YELLOW}[0/4] Creando punto de restauración...${RESET}"
 prune_snapshots
 create_snapshot
 
 # 1. Keyring y Dependencias Base (Vital)
-echo -e "\n${BOLD}${YELLOW}[1/3] Actualizando Llaves y Base-Devel...${RESET}"
+echo -e "\n${BOLD}${YELLOW}[1/4] Actualizando Llaves y Base-Devel...${RESET}"
 sudo pacman -Sy --noconfirm archlinux-keyring
+sudo pacman -Sy --noconfirm cachyos-keyring
 sudo pacman -S --needed --noconfirm git base-devel
 
-# 2. Flatpak
-echo -e "\n${BOLD}${YELLOW}[2/3] Actualizando Flatpaks...${RESET}"
-flatpak update -y 
+# 2. Sistema (repositorios oficiales) con pacman
+echo -e "\n${BOLD}${YELLOW}[2/4] Actualizando el Sistema (repos oficiales)...${RESET}"
+if [ -t 0 ]; then
+    # Interactivo: sin --noconfirm, para poder resolver a mano los conflictos
+    # entre paquetes (--noconfirm responde el default (N) y aborta el script).
+    sudo pacman -Syu
+else
+    # Un conflicto de paquetes requiere decidir qué se desinstala: no se resuelve
+    # automáticamente. Se aborta con un mensaje accionable en vez de morir por 'set -e'.
+    if ! sudo pacman -Syu --noconfirm; then
+        echo -e "${RED}❌ Falló la actualización (posible conflicto de paquetes). Ejecutar 'sudo pacman -Syu' en una terminal interactiva para resolverlo.${RESET}" >&2
+        exit 1
+    fi
+fi
 
-# 3. Paru (Sistema + AUR)
-echo -e "\n${BOLD}${YELLOW}[3/3] Iniciando actualización del Sistema y AUR...${RESET}"
+# 3. Flatpak
+echo -e "\n${BOLD}${YELLOW}[3/4] Actualizando Flatpaks...${RESET}"
+flatpak update -y
+
+# 4. AUR con paru
+echo -e "\n${BOLD}${YELLOW}[4/4] Iniciando actualización de paquetes de AUR...${RESET}"
 
 if [ -t 0 ]; then
     # Consola interactiva: Verificamos integridad de paru
@@ -205,28 +221,17 @@ if [ -t 0 ]; then
         fix_paru
     fi
 
-    # No se hace 'pacman -Syu --noconfirm' aquí: --noconfirm responde el default (N)
-    # a los prompts de conflicto entre paquetes y aborta el script. 'paru -Syau'
-    # ya actualiza los repos oficiales y permite resolver esos conflictos a mano.
-
     # Notificación al usuario de que se requiere acción en la terminal
     echo -e "${BLUE}🔔 Se requiere interacción en la terminal para revisar y aceptar los cambios...${RESET}"
     notify-send --expire-time=15000 --urgency=normal "Actualización del Sistema" "Paru requiere tu intervención en la terminal para continuar." 2>/dev/null || true
     echo -e "\a" # Sonido de campana
 
-
-    # Ejecutar paru interactivo (permite revisar diffs y aceptar de forma individual)
-    paru -Syau
+    # '-a' restringe la operación al AUR: los repos oficiales ya los actualizó
+    # pacman en el paso [2/4]. Interactivo para revisar diffs y aceptar uno a uno.
+    paru -Sua
 else
     # Consola no interactiva: evitar actualizaciones del AUR por completo
-    echo -e "${YELLOW}⚠️ Consola no interactiva detectada. Evitando actualizaciones del AUR.${RESET}"
-    echo -e "Ejecutando actualización únicamente de los repositorios oficiales..."
-    # Un conflicto de paquetes requiere decidir qué se desinstala: no se resuelve
-    # automáticamente. Se aborta con un mensaje accionable en vez de morir por 'set -e'.
-    if ! sudo pacman -Syu --noconfirm; then
-        echo -e "${RED}❌ Falló la actualización (posible conflicto de paquetes). Ejecutar 'sudo pacman -Syu' en una terminal interactiva para resolverlo.${RESET}" >&2
-        exit 1
-    fi
+    echo -e "${YELLOW}⚠️ Consola no interactiva detectada. Omitiendo actualizaciones del AUR.${RESET}"
 fi
 
 # Reiniciar servicios obsoletos (needrestart) mientras la caché de sudo sigue activa
