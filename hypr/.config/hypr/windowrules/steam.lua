@@ -64,7 +64,7 @@ hl.window_rule({
         initial_title = "Launching...",
     },
     opacity = "1 override 1 override",
-    workspace = 6,
+    workspace = "6 silent",
 })
 
 -- >> STEAM (Arreglo de Menús y Tooltips)  

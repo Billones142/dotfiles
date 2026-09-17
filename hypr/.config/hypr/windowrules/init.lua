@@ -2,6 +2,9 @@
 -- 🪟 WINDOW RULES MODULE INITIALIZER
 -- =========================================================
 
+-- herramientas
+wx = require("winexe")
+
 --TODO: aplicar variables para workspaces
 
 require("windowrules.generic")
