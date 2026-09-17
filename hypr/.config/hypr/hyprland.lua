@@ -200,6 +200,9 @@ hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
 
+-- hl.permission({ binary = ".*", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64|bin)/sunshine", type = "screencopy", mode = "allow" })
+
 hl.permission({ binary = "/home/[a-z0-9]{32}/.local/bin/hyprcapture-ui", type = "screencopy", mode = "allow" })
 --.local/bin/hyprcapture-ui
 
