@@ -195,6 +195,7 @@ hl.window_rule({
     render_unfocused = true,
     workspace = "6 silent",
     no_initial_focus = true,
+    confine_pointer = true,
     -- Algunos juegos (p.ej. Proton con winewayland) piden fullscreen en un
     -- monitor concreto y Hyprland los mueve al workspace activo de ese monitor.
     suppress_event = "fullscreenoutput",
@@ -440,3 +441,5 @@ hl.on("window.open", function(w)
     hl.dispatch(hl.dsp.window.move({ workspace = workspace_launchers, follow = false, window = w }))
     debug("ok", "bandeja de wine detectada, movida al workspace " .. workspace_launchers, w, detalle)
 end)
+
+-- TODO: identificar cuando se enfoca una ventana de juego y deshabilitar la opcion que apaga el trackpad al usar el teclado y viceversa
