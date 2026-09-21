@@ -442,4 +442,33 @@ hl.on("window.open", function(w)
     debug("ok", "bandeja de wine detectada, movida al workspace " .. workspace_launchers, w, detalle)
 end)
 
--- TODO: identificar cuando se enfoca una ventana de juego y deshabilitar la opcion que apaga el trackpad al usar el teclado y viceversa
+--- Trackpad mientras se juega -------------------------------------------
+-- disable_while_typing apaga el trackpad un rato despues de cada tecla. En un
+-- juego que se mueve con el teclado eso deja el trackpad inservible, asi que
+-- mientras hay un juego enfocado se desactiva esa opcion y al salir se vuelve
+-- a activar.
+
+local devices = require("devices")
+local touchpad = devices and devices.touchpad_laptop
+
+-- Estado aplicado, para no reconfigurar el dispositivo en cada foco.
+local dwt_aplicado = touchpad and touchpad.disable_while_typing
+
+-- hl.device reemplaza toda la config del dispositivo, asi que se manda una
+-- copia completa con el campo cambiado.
+local function aplicar_disable_while_typing(valor)
+    if not touchpad or dwt_aplicado == valor then return end
+    local cfg = {}
+    for k, v in pairs(touchpad) do cfg[k] = v end
+    cfg.disable_while_typing = valor
+    hl.device(cfg)
+    dwt_aplicado = valor
+end
+
+hl.on("window.active", function(w)
+    -- Sin ventana enfocada se considera que no se esta jugando.
+    local jugando = w ~= nil and tiene_tag(w, "running_game")
+    aplicar_disable_while_typing(not jugando)
+    debug("info", jugando and "juego enfocado: disable_while_typing off"
+        or "sin juego enfocado: disable_while_typing on", w or { class = "?", title = "" })
+end)
