@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Waypipe: gamer-linux
+Comment=Ejecutar rofi remoto mediante Waypipe y SSH
+Exec=waypipe --compress lz4 ssh stefano@gamer-linux rofi -show drun
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;System;
+Actions=Xwayland;
+
+[Desktop Action Xwayland]
+Name=Waypipe con Xwayland
+Exec=waypipe --compress lz4 ssh stefano@gamer-linux "bash -c 'Xwayland :10 & export DISPLAY=:10; rofi -show drun'"
