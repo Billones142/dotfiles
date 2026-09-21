@@ -85,7 +85,10 @@ hl.device({
 
 
 -- Laptop touchpad
-hl.device({
+-- Se guarda en una variable y se exporta para que otras reglas puedan
+-- reaplicarlo cambiando solo algun campo (hl.device pisa toda la config del
+-- dispositivo, asi que hay que mandar la tabla completa).
+local touchpad_laptop = {
     name = "ven_0488:00-0488:1040-touchpad",
     -- especifico touchpad
     disable_while_typing = true,
@@ -96,4 +99,9 @@ hl.device({
     drag_lock = true,
     sensitivity = 0.3,
     scroll_factor = 0.5,
-})
+}
+hl.device(touchpad_laptop)
+
+return {
+    touchpad_laptop = touchpad_laptop,
+}
