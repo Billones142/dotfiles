@@ -18,6 +18,7 @@ alias update='~/scripts/update_all.sh'
 alias config='git --git-dir="$HOME/dotfiles/.git" --work-tree="$HOME/dotfiles"'
 alias rsync='rsync --progress'
 alias ministack='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566'
+alias load_conda='source /opt/miniconda3/etc/profile.d/conda.sh'
 
 alias clearclear='/usr/bin/clear'
 alias clear='echo "Casi, pero mejor CTRL + L"'
@@ -118,3 +119,13 @@ explorer() {
         return 1
     fi
 }
+
+# Conda prepends its own bin dirs to PATH, shadowing system tools with the
+# same name (e.g. 'tput' from conda's bundled ncurses lacks terminfo entries
+# like 'alacritty' that the system ncurses has). Push them to the end of PATH
+# instead: conda tools stay reachable, but system tools take priority.
+for _conda_dir in /opt/miniconda3/condabin /opt/miniconda3/bin; do
+    PATH="$(printf '%s' "$PATH" | awk -v d="$_conda_dir" -v RS=: -v ORS=: '$0 != d' | sed 's/:$//'):$_conda_dir"
+done
+unset _conda_dir
+
