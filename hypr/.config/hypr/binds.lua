@@ -149,7 +149,12 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
 -------------------------------------------------------------------------------------------
 
 -- Botón de Apagado (Power)
-hl.bind("XF86PowerOff", hl.dsp.exec_cmd(poweroff), { locked = true })
+--hl.bind("XF86PowerOff", hl.dsp.exec_cmd(poweroff), { locked = true })
+hl.bind("XF86PowerOff", function()
+    hl.notification.create({text="Nao nao", duration=3000, color="#FF0000", font_size=50})
+end,
+{ locked = true })
+
 
 -- Botón de Reinicio (si tu teclado/laptop tiene uno dedicado)
 hl.bind("XF86Sleep", hl.dsp.exec_cmd(reboot), { locked = true })
