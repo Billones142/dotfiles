@@ -15,8 +15,8 @@ hg.config({
 
 -- Layer surfaces: each call whitelists the namespace and configures it
 hg.layer("waybar", { preset = "waybar_glass", mask_threshold = 0.065 })
-hg.layer("swaync", { preset = "clear", mask_threshold = 0.079 }) -- TODO: crear preset
-hg.layer("swayosd", { preset = "swayosd", mask_threshold = 0.079 }) -- TODO: crear preset
+hg.layer("swaync", { preset = "clear", mask_threshold = 0.079 })
+hg.layer("swayosd", { preset = "swayosd", mask_threshold = 0.1 })
 --hg.layer("debug-panel", { exclude = true })
 hg.layer("rofi", { preset = "rofi_glass", mask_threshold = 0.031 })
 hg.layer("swaync-notification-window", { preset = "clear", mask_threshold = 0.031 })
@@ -25,6 +25,17 @@ hg.layer("swaync-control-center", { preset = "clear", mask_threshold = 0.031 })
 
 -- Presets
 hg.preset("clear", {
+    glass_opacity = 1,
+    blur_strength = 0,
+    chromatic_aberration = 0,
+    contrast = 1,
+    fresnel_strength = 0.1,      -- Brillo satinado en los bordes
+    dark = { brightness = 1, tint_color = "0x00000000" },
+    light = { brightness = 1, tint_color = "0x00000000" },
+    lens_distortion = 2,
+})
+
+hg.preset("swaync", {
     glass_opacity = 1,
     blur_strength = 0,
     chromatic_aberration = 0,
@@ -50,6 +61,18 @@ hg.preset("rofi_glass", {
     chromatic_aberration = 0,
     fresnel_strength = 0.1,
     edge_thickness = 10,
+    dark = { brightness = 1, tint_color = "0x00000000" },
+    light = { brightness = 1.3, tint_color = "0xed8e000d" },
+})
+
+hg.preset("swayosd", {
+    glass_opacity = 1,
+    blur_strength = 0,
+    lens_distortion = 30,
+    refraction_strength = 0, -- causa distorsion circular extraña en el centro
+    chromatic_aberration = 0,
+    fresnel_strength = 0.1,
+    edge_thickness = 1,
     dark = { brightness = 1, tint_color = "0x00000000" },
     light = { brightness = 1.3, tint_color = "0xed8e000d" },
 })
