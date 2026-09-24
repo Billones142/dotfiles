@@ -1,48 +1,52 @@
+@define-color primary #fab387;
+@define-color primary_container #313244;
+@define-color surface_container_low #181825;
+@define-color outline #45475a;
+
+
 window#osd {
   border-radius: 999px;
+  border: 2px solid @outline;
+  background: alpha(@surface_container_low, 0.4);
+}
+
+window#osd #container {
+  margin: 6px;
+  padding: 2px;
+  background: transparent;
+}
+
+window#osd image {
+  -gtk-icon-transform: scale(0.7);
+}
+
+window#osd image,
+window#osd label {
+  color: @primary;
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.5;
+}
+
+window#osd progressbar {
+  min-height: 6px;
+  border-radius: 999px;
+  background: transparent;
   border: none;
-  background: #{"alpha(@theme_bg_color, 0.5)"};
+}
 
-  #container {
-    margin: 16px;
-  }
+window#osd trough {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: alpha(@primary_container, 0.5);
+}
 
-  image,
-  label {
-    color: #{"@theme_fg_color"};
-  }
-
-  progressbar:disabled,
-  image:disabled {
-    opacity: 0.5;
-  }
-
-  progressbar,
-  segmentedprogress {
-    min-height: 6px;
-    border-radius: 999px;
-    background: transparent;
-    border: none;
-  }
-  trough,
-  segment {
-    min-height: inherit;
-    border-radius: inherit;
-    border: none;
-    background: #{"alpha(@theme_fg_color, 0.5)"};
-  }
-  progress,
-  segment.active {
-    min-height: inherit;
-    border-radius: inherit;
-    border: none;
-    background: #{"@theme_fg_color"};
-  }
-
-  segment {
-    margin-left: 8px;
-    &:first-child {
-      margin-left: 0;
-    }
-  }
+window#osd progress {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: @primary;
 }
