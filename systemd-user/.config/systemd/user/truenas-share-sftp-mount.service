@@ -25,7 +25,8 @@ ExecStart=/bin/bash -c 'if [ -f %h/.scripts/check_truenas.sh ] && %h/.scripts/ch
   --dir-perms 0700 \
   --file-perms 0600'
 
-ExecStop=/usr/bin/fusermount -uz /media/stefano/truenas-share
+ExecStop=/usr/bin/fusermount -u /media/stefano/truenas-share
+TimeoutStopSec=30
 Restart=on-failure
 RestartSec=5
 RestartSteps=5

@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer para detectar procesos/servicios anómalos periódicamente
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=10min
+Unit=check-runaway.service
+
+[Install]
+WantedBy=timers.target
