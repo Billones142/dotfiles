@@ -298,11 +298,17 @@ hl.config({
     group = {
         insert_after_current = true,
         col = {
-            border_active = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-            border_inactive = "rgba(595959aa)",
+            border_active = { colors = { "rgba(33ccfff0)", "rgba(990000f0)", "rgba(000099f0)" }, angle = 45 },
+            border_inactive = "rgba(00000000)",
         },
         groupbar = {
-            font_size = 10,
+	    col = {
+	        active = "rgba(0f0f00f0)",
+	        inactive = "rgba(0f0f00f0)",
+	    },
+	    render_titles = false,
+	    height = 6,
+            font_size = 9,
             gradients = true,
             render_titles = true,
             col = {
@@ -397,3 +403,4 @@ hl.config({
         preserve_split = true,
     },
 })
+
