@@ -279,6 +279,8 @@ require("devices")
 
 require("binds")
 
+require("gestures")
+
 require("layerrules")
 
 require("workspacerules")
