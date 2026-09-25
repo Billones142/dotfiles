@@ -15,8 +15,8 @@ hg.config({
 
 -- Layer surfaces: each call whitelists the namespace and configures it
 hg.layer("waybar", { preset = "waybar_glass", mask_threshold = 0.065 })
-hg.layer("swaync", { preset = "clear", mask_threshold = 0.079 })
-hg.layer("swayosd", { preset = "swayosd", mask_threshold = 0.1 })
+hg.layer("swaync", { preset = "swaync_glass", mask_threshold = 0.079 })
+hg.layer("swayosd", { preset = "swayosd_glass", mask_threshold = 0.079 })
 --hg.layer("debug-panel", { exclude = true })
 hg.layer("rofi", { preset = "rofi_glass", mask_threshold = 0.031 })
 hg.layer("swaync-notification-window", { preset = "clear", mask_threshold = 0.031 })
@@ -35,7 +35,7 @@ hg.preset("clear", {
     lens_distortion = 2,
 })
 
-hg.preset("swaync", {
+hg.preset("swaync_glass", {
     glass_opacity = 1,
     blur_strength = 0,
     chromatic_aberration = 0,
