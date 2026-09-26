@@ -48,19 +48,19 @@ hl.workspace_rule({
 	workspace = "special:magic",
 	layout = "scrolling",
 	animation = "fade",
-
+        persistent = true,
 })
 hl.workspace_rule({
 	workspace = "special:magic2",
 	layout = "scrolling",
 	animation = "fade",
-
+        persistent = true,
 })
 hl.workspace_rule({
 	workspace = "special:magic3",
 	layout = "scrolling",
 	animation = "fade",
-
+        persistent = true,
 })
 
 hl.workspace_rule({
@@ -68,3 +68,5 @@ hl.workspace_rule({
 	no_rounding = true,
 	decorate = false
 })
+
+require("workspacerules.workspaces")

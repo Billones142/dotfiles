@@ -111,25 +111,7 @@ hl.window_rule({
     size = "1167 793",
 })
 
-hl.window_rule({
-    name = "workspace1",
-    match = {
-        workspace = 1,
-    },
-    -- debe estar por encima de reglas que muevan las ventanas a otros workspaces
-    -- por debajo de todas las demas
-    float = true,
-    max_size = "monitor_w*0.8 monitor_h*0.8",
-})
-
-hl.window_rule({
-    name = "workspace10",
-    match = {
-        workspace = 10,
-    },
-    opacity = "1 override 1 override",
-    focus_on_activate = false,
-})
+-- Las reglas para todas las ventanas de un workspace estan en workspacerules/workspaces.lua
 
 -- OpenSnitch
 hl.window_rule({

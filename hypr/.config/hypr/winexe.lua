@@ -354,4 +354,21 @@ function M.cmdline_de(id)
     return M.cmdline(win)
 end
 
+-- w.tags puede venir como tabla o como cadena separada por comas.
+function M.tiene_tag(w, tag)
+    local tags = w.tags
+    if type(tags) == "table" then
+        for _, t in ipairs(tags) do
+            if t == tag then return true end
+        end
+        return false
+    end
+    if type(tags) == "string" then
+        for t in tags:gmatch("[^,%s]+") do
+            if t == tag then return true end
+        end
+    end
+    return false
+end
+
 return M

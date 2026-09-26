@@ -270,22 +270,7 @@ local function contiene_alguno(ruta, fragmentos)
     return false
 end
 
--- w.tags puede venir como tabla o como cadena separada por comas.
-local function tiene_tag(w, tag)
-    local tags = w.tags
-    if type(tags) == "table" then
-        for _, t in ipairs(tags) do
-            if t == tag then return true end
-        end
-        return false
-    end
-    if type(tags) == "string" then
-        for t in tags:gmatch("[^,%s]+") do
-            if t == tag then return true end
-        end
-    end
-    return false
-end
+local tiene_tag = wx.tiene_tag
 
 -- Aplica a mano lo que haria la regla "running-games". Hace falta aunque la
 -- ventana ya tenga el tag: el workspace de esa regla se evalua una sola vez
