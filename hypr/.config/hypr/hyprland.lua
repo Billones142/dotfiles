@@ -260,7 +260,7 @@ hl.config({
         render_unfocused_fps = 30,
 	disable_autoreload = false,
 	always_follow_on_dnd = true,
-	close_special_on_empty = false,
+	close_special_on_empty = true,
 	disable_splash_rendering = true,
 	disable_hyprland_logo = true,
     },
