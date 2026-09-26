@@ -4,4 +4,4 @@ After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/stefano/.scripts/check-runaway.sh --notify
+ExecStart=%h/.scripts/check-runaway.py --notify

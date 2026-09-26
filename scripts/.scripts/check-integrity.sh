@@ -88,7 +88,7 @@ spinner() {
     local delay=0.1
     local spinstr='|/-\'
     if [ -t 1 ]; then
-        tput civis
+        tput civis || true
     fi
     while [ "$(ps a | awk '{print $1}' | grep -w "$pid")" ]; do
         local temp=${spinstr#?}
@@ -98,7 +98,7 @@ spinner() {
         printf "\r"
     done
     if [ -t 1 ]; then
-        tput cnorm
+        tput cnorm || true
     fi
     printf "                                                \r"
 }
