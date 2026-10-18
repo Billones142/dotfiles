@@ -31,3 +31,13 @@ Si el paquete ya fue enlazado con *folding*, primero desvincula el paquete y lue
 stow -D systemd-user
 stow --no-folding systemd-user
 ```
+
+## Flatpak
+Aplicaciones de Flatpak no funcionan simplemente con stow, hay que darle permisos "rw" a la carpeta de stow de la aplicacion y luego crear un simlynk a la carpeta de configuracion de la aplicacion en "~/.var/app".
+
+### Configuracion facil
+Cree un script llamado "stow_flatpak.sh" donde el primer argumento es el nombre de la aplicacion de flatpak y el segundo es el directorio de configuracion de la aplicacion en los dotfiles, por ejemplo:
+
+```bash
+stow_flatpak.sh com.orcaslicer.OrcaSlicer ~/dotfiles/orca-slicer/.config/OrcaSlicer/
+```
