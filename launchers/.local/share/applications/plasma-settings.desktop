@@ -1,0 +1,412 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Preferencias de KDE Plasma (KCM)
+GenericName=Panel de Control KDE
+Comment=Lanzador directo para módulos de configuración de KDE Plasma 6
+Icon=preferences-system
+Exec=kcmshell6 kcm_landingpage
+Terminal=false
+Categories=Settings;HardwareSettings;DesktopSettings;Qt;KDE;
+StartupNotify=true
+Actions=AboutDistro;Access;Activities;Animations;AppPermissions;AudioInfo;Autostart;BalooFile;BlockDevices;Bluetooth;Bolt;Cellular;Clock;Colors;ComponentChooser;CpuInfo;CursorTheme;DesktopPaths;DesktopTheme;DeviceAutomounter;Disks;Edid;EglInfo;EnergyInfo;Feedback;FileTypes;Firewall;FirmwareSecurity;FontInst;Fonts;GameController;GlxInfo;Icons;Interrupts;KAccounts;Kded;Keyboard;Keys;KrdpServer;KScreen;KWallet5;KWinEffects;KWinScripts;KWinVirtualDesktops;KWinDecoration;KWinOptions;KWinRules;KWinScreenEdges;KWinSupportInfo;KWinTabBox;KWinTouchscreen;KWinXwayland;LandingPage;LookAndFeel;MemoryInfo;MobileHotspot;MobilePower;MobileWifi;MobileWired;Mouse;NetPref;NetworkInfo;NetworkManagement;NightLight;NightTime;Notifications;OpenCLInfo;PciInfo;PlasmaKeyboard;PlasmaLogin;PlasmaSearch;PowerDevil;PrinterManager;Proxy;PulseAudio;QtQuickSettings;RecentFiles;RegionAndLang;Samba;ScreenLocker;Sensors;SmServer;SolidActions;SoundTheme;SplashScreen;Style;Tablet;Touchpad;Touchscreen;Updates;UsbDevices;Users;VirtualKeyboard;VulkanInfo;Wallpaper;WaylandInfo;WebShortcuts;Workspace;XServerInfo;SpellChecking;
+
+[Desktop Action AboutDistro]
+Name=Información del Sistema
+Exec=kcmshell6 kcm_about-distro
+
+[Desktop Action Access]
+Name=Accesibilidad
+Exec=kcmshell6 kcm_access
+
+[Desktop Action Activities]
+Name=Actividades
+Exec=kcmshell6 kcm_activities
+
+[Desktop Action Animations]
+Name=Animaciones y Estilo
+Exec=kcmshell6 kcm_animations
+
+[Desktop Action AppPermissions]
+Name=Permisos de Aplicaciones
+Exec=kcmshell6 kcm_app-permissions
+
+[Desktop Action AudioInfo]
+Name=Información de Dispositivos de Audio
+Exec=kcmshell6 kcm_audio_information
+
+[Desktop Action Autostart]
+Name=Autoinicio de Aplicaciones
+Exec=kcmshell6 kcm_autostart
+
+[Desktop Action BalooFile]
+Name=Búsqueda de Archivos (Baloo)
+Exec=kcmshell6 kcm_baloofile
+
+[Desktop Action BlockDevices]
+Name=Dispositivos de Bloque
+Exec=kcmshell6 kcm_block_devices
+
+[Desktop Action Bluetooth]
+Name=Bluetooth
+Exec=kcmshell6 kcm_bluetooth
+
+[Desktop Action Bolt]
+Name=Dispositivos Thunderbolt
+Exec=kcmshell6 kcm_bolt
+
+[Desktop Action Cellular]
+Name=Redes Celulares
+Exec=kcmshell6 kcm_cellular_network
+
+[Desktop Action Clock]
+Name=Fecha y Hora
+Exec=kcmshell6 kcm_clock
+
+[Desktop Action Colors]
+Name=Esquema de Colores
+Exec=kcmshell6 kcm_colors
+
+[Desktop Action ComponentChooser]
+Name=Aplicaciones Predeterminadas
+Exec=kcmshell6 kcm_componentchooser
+
+[Desktop Action CpuInfo]
+Name=Información de CPU
+Exec=kcmshell6 kcm_cpu
+
+[Desktop Action CursorTheme]
+Name=Tema del Cursor
+Exec=kcmshell6 kcm_cursortheme
+
+[Desktop Action DesktopPaths]
+Name=Ubicaciones de Archivos Personales
+Exec=kcmshell6 kcm_desktoppaths
+
+[Desktop Action DesktopTheme]
+Name=Estilo de Plasma
+Exec=kcmshell6 kcm_desktoptheme
+
+[Desktop Action DeviceAutomounter]
+Name=Automontaje de Dispositivos
+Exec=kcmshell6 kcm_device_automounter
+
+[Desktop Action Disks]
+Name=Salud de Discos y Almacenamiento
+Exec=kcmshell6 kcm_disks
+
+[Desktop Action Edid]
+Name=Información EDID (Pantallas)
+Exec=kcmshell6 kcm_edid
+
+[Desktop Action EglInfo]
+Name=Información EGL
+Exec=kcmshell6 kcm_egl
+
+[Desktop Action EnergyInfo]
+Name=Estadísticas de Consumo Energético
+Exec=kcmshell6 kcm_energyinfo
+
+[Desktop Action Feedback]
+Name=Telemetría y Comentarios de Usuario
+Exec=kcmshell6 kcm_feedback
+
+[Desktop Action FileTypes]
+Name=Asociaciones de Archivos
+Exec=kcmshell6 kcm_filetypes
+
+[Desktop Action Firewall]
+Name=Reglas de Red y Cortafuegos
+Exec=kcmshell6 kcm_firewall
+
+[Desktop Action FirmwareSecurity]
+Name=Seguridad del Firmware
+Exec=kcmshell6 kcm_firmware_security
+
+[Desktop Action FontInst]
+Name=Instalador y Visor de Fuentes
+Exec=kcmshell6 kcm_fontinst
+
+[Desktop Action Fonts]
+Name=Tipografías del Sistema
+Exec=kcmshell6 kcm_fonts
+
+[Desktop Action GameController]
+Name=Mandos y Gamepads
+Exec=kcmshell6 kcm_gamecontroller
+
+[Desktop Action GlxInfo]
+Name=Información GLX
+Exec=kcmshell6 kcm_glx
+
+[Desktop Action Icons]
+Name=Tema de Iconos
+Exec=kcmshell6 kcm_icons
+
+[Desktop Action Interrupts]
+Name=Información de Interrupciones (IRQ)
+Exec=kcmshell6 kcm_interrupts
+
+[Desktop Action KAccounts]
+Name=Cuentas de Internet (Google, Nextcloud)
+Exec=kcmshell6 kcm_kaccounts
+
+[Desktop Action Kded]
+Name=Servicios en Segundo Plano
+Exec=kcmshell6 kcm_kded
+
+[Desktop Action Keyboard]
+Name=Hardware y Distribución de Teclado
+Exec=kcmshell6 kcm_keyboard
+
+[Desktop Action Keys]
+Name=Atajos de Teclado
+Exec=kcmshell6 kcm_keys
+
+[Desktop Action KrdpServer]
+Name=Escritorio Remoto (RDP)
+Exec=kcmshell6 kcm_krdpserver
+
+[Desktop Action KScreen]
+Name=Monitores y Pantallas
+Exec=kcmshell6 kcm_kscreen
+
+[Desktop Action KWallet5]
+Name=Cartera de KDE (KWallet)
+Exec=kcmshell6 kcm_kwallet5
+
+[Desktop Action KWinEffects]
+Name=Efectos de Escritorio (Compositor)
+Exec=kcmshell6 kcm_kwin_effects
+
+[Desktop Action KWinScripts]
+Name=Scripts de KWin
+Exec=kcmshell6 kcm_kwin_scripts
+
+[Desktop Action KWinVirtualDesktops]
+Name=Escritorios Virtuales
+Exec=kcmshell6 kcm_kwin_virtualdesktops
+
+[Desktop Action KWinDecoration]
+Name=Decoración de Ventanas y Bordes
+Exec=kcmshell6 kcm_kwindecoration
+
+[Desktop Action KWinOptions]
+Name=Comportamiento de Ventanas
+Exec=kcmshell6 kcm_kwinoptions
+
+[Desktop Action KWinRules]
+Name=Reglas Específicas de Ventanas
+Exec=kcmshell6 kcm_kwinrules
+
+[Desktop Action KWinScreenEdges]
+Name=Bordes y Esquinas Activas
+Exec=kcmshell6 kcm_kwinscreenedges
+
+[Desktop Action KWinSupportInfo]
+Name=Información de Soporte KWin
+Exec=kcmshell6 kcm_kwinsupportinfo
+
+[Desktop Action KWinTabBox]
+Name=Navegación entre Ventanas (Alt+Tab)
+Exec=kcmshell6 kcm_kwintabbox
+
+[Desktop Action KWinTouchscreen]
+Name=Gestos Táctiles de Pantalla
+Exec=kcmshell6 kcm_kwintouchscreen
+
+[Desktop Action KWinXwayland]
+Name=Teclas Globales XWayland
+Exec=kcmshell6 kcm_kwinxwayland
+
+[Desktop Action LandingPage]
+Name=Página Principal de Ajustes
+Exec=kcmshell6 kcm_landingpage
+
+[Desktop Action LookAndFeel]
+Name=Tema Global (Look and Feel)
+Exec=kcmshell6 kcm_lookandfeel
+
+[Desktop Action MemoryInfo]
+Name=Información de Memoria RAM
+Exec=kcmshell6 kcm_memory
+
+[Desktop Action MobileHotspot]
+Name=Zona Wi-Fi Portátil
+Exec=kcmshell6 kcm_mobile_hotspot
+
+[Desktop Action MobilePower]
+Name=Gestión de Batería Móvil
+Exec=kcmshell6 kcm_mobile_power
+
+[Desktop Action MobileWifi]
+Name=Conexión Wi-Fi Móvil
+Exec=kcmshell6 kcm_mobile_wifi
+
+[Desktop Action MobileWired]
+Name=Conexión Cableada Móvil
+Exec=kcmshell6 kcm_mobile_wired
+
+[Desktop Action Mouse]
+Name=Ratón
+Exec=kcmshell6 kcm_mouse
+
+[Desktop Action NetPref]
+Name=Preferencias de Red Genéricas
+Exec=kcmshell6 kcm_netpref
+
+[Desktop Action NetworkInfo]
+Name=Información de Interfaces de Red
+Exec=kcmshell6 kcm_network
+
+[Desktop Action NetworkManagement]
+Name=Gestor de Redes y Conexiones
+Exec=kcmshell6 kcm_networkmanagement
+
+[Desktop Action NightLight]
+Name=Luz Nocturna
+Exec=kcmshell6 kcm_nightlight
+
+[Desktop Action NightTime]
+Name=Ciclo Día y Noche
+Exec=kcmshell6 kcm_nighttime
+
+[Desktop Action Notifications]
+Name=Notificaciones del Sistema
+Exec=kcmshell6 kcm_notifications
+
+[Desktop Action OpenCLInfo]
+Name=Información de OpenCL
+Exec=kcmshell6 kcm_opencl
+
+[Desktop Action PciInfo]
+Name=Dispositivos PCI
+Exec=kcmshell6 kcm_pci
+
+[Desktop Action PlasmaKeyboard]
+Name=Teclado de Plasma
+Exec=kcmshell6 kcm_plasmakeyboard
+
+[Desktop Action PlasmaLogin]
+Name=Gestor de Inicio de Sesión
+Exec=kcmshell6 kcm_plasmalogin
+
+[Desktop Action PlasmaSearch]
+Name=Ajustes de Búsqueda (KRunner)
+Exec=kcmshell6 kcm_plasmasearch
+
+[Desktop Action PowerDevil]
+Name=Gestión de Energía y Batería
+Exec=kcmshell6 kcm_powerdevilprofilesconfig
+
+[Desktop Action PrinterManager]
+Name=Impresoras
+Exec=kcmshell6 kcm_printer_manager
+
+[Desktop Action Proxy]
+Name=Servidores Proxy
+Exec=kcmshell6 kcm_proxy
+
+[Desktop Action PulseAudio]
+Name=Audio y Volumen (PulseAudio/PipeWire)
+Exec=kcmshell6 kcm_pulseaudio
+
+[Desktop Action QtQuickSettings]
+Name=Renderizado QtQuick
+Exec=kcmshell6 kcm_qtquicksettings
+
+[Desktop Action RecentFiles]
+Name=Historial de Archivos Recientes
+Exec=kcmshell6 kcm_recentFiles
+
+[Desktop Action RegionAndLang]
+Name=Idioma y Formatos Regionales
+Exec=kcmshell6 kcm_regionandlang
+
+[Desktop Action Samba]
+Name=Monitor de Estado Samba
+Exec=kcmshell6 kcm_samba
+
+[Desktop Action ScreenLocker]
+Name=Bloqueo de Pantalla
+Exec=kcmshell6 kcm_screenlocker
+
+[Desktop Action Sensors]
+Name=Sensores de Temperatura y Voltaje
+Exec=kcmshell6 kcm_sensors
+
+[Desktop Action SmServer]
+Name=Gestión de Sesión (Cierre/Reinicio)
+Exec=kcmshell6 kcm_smserver
+
+[Desktop Action SolidActions]
+Name=Acciones al Conectar Dispositivos
+Exec=kcmshell6 kcm_solid_actions
+
+[Desktop Action SoundTheme]
+Name=Tema de Sonidos
+Exec=kcmshell6 kcm_soundtheme
+
+[Desktop Action SplashScreen]
+Name=Pantalla de Bienvenida (Splash)
+Exec=kcmshell6 kcm_splashscreen
+
+[Desktop Action Style]
+Name=Estilo de Aplicaciones Qt
+Exec=kcmshell6 kcm_style
+
+[Desktop Action Tablet]
+Name=Tabletas Digitalizadoras y Lápiz
+Exec=kcmshell6 kcm_tablet
+
+[Desktop Action Touchpad]
+Name=Touchpad
+Exec=kcmshell6 kcm_touchpad
+
+[Desktop Action Touchscreen]
+Name=Pantalla Táctil
+Exec=kcmshell6 kcm_touchscreen
+
+[Desktop Action Updates]
+Name=Actualizaciones de Software
+Exec=kcmshell6 kcm_updates
+
+[Desktop Action UsbDevices]
+Name=Dispositivos USB
+Exec=kcmshell6 kcm_usb
+
+[Desktop Action Users]
+Name=Cuentas de Usuario
+Exec=kcmshell6 kcm_users
+
+[Desktop Action VirtualKeyboard]
+Name=Teclado Virtual
+Exec=kcmshell6 kcm_virtualkeyboard
+
+[Desktop Action VulkanInfo]
+Name=Información de la API Vulkan
+Exec=kcmshell6 kcm_vulkan
+
+[Desktop Action Wallpaper]
+Name=Fondo de Pantalla
+Exec=kcmshell6 kcm_wallpaper
+
+[Desktop Action WaylandInfo]
+Name=Información de Wayland
+Exec=kcmshell6 kcm_wayland
+
+[Desktop Action WebShortcuts]
+Name=Accesos Rápidos Web
+Exec=kcmshell6 kcm_webshortcuts
+
+[Desktop Action Workspace]
+Name=Comportamiento General del Espacio de Trabajo
+Exec=kcmshell6 kcm_workspace
+
+[Desktop Action XServerInfo]
+Name=Información del Servidor X
+Exec=kcmshell6 kcm_xserver
+
+[Desktop Action SpellChecking]
+Name=Diccionarios y Corrector Ortográfico
+Exec=kcmshell6 kcmspellchecking
