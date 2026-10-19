@@ -195,7 +195,7 @@ hl.window_rule({
     render_unfocused = true,
     workspace = "6 silent",
     no_initial_focus = true,
-    confine_pointer = true,
+    -- confine_pointer = true, -- No es muy agradable que digamos... incluso hay veces que el mouse esta confinado pero el juego no lo tiene bien agarrado y empieza a "rebotar"
     -- Algunos juegos (p.ej. Proton con winewayland) piden fullscreen en un
     -- monitor concreto y Hyprland los mueve al workspace activo de ese monitor.
     suppress_event = "fullscreenoutput",
