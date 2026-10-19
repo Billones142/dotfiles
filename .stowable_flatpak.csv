@@ -1,0 +1,3 @@
+package_name,dotfile_config_dir
+com.orcaslicer.OrcaSlicer,orca-slicer/.config/OrcaSlicer
+io.github.ilya_zlobintsev.LACT,lact/.config/lact
