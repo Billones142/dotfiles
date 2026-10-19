@@ -7,7 +7,7 @@ CFG="/boot/grub/grub.cfg"
 # CAMBIO TÁCTICO: Usamos un regex híbrido en awk.
 # - '^(menuentry|submenu)' : Captura entradas principales (Nivel 0, sin indentar).
 # - 'UEFI Firmware Settings' : Captura la opción UEFI explícitamente, aunque esté indentada (dentro de un if).
-mapfile -t GRUB_KEYS < <(awk -F\' '/^(menuentry|submenu)|UEFI Firmware Settings/ {print $2}' "$CFG")
+mapfile -t GRUB_KEYS < <(sudo awk -F\' '/^(menuentry|submenu)|UEFI Firmware Settings/ {print $2}' "$CFG")
 
 # 2. Mostrar opciones al usuario
 echo "--------------------------------"
