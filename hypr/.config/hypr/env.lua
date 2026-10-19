@@ -20,6 +20,7 @@ run_if_pc("GAMER", function()
         "network=eno2",
         "cpu_text=i7-8700k",
         "gpu_text=RTX-3090",
+	"fps_limit=160,60,30,144",
         "pci_dev=0000\\:01\\:00.0",
     }, ","))
 
@@ -66,6 +67,7 @@ run_if_pc("laptop-stefano", function()
         "read_cfg",
         "cpu_text=i7-1265U",
         "gpu_text=Iris-Xe",
+	"fps_limit=60,30,20",
         "pci_dev=0000:00:02.0",
         "gpu_temp=0",
         "gpu_fan=0",
