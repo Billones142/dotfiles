@@ -33,3 +33,11 @@ hl.layer_rule({
     },
     no_screen_share = streamer_mode
 })
+
+hl.layer_rule({
+    name = "swayosd",
+    match = {
+        namespace = "swayosd",
+    },
+    no_screen_share = streamer_mode,
+})
