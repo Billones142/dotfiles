@@ -68,7 +68,7 @@ run_if_pc("laptop-stefano", function()
         "cpu_text=i7-1265U",
         "gpu_text=Iris-Xe",
 	"fps_limit=60,30,20",
-        "pci_dev=0000:00:02.0",
+        "pci_dev=0000\\:00\\:02.0",
         "gpu_temp=0",
         "gpu_fan=0",
         "vram=0",
