@@ -11,11 +11,11 @@
 	"inherits": "MyKlipper 0.4 nozzle",
 	"layer_change_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]\nM117",
 	"machine_max_acceleration_x": [
-		"2500",
+		"1500",
 		"20000"
 	],
 	"machine_max_acceleration_y": [
-		"2000",
+		"1000",
 		"20000"
 	],
 	"machine_max_speed_x": [
@@ -33,6 +33,9 @@
 	"machine_start_gcode": "PRINT_START NOZZLE=[nozzle_temperature_initial_layer] BED=[bed_temperature_initial_layer_single]",
 	"manual_filament_change": "1",
 	"name": "Artilleryx1",
+	"nozzle_diameter": [
+		"0.6"
+	],
 	"nozzle_type": [
 		"stainless_steel"
 	],
@@ -51,9 +54,15 @@
 		"Direct Drive Standard"
 	],
 	"printer_settings_id": "Artilleryx1",
+	"retract_lift_enforce": [
+		"Top Only"
+	],
 	"retraction_speed": [
 		"40"
 	],
 	"thumbnails": "400x400/PNG",
-	"version": "2.3.0.3"
+	"version": "2.3.0.3",
+	"z_hop": [
+		"0.3"
+	]
 }
