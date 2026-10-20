@@ -4,13 +4,28 @@ set -e
 cleanup() {
   sudo rm -f /tmp/ncdu_root.json /tmp/ncdu_home.json /tmp/ncdu_combined.json
 }
+sudo -v
 trap cleanup EXIT
 
-echo "Scanning /..."
-sudo ncdu -0 -x -o /tmp/ncdu_root.json /
+# Eliminar una sesión anterior si existe
+sudo tmux kill-session -t "$SESSION" 2>/dev/null || true
 
-echo "Scanning /home..."
-sudo ncdu -0 -x -o /tmp/ncdu_home.json /home
+SESSION="escaneos"
+
+# Crear el primer panel ejecutando tmux como root
+sudo tmux new-session -d -s "$SESSION" \
+    "echo \"Escaneando /\" && ncdu -1 -x -o /tmp/ncdu_root.json /"
+
+# Crear el segundo panel
+sudo tmux split-window -v -t "$SESSION" \
+    "echo \"Escaneando /home\" && ncdu -1 -x -o /tmp/ncdu_home.json /home"
+
+# Redimensionar los paneles horizontalmente
+sudo tmux select-layout -t "$SESSION" even-vertical || true
+
+# Conectarse a la sesión como root
+sudo tmux attach-session -t "$SESSION"
+
 
 echo "Merging JSON trees..."
 if command -v pv >/dev/null 2>&1; then
@@ -30,4 +45,4 @@ else
 fi
 
 echo "Launching ncdu..."
-ncdu -f /tmp/ncdu_combined.json --enable-refresh
+ncdu --enable-delete --delete-command 'pkexec trash-put --' --no-confirm-delete -f /tmp/ncdu_combined.json --enable-refresh
