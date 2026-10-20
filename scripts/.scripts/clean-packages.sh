@@ -87,4 +87,8 @@ else
     echo -e "${BLUE}No se encontraron paquetes huérfanos para eliminar.${NC}"
 fi
 
+
+echo -e "\n${GREEN}[5/4] Limpiando flatpak...${NC}"
+flatpak uninstall --unused
+
 echo -e "\n${GREEN}=== Limpieza finalizada correctamente ===${NC}"
