@@ -30,6 +30,7 @@ run_if_pc("GAMER", function()
     hl.env("__GLX_VENDOR_LIBRARY_NAME","nvidia")
     hl.env("__NV_PRIME_RENDER_OFFLOAD","1")
     hl.env("__GL_SHADER_DISK_CACHE","1")
+    --hl.env("LIBVA_DRIVER_NAME","iHD")
 
     hl.env("OBS_VKCAPTURE","1")
 
@@ -37,12 +38,16 @@ run_if_pc("GAMER", function()
     hl.env("DXVK_HUD","compiler,opacity=0.2,scale=1")
     hl.env("DXVK_ASYNC","1")
     
-    hl.env("STAGING_SHARED_MEMORY","1")
+    -- hl.env("STAGING_SHARED_MEMORY","1") -- no me acuerdo de donde saque esto
 
     -- VK3D
     hl.env("VKD3D_CONFIG","no_upload_hlist,no_gs_copy")
     hl.env("VKD3D_FEATURE_LEVEL","1")
     hl.env("VKD3D_SHADER_CACHE","1")
+
+    -- ge-steam-overlay-wayland
+    hl.env("WINE_WAYLAND_STEAM_OVERLAY_LAYER","1")
+    hl.env("DISABLE_VK_LAYER_VALVE_steam_overlay_1","1")
 
     -- Proton
     hl.env("PROTON_ENABLE_WAYLAND","1")
