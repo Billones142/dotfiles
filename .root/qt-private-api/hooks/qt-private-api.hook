@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Upgrade
+Target = qt5-base
+Target = qt6-base
+
+[Action]
+Description = Checking foreign packages that use the Qt private API...
+When = PostTransaction
+Exec = /usr/local/bin/qt-private-check

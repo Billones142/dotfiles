@@ -1,0 +1,62 @@
+#!/bin/bash
+# Lists foreign (AUR) packages whose ELF files link against the system Qt's
+# private API and were built before the installed Qt. Those packages must be
+# rebuilt on every Qt minor upgrade: the soname does not change, so ldd-based
+# tools like rebuild-detector (checkrebuild) miss them.
+
+if ! command -v objdump >/dev/null; then
+    echo "qt-private-check: objdump not found (install binutils)" >&2
+    exit 0
+fi
+
+# Prints the Qt major version (5 or 6) whose private API the file uses, if any.
+private_api_major() {
+    objdump -T "$1" 2>/dev/null | grep -oE 'Qt_[56]_PRIVATE_API' | head -n1 | cut -c4
+}
+
+# True if the file loads Qt from /usr/lib rather than a bundled copy
+# (proprietary apps like webex-bin ship their own Qt and are unaffected).
+uses_system_qt() {
+    ldd "$1" 2>/dev/null | grep -qE "libQt$2Core\.so[^ ]* => /usr/lib/"
+}
+
+# Prints a pacman date field as epoch seconds.
+pkg_date() {
+    LC_ALL=C pacman -Qi "$1" 2>/dev/null |
+        sed -n "s/^$2 *: //p" | xargs -r -I{} date -d {} +%s
+}
+
+# True if the package was built before the current qtN-base existed. Repo
+# packages are rebuilt in a clean chroot after Qt itself, so the Qt build
+# date (not its install date) is the cutoff.
+built_before_qt() {
+    local built qt_built
+    built="$(pkg_date "$1" 'Build Date')"
+    qt_built="$(pkg_date "qt$2-base" 'Build Date')"
+    [[ -n $built && -n $qt_built ]] && (( built < qt_built ))
+}
+
+needs_rebuild() {
+    local pkg="$1" file major
+    while read -r file; do
+        [[ -f $file && ! -L $file ]] || continue
+        major="$(private_api_major "$file")"
+        [[ -n $major ]] || continue
+        uses_system_qt "$file" "$major" || continue
+        built_before_qt "$pkg" "$major" && return 0
+    done < <(pacman -Qlq "$pkg" | grep -E '\.so(\.[0-9]+)*$|/usr/bin/')
+    return 1
+}
+
+found=0
+while read -r pkg; do
+    if needs_rebuild "$pkg"; then
+        echo "  -> rebuild needed: $pkg"
+        found=1
+    fi
+done < <(pacman -Qqm)
+
+if (( found )); then
+    echo "  Rebuild them with e.g.: paru -S --rebuild <package>"
+fi
+exit 0
