@@ -190,7 +190,7 @@ create_snapshot
 # 1. Keyring y Dependencias Base (Vital)
 echo -e "\n${BOLD}${YELLOW}[1/4] Actualizando Llaves y Base-Devel...${RESET}"
 sudo pacman -Sy --noconfirm archlinux-keyring
-sudo pacman -Sy --noconfirm cachyos-keyring
+sudo pacman -Sy --noconfirm cachyos-keyring || true
 sudo pacman -S --needed --noconfirm git base-devel
 
 # 2. Sistema (repositorios oficiales) con pacman
