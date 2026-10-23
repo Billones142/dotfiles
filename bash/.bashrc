@@ -1,5 +1,10 @@
 # ~/.bashrc
 
+# Si se ejecuta desde Zed, usar historial específico
+if [[ "$TERM_PROGRAM" == "zed" ]]; then
+    export HISTFILE=~/.cache/zed.bash_history
+fi
+
 # bash complete alias
 source /usr/share/bash-complete-alias/complete_alias
 
