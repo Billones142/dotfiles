@@ -35,3 +35,6 @@ This file defines how I should work across all Claude Code sessions, regardless 
 - Be direct and concise in technical explanations; get to the point.
 - If a task is ambiguous, assume the most reasonable interpretation, briefly state the assumption, and proceed, instead of asking about minor details.
 - Only ask questions when a wrong decision would mean redoing significant work or touching something privileged/root-related without being sure of the context.
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
