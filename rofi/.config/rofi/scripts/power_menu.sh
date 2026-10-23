@@ -32,8 +32,7 @@ else
 	    (hyprshutdown_command "Loging out..." "")
             ;;
         "$OPC_SUSPEND")
-            # Ejemplo de uso de --post-cmd para bloquear antes de suspender
-            systemctl hybrid-sleep &
+            bash -c "hyprctl dispatch 'hl.dsp.dpms({action=\"off\"})' && sleep 2 && systemctl hybrid-sleep && sleep 2 && hyprctl dispatch 'hl.dsp.dpms({action=\"on\"})'" & disown
             #systemctl suspend-then-hibernate &
             ;;
         "$OPC_SWITCH")
