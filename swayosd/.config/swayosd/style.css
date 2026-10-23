@@ -3,11 +3,12 @@
 @define-color surface_container_low #181825;
 @define-color outline #45475a;
 
+/* TODO: cambiar a gris claro en vez de gris oscuro el color secundario, agregarlo tambien un outline oscuro */
 
 window#osd {
   border-radius: 999px;
   border: 2px solid @outline;
-  background: alpha(@surface_container_low, 0.4);
+  background: alpha(@surface_container_low, 0.1);
 }
 
 window#osd #container {
@@ -27,7 +28,7 @@ window#osd label {
 
 window#osd progressbar:disabled,
 window#osd image:disabled {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 window#osd progressbar {

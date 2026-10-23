@@ -40,4 +40,6 @@ hl.layer_rule({
         namespace = "swayosd",
     },
     no_screen_share = streamer_mode,
+    blur = false,
+    animation = "popin",
 })
