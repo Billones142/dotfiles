@@ -7,54 +7,60 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  /* Duplicated key auto-commented: "agent": {
-    "default_model": {
-      "provider": "Antigravity",
-      "model": "gemini-3.1-pro-low",
-      "enable_thinking": false
-    },
-    "favorite_models": [],
-    "play_sound_when_agent_done": "when_hidden",
-    "model_parameters": []
-  }, */
   "context_servers": {
     "code-mode": {
       "enabled": true,
       "remote": false,
       "command": "/home/stefano/.local/share/pnpm/bin/rea",
-      "args": [
-        "mcp"
-      ],
+      "args": ["mcp"],
       "env": {
-        "UTCP_CONFIG_FILE": "/home/stefano/.config/utcp/.utcp_config.json"
-      }
-    }
+        "UTCP_CONFIG_FILE": "/home/stefano/.config/utcp/.utcp_config.json",
+      },
+    },
   },
+  "ssh_connections": [
+    {
+      "host": "gamer-linux",
+      "username": "stefano",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/home/stefano/Projects/Quark-Anticheat/./"],
+        },
+      ],
+    },
+  ],
+  "proxy": "",
   "format_on_save": "on",
   "agent_servers": {
     "claude-acp": {
-      "type": "registry"
-    }
+      "default_config_options": {
+        "effort": "medium",
+        "model": "opus",
+        "mode": "plan",
+      },
+      "type": "registry",
+    },
   },
   "cli_default_open_behavior": "existing_window",
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
-    "anthropic_retention": false
+    "anthropic_retention": false,
   },
   "vim_mode": true,
   "base_keymap": "VSCode",
   "relative_line_numbers": "enabled",
   "gutter": {
-    "line_numbers": true
+    "line_numbers": true,
   },
   "minimap": {
-    "show": "auto"
+    "show": "auto",
   },
   "scrollbar": {
     "axes": {
-      "vertical": false
-    }
+      "vertical": false,
+    },
   },
   "auto_indent_on_paste": true,
   "hard_tabs": false,
@@ -63,106 +69,46 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Ayu Dark"
+    "dark": "Ayu Dark",
   },
   "language_models": {
     "llama.cpp": {
-      "api_url": "http://100.68.214.102:8080"
-    },
-    "openai": {
-      "api_url": "http://localhost:3000/v1",
-      "api_key": "sk-antigravity",
+      "api_url": "http://100.68.214.102:8080",
       "available_models": [
         {
-          "name": "gemini-3.1-pro-high",
-          "display_name": "Gemini 3.1 Pro High",
-          "max_tokens": 128000
+          "name": "qwen3.8-27b-uncensored-48k",
+          "display_name": "Qwen 3.8 27B Uncensored (48k)",
+          "max_tokens": 49152,
+          "supports_tools": true,
+          "supports_images": true,
+          "supports_thinking": true,
         },
         {
-          "name": "gemini-3.1-pro-low",
-          "display_name": "Gemini 3.1 Pro Low",
-          "max_tokens": 128000
+          "name": "qwen3.8-27b-uncensored-96k",
+          "display_name": "Qwen 3.8 27B Uncensored (96k)",
+          "max_tokens": 98304,
+          "supports_tools": true,
+          "supports_images": true,
+          "supports_thinking": true,
         },
         {
-          "name": "gemini-3-flash",
-          "display_name": "Gemini 3 Flash",
-          "max_tokens": 128000
+          "name": "qwen3.8-27b-uncensored-128k",
+          "display_name": "Qwen 3.8 27B Uncensored (128k)",
+          "max_tokens": 131072,
+          "supports_tools": true,
+          "supports_images": true,
+          "supports_thinking": true,
         },
         {
-          "name": "claude-sonnet-4-6",
-          "display_name": "Claude Sonnet 4.6",
-          "max_tokens": 64000
+          "name": "qwen3.8-27b-uncensored-256k",
+          "display_name": "Qwen 3.8 27B Uncensored (256k)",
+          "max_tokens": 262144,
+          "supports_tools": true,
+          "supports_images": true,
+          "supports_thinking": true,
         },
-        {
-          "name": "claude-opus-4-6-thinking",
-          "display_name": "Claude Opus 4.6 Thinking",
-          "max_tokens": 64000
-        },
-        {
-          "name": "gemini-2.5-pro",
-          "display_name": "Gemini 2.5 Pro",
-          "max_tokens": 128000
-        },
-        {
-          "name": "gemini-2.5-flash",
-          "display_name": "Gemini 2.5 Flash",
-          "max_tokens": 128000
-        },
-        {
-          "name": "gpt-oss-120b-medium",
-          "display_name": "GPT OSS 120B Medium",
-          "max_tokens": 64000
-        }
-      ]
+      ],
     },
-    "openai_compatible": {
-      "Antigravity": {
-        "api_url": "http://localhost:3000/v1",
-        "api_key": "sk-antigravity",
-        "available_models": [
-          {
-            "name": "gemini-3.1-pro-high",
-            "display_name": "Gemini 3.1 Pro High",
-            "max_tokens": 128000
-          },
-          {
-            "name": "gemini-3.1-pro-low",
-            "display_name": "Gemini 3.1 Pro Low",
-            "max_tokens": 128000
-          },
-          {
-            "name": "gemini-3-flash",
-            "display_name": "Gemini 3 Flash",
-            "max_tokens": 128000
-          },
-          {
-            "name": "claude-sonnet-4-6",
-            "display_name": "Claude Sonnet 4.6",
-            "max_tokens": 64000
-          },
-          {
-            "name": "claude-opus-4-6-thinking",
-            "display_name": "Claude Opus 4.6 Thinking",
-            "max_tokens": 64000
-          },
-          {
-            "name": "gemini-2.5-pro",
-            "display_name": "Gemini 2.5 Pro",
-            "max_tokens": 128000
-          },
-          {
-            "name": "gemini-2.5-flash",
-            "display_name": "Gemini 2.5 Flash",
-            "max_tokens": 128000
-          },
-          {
-            "name": "gpt-oss-120b-medium",
-            "display_name": "GPT OSS 120B Medium",
-            "max_tokens": 64000
-          }
-        ]
-      }
-    }
   },
   "agent": {
     "profiles": {
@@ -170,12 +116,81 @@
         "name": "test",
         "tools": {},
         "enable_all_context_servers": false,
-        "context_servers": {}
-      }
+        "context_servers": {},
+      },
     },
     "default_model": {
       "provider": "llama.cpp",
-      "model": "qwen3.8-27b-uncensored-256k"
-    }
-  }
+      "model": "qwen3.8-27b-uncensored-256k",
+    },
+  },
+  "favorite_models": [
+    {
+      "provider": "llama.cpp",
+      "model": "qwen3.8-27b-uncensored-512k",
+      "enable_thinking": false,
+    },
+  ],
+  "sandbox_permissions": {
+    "allow_unsandboxed": true,
+  },
+  "tool_permissions": {
+    "tools": {
+      "fetch": {
+        "always_allow": [
+          {
+            "pattern": "^https?://seb\\.ethz\\.ch",
+          },
+          {
+            "pattern": "^https?://raw\\.githubusercontent\\.com",
+          },
+          {
+            "pattern": "^https?://seb-server-setup\\.readthedocs\\.io",
+          },
+        ],
+      },
+      "terminal": {
+        "default": "allow",
+        "always_allow": [
+          {
+            "pattern": "^git\\b",
+          },
+        ],
+      },
+    },
+  },
+  "default_profile": "write",
+  "profiles": {
+    "code-mode": {
+      "settings": {
+        "name": "code-mode",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
+    "minimal": {
+      "settings": {
+        "name": "Minimal",
+        "tools": {
+          "copy_path": false
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
+    "rea": {
+      "settings": {
+        "name": "REA",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
+  },
+  "default_model": {
+    "enable_thinking": true,
+    "provider": "llama.cpp",
+    "model": "qwen3.8-27b-uncensored-512k",
+  },
 }

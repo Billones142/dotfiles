@@ -32,3 +32,7 @@ end
 if _hyprglass_enabled then
     require("plugins.hyprglass")
 end
+
+if hl.plugin.kinetic_scroll then
+    hl.plugin.kinetic_scroll.enable_default()
+end

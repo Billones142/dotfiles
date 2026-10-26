@@ -57,6 +57,7 @@ PACKAGES_BASE=(
     unrar
     docker
     kernel-modules-hook
+    rebuild-detector # TODO: move to aur packages and install hook
 )
 
 # --- Detección de Hardware ---

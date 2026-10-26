@@ -308,7 +308,7 @@ hl.config({
 	resize_on_border = true,
     },
     render = {
-        direct_scanout = true, -- A veces true causa artefactos en desktop
+        direct_scanout = true, -- A veces true causa artefactos en deskto
     },
     debug = {
         damage_tracking = 1, -- 2 es el valor por defecto, en 2 limpia dinamicamente la region del los pixeles dejados por los programas, cambiar a 1 para que actualize todos los pixeles si no se limpia bien, en 2 hace que hyprglass no se actualize bien
@@ -341,4 +341,3 @@ hl.config({
         preserve_split = true,
     },
 })
-

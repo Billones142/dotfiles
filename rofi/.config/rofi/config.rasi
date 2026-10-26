@@ -29,6 +29,7 @@ configuration {
     display-pres: " Presentación";
 
     //run-shell-command: "{terminal} -e {cmd}";
+    run-shell-command: "~/.config/hypr/scripts/launch.sh {cmd}";
 }
 
 window {

@@ -7,6 +7,9 @@
         <device id="IJ4EFRX-7INXYWE-MZTUTXI-ADFKQXM-PFHLXYO-IPPW53L-GBY2YIO-PITMUQD" introducedBy="">
             <encryptionPassword></encryptionPassword>
         </device>
+        <device id="YBISZFH-UHVYCOK-WXVEATG-KN6RUNM-ABFWTT4-UJVSW64-JOPCOR5-HWZQAAT" introducedBy="">
+            <encryptionPassword></encryptionPassword>
+        </device>
         <device id="6OJ23S5-3O6YDO5-TUNSOUW-KN3OQUK-IFAZ76I-SUJQOZH-LYGPU3U-JEDHLAI" introducedBy="">
             <encryptionPassword></encryptionPassword>
         </device>
@@ -40,6 +43,7 @@
         <sendOwnership>false</sendOwnership>
         <syncXattrs>false</syncXattrs>
         <sendXattrs>false</sendXattrs>
+        <blockIndexing>true</blockIndexing>
         <xattrFilter>
             <maxSingleEntrySize>1024</maxSingleEntrySize>
             <maxTotalSize>4096</maxTotalSize>
@@ -69,6 +73,17 @@
         <remoteGUIPort>0</remoteGUIPort>
         <numConnections>0</numConnections>
     </device>
+    <device id="YBISZFH-UHVYCOK-WXVEATG-KN6RUNM-ABFWTT4-UJVSW64-JOPCOR5-HWZQAAT" name="PocoX7-Stefano" compression="metadata" introducer="false" skipIntroductionRemovals="false" introducedBy="">
+        <address>dynamic</address>
+        <paused>false</paused>
+        <autoAcceptFolders>false</autoAcceptFolders>
+        <maxSendKbps>0</maxSendKbps>
+        <maxRecvKbps>0</maxRecvKbps>
+        <maxRequestKiB>0</maxRequestKiB>
+        <untrusted>false</untrusted>
+        <remoteGUIPort>0</remoteGUIPort>
+        <numConnections>0</numConnections>
+    </device>
     <device id="6OJ23S5-3O6YDO5-TUNSOUW-KN3OQUK-IFAZ76I-SUJQOZH-LYGPU3U-JEDHLAI" name="laptop-stefano" compression="metadata" introducer="false" skipIntroductionRemovals="false" introducedBy="">
         <address>dynamic</address>
         <paused>false</paused>
@@ -87,6 +102,8 @@
         <metricsWithoutAuth>false</metricsWithoutAuth>
         <apikey>4DVuT2FjTyKiniCn5vavTzVGsRyJpRGP</apikey>
         <theme>default</theme>
+        <sessionCookieDurationS>604800</sessionCookieDurationS>
+        <sessionCookiePath>/</sessionCookiePath>
     </gui>
     <ldap></ldap>
     <options>
@@ -110,12 +127,10 @@
         <urSeen>3</urSeen>
         <urUniqueID></urUniqueID>
         <urURL>https://data.syncthing.net/newdata</urURL>
-        <urPostInsecurely>false</urPostInsecurely>
         <urInitialDelayS>1800</urInitialDelayS>
         <autoUpgradeIntervalH>12</autoUpgradeIntervalH>
         <upgradeToPreReleases>false</upgradeToPreReleases>
         <keepTemporariesH>24</keepTemporariesH>
-        <cacheIgnoredFiles>false</cacheIgnoredFiles>
         <progressUpdateIntervalS>5</progressUpdateIntervalS>
         <limitBandwidthInLan>false</limitBandwidthInLan>
         <minHomeDiskFree unit="%">1</minHomeDiskFree>
@@ -183,6 +198,7 @@
             <sendOwnership>false</sendOwnership>
             <syncXattrs>false</syncXattrs>
             <sendXattrs>false</sendXattrs>
+            <blockIndexing>true</blockIndexing>
             <xattrFilter>
                 <maxSingleEntrySize>1024</maxSingleEntrySize>
                 <maxTotalSize>4096</maxTotalSize>
