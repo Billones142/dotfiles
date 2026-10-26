@@ -17,6 +17,19 @@
     "play_sound_when_agent_done": "when_hidden",
     "model_parameters": []
   }, */
+  "context_servers": {
+    "code-mode": {
+      "enabled": true,
+      "remote": false,
+      "command": "/home/stefano/.local/share/pnpm/bin/rea",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "UTCP_CONFIG_FILE": "/home/stefano/.config/utcp/.utcp_config.json"
+      }
+    }
+  },
   "format_on_save": "on",
   "agent_servers": {
     "claude-acp": {
@@ -53,6 +66,9 @@
     "dark": "Ayu Dark"
   },
   "language_models": {
+    "llama.cpp": {
+      "api_url": "http://100.68.214.102:8080"
+    },
     "openai": {
       "api_url": "http://localhost:3000/v1",
       "api_key": "sk-antigravity",
@@ -149,9 +165,17 @@
     }
   },
   "agent": {
+    "profiles": {
+      "test": {
+        "name": "test",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
     "default_model": {
-      "provider": "Antigravity",
-      "model": "gemini-2.5-flash"
+      "provider": "llama.cpp",
+      "model": "qwen3.8-27b-uncensored-256k"
     }
   }
 }
