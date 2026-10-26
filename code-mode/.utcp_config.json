@@ -1,0 +1,24 @@
+{
+  "load_variables_from": [
+    { "variable_loader_type": "dotenv", "env_file_path": "/home/stefano/.config/utcp/.env" }
+  ],
+  "manual_call_templates": [
+    {
+      "name": "rea",
+      "call_template_type": "mcp",
+      "config": {
+        "mcpServers": {
+          "rea": {
+            "transport": "stdio",
+            "command": "/home/stefano/.local/share/pnpm/bin/rea",
+            "args": [ "mcp" ],
+	    "env": {
+              "GHIDRA_INSTALL_DIR": "/opt/ghidra",
+              "HOPPER_LAUNCHER_PATH": "/opt/hopper-v4/bin/Hopper"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
